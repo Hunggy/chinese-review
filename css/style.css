@@ -298,7 +298,7 @@ a { color: var(--accent-ink); text-underline-offset: 3px; }
   margin-inline: auto;
   padding: 0 var(--gutter) var(--sp-9);
   flex: 1 0 auto;
-  animation: screen-in var(--t-base) var(--ease) both;
+  /* 每次重繪不播全屏動畫，避免點按鈕時閃一下 */
 }
 
 @keyframes screen-in {
@@ -622,7 +622,6 @@ a { color: var(--accent-ink); text-underline-offset: 3px; }
   border-radius: var(--r-lg);
   box-shadow: var(--shadow-1);
   overflow: hidden;
-  animation: rise-in var(--t-slow) var(--ease) both;
   transition: transform var(--t-fast) var(--ease),
               border-color var(--t-fast) var(--ease),
               box-shadow var(--t-base) var(--ease),
