@@ -98,15 +98,15 @@
       "skipped": 0
     },
     {
-      "file": "名句_經史詩詞.csv",
-      "source": "source/名句_經史詩詞.csv",
+      "file": "第2段_第2次_名句.csv",
+      "source": "source/第2段_第2次_名句.csv",
       "unit": "mingju_jingshi",
       "name": "名句・經史詩詞",
       "module": "mingju",
       "known": true,
       "detected_by": "已知來源",
-      "seg": 1,
-      "exam": 1,
+      "seg": 2,
+      "exam": 2,
       "count": 50,
       "skipped": 0
     }
@@ -118,10 +118,12 @@
   },
   "total": 217,
   "segments": {
-    "1": 217
+    "1": 167,
+    "2": 50
   },
   "exams": {
-    "1": 217
+    "1": 167,
+    "2": 50
   },
   "author_review": [
     {
