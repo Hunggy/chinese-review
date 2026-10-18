@@ -2,8 +2,13 @@
 放好後告訴我，我會整理成題庫並重新建置 data/dataset.js。
 
 命名建議（可選）：
-- 名句：xxx_mingju.csv        （word=句子, chinese=出處）
+- 名句：xxx_mingju.csv        （word=句子, chinese=出處或「作者《出處》」）
 - 詞解：xxx_cijie.csv         （word=詞, chinese=解釋, example=例句）
 - 常識：xxx_changshi.csv      （word=問, chinese=答）
+
+段／次大測（可選）：
+- CSV 加兩欄 seg,exam（例如 1,1 = 第一段第一次大測）
+- 或在檔名寫 seg1_exam1_xxx.csv／第1段_第1次_xxx.csv
+- 沒標就預設第 1 段、第 1 次
 
 現有示範教材在 data/source/，可保留或刪除。
