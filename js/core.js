@@ -261,6 +261,10 @@
     var s = str(text), i, idx = -1;
     for (i = 0; i < s.length; i++) { if (SPLIT_PUNCT.indexOf(s.charAt(i)) >= 0) { idx = i; break; } }
     if (idx < 0) {
+      /* 次選：句號（例如「多情自古傷離別。更那堪、冷落清秋節。」） */
+      idx = s.indexOf('。');
+    }
+    if (idx < 0) {
       /* 防禦：無標點時對半切，至少仍有題面與答案 */
       var half = Math.ceil(s.length / 2);
       return { first: s.slice(0, half), second: s.slice(half), punct: '', degraded: true };
