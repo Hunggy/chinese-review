@@ -86,6 +86,7 @@ UNITS_CONFIG = [
     {"file": "liao_e_cijie.csv", "id": "liao_e", "name": "《蓼莪》", "module": "cijie"},
     {"file": "xianqin_wenxue.csv", "id": "xianqin", "name": "先秦文學常識", "module": "changshi"},
     {"file": "zhuzi_yuyan.csv", "id": "zhuzi", "name": "諸子寓言出處", "module": "changshi"},
+    {"file": "第1段_第2次_名句.csv", "id": "mingju_exam2", "name": "名句・第1段第2次", "module": "mingju"},
 ]
 
 ID_PREFIX = {"mingju": "mj", "cijie": "cj", "changshi": "cs"}
