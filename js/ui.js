@@ -312,7 +312,17 @@
       mixed: '名句、詞解、常識混合出題。'
     }[S.module] || '';
 
-    /* 段／次：只有一段（或一次）時整個區塊隱藏，避免只有「全部」可選 */
+    /* 段／次：只有一段（或一次）時整個區塊隱藏，但用一行文字說明目前範圍 */
+    var scope_note = '';
+    if (st.single_exam && st.items.length) {
+      var only_seg = st.seg !== 'all' ? st.seg : (st.single_seg && st.segs.length ? st.segs[0].value : null);
+      var only_exam = st.exams.length ? st.exams[0].value : 1;
+      if (only_seg !== null) {
+        scope_note = '<p class="setup-desc">目前範圍：第 ' + h(String(only_seg)) +
+          ' 段・第 ' + h(String(only_exam)) + ' 次大測</p>';
+      }
+    }
+
     var seg_block = st.single_seg ? '' :
       '<div class="setup-block" data-block="segments">' +
         '<h3 class="setup-label">段</h3>' +
@@ -329,6 +339,7 @@
         '<section class="setup">' +
           '<h2 class="setup-title">' + h(m.name) + '</h2>' +
           '<p class="setup-desc">' + h(desc) + '</p>' +
+          scope_note +
 
           seg_block +
           exam_block +
