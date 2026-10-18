@@ -334,6 +334,17 @@
         scope_chips_html('exams', st.exams, st.exam) +
       '</div>';
 
+    /* 範圍 chips：只顯示目前段／次內有題目的單元，數字也用過濾後題數 */
+    var scoped_unit_counts = {};
+    st.items.forEach(function (it) {
+      scoped_unit_counts[it.unit] = (scoped_unit_counts[it.unit] || 0) + 1;
+    });
+    var unit_rows = C.units_for_module(S.module).filter(function (u) {
+      return scoped_unit_counts[u.id] > 0;
+    }).map(function (u) {
+      return { id: u.id, name: u.name, count: scoped_unit_counts[u.id] };
+    });
+
     return '' +
       '<main class="screen" data-screen="setup">' +
         '<section class="setup">' +
@@ -346,7 +357,7 @@
 
           '<div class="setup-block">' +
             '<h3 class="setup-label">範圍</h3>' +
-            chips_html('units', C.units_for_module(S.module), units) +
+            chips_html('units', unit_rows, units) +
           '</div>' +
 
           '<div class="setup-block">' +
@@ -1268,6 +1279,17 @@
     if (it) { /* 保持捲動：不整頁重繪 */ }
   }
 
+  /* 切段／次後，若已選單元在新範圍內沒有題目，就重置為「全部」 */
+  function normalize_units_for_scope(seg, exam) {
+    var us = C.units_setting(S.module);
+    if (us.indexOf('all') >= 0) return;
+    var left = C.items_for(S.module, us, { seg: seg, exam: exam });
+    if (!left.length) {
+      C.set_units_setting(S.module, ['all']);
+      S.settings = C.settings();
+    }
+  }
+
   /* 段／次 chips：切段時若當前次不在新段內，重置為「全部」 */
   function set_segment(value) {
     var v = C.norm_scope_value(value);
@@ -1277,6 +1299,7 @@
     var cur_exam = C.norm_scope_value(S.settings.exam);
     if (cur_exam !== 'all' && exams.indexOf(cur_exam) < 0) patch.exam = 'all';
     set_setting(patch);
+    normalize_units_for_scope(v, patch.exam || cur_exam);
     render();
   }
 
@@ -1286,6 +1309,7 @@
     var ids = st.exams.map(function (r) { return String(r.value); });
     if (v !== 'all' && ids.indexOf(v) < 0) return;
     set_setting({ exam: v });
+    normalize_units_for_scope(S.settings.seg, v);
     render();
   }
 
