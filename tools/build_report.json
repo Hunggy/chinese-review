@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-18T12:36:31+08:00",
+  "generated_at": "2026-10-18T13:14:52+08:00",
   "source_dirs": [
     "source",
     "data/source"
@@ -14,6 +14,8 @@
       "module": "mingju",
       "known": true,
       "detected_by": "已知來源",
+      "seg": 1,
+      "exam": 1,
       "count": 50,
       "skipped": 0
     },
@@ -25,6 +27,8 @@
       "module": "cijie",
       "known": true,
       "detected_by": "已知來源",
+      "seg": 1,
+      "exam": 1,
       "count": 18,
       "skipped": 0
     },
@@ -36,6 +40,8 @@
       "module": "cijie",
       "known": true,
       "detected_by": "已知來源",
+      "seg": 1,
+      "exam": 1,
       "count": 25,
       "skipped": 0
     },
@@ -47,6 +53,8 @@
       "module": "cijie",
       "known": true,
       "detected_by": "已知來源",
+      "seg": 1,
+      "exam": 1,
       "count": 23,
       "skipped": 0
     },
@@ -58,6 +66,8 @@
       "module": "cijie",
       "known": true,
       "detected_by": "已知來源",
+      "seg": 1,
+      "exam": 1,
       "count": 25,
       "skipped": 0
     },
@@ -69,6 +79,8 @@
       "module": "changshi",
       "known": true,
       "detected_by": "已知來源",
+      "seg": 1,
+      "exam": 1,
       "count": 10,
       "skipped": 0
     },
@@ -80,6 +92,8 @@
       "module": "changshi",
       "known": true,
       "detected_by": "已知來源",
+      "seg": 1,
+      "exam": 1,
       "count": 16,
       "skipped": 0
     }
@@ -90,6 +104,13 @@
     "changshi": 26
   },
   "total": 167,
+  "segments": {
+    "1": 167
+  },
+  "exams": {
+    "1": 167
+  },
+  "author_review": [],
   "skips": [],
   "warnings": [],
   "manual_todo": [],

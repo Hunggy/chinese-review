@@ -564,6 +564,85 @@ items.forEach((it) => {
 });
 ok(pair_ok, '必填欄位齊全（t/s、a、a_t）');
 
+/* ============================================================
+ * 17. 名句作者・出處（v1.1）
+ * ============================================================ */
+section('17. 名句作者・出處');
+
+const named = mj.find((it) => it.author_t && !C.is_anon_text(it.author_t));
+ok(!!named, '題庫有名句帶具名作者');
+mj.forEach((it) => {
+  ok(!!it.author_t && !!it.author_s, it.id + ' 有作者欄位');
+  ok(!!it.src_t && !!it.src_s, it.id + ' 有出處欄位');
+  ok(!/^[^《]+《/.test(it.src_t), it.id + ' 出處不含作者');
+});
+
+if (named) {
+  const expA = named.author_t;
+  const expS = named.src_t;
+  const okAll = C.grade_author(named, expA, expS, {});
+  eq(okAll.ok, true, '作者＋出處全對 → ok');
+  eq(okAll.author_ok, true, '作者全對 → author_ok');
+  eq(okAll.source_ok, true, '出處全對 → source_ok');
+
+  const badAuthor = C.grade_author(named, '某某', expS, {});
+  eq(badAuthor.ok, false, '作者錯 → 整題錯');
+  eq(badAuthor.source_ok, true, '作者錯但出處對 → source_ok');
+  eq(badAuthor.author_ok, false, '作者錯 → author_ok=false');
+
+  const badSource = C.grade_author(named, expA, '錯出處', {});
+  eq(badSource.ok, false, '出處錯 → 整題錯');
+  eq(badSource.author_ok, true, '出處錯但作者對 → author_ok');
+
+  const shellA = C.grade_author(named, '作者是' + expA, '出處是' + expS, {});
+  eq(shellA.ok, true, '「作者是／出處是」外殼也判對');
+
+  const simpleA = C.grade_author(named, C.to_simple(expA), C.to_simple(expS), {});
+  eq(simpleA.ok, true, '作者出處簡體也判對');
+}
+
+const anon = mj.find((it) => C.is_anon_text(it.author_t));
+if (anon) {
+  ['佚名', '無名氏', '不詳'].forEach((v) => {
+    eq(C.grade_author(anon, v, anon.src_t, {}).author_ok, true, '佚名接受「' + v + '」');
+  });
+}
+
+/* 作者出處選擇題：4 個選項、含正確組合、不重複 */
+const opt = C.build_options(named, mj, { direction: 'author', seed: 7 });
+eq(opt.options.length, 4, '作者出處選擇題 4 個選項');
+eq(new Set(opt.options.map((o) => o.t)).size, 4, '作者出處選項不重複');
+ok(opt.options.some((o) => C.norm(o.t) === C.norm(named.author_t + '《' + named.src_t.replace(/^《|》$/g, '') + '》') || C.norm(o.t) === C.norm(C.join_author_src(named.author_t, named.src_t))), '選項含正確作者＋出處');
+ok(opt.options.every((o) => o.t.indexOf('《') >= 0), '每個選項都是「作者《出處》」格式');
+
+/* ============================================================
+ * 18. 段／次大測（v1.1）
+ * ============================================================ */
+section('18. 段／次大測');
+
+ok(items.every((it) => Number.isInteger(it.seg) && it.seg >= 1), '所有題目 seg 為正整數');
+ok(items.every((it) => Number.isInteger(it.exam) && it.exam >= 1), '所有題目 exam 為正整數');
+
+const scoped = mk_items(6, 'cijie');
+scoped[0].seg = 1; scoped[0].exam = 1;
+scoped[1].seg = 1; scoped[1].exam = 2;
+scoped[2].seg = 1; scoped[2].exam = 2;
+scoped[3].seg = 2; scoped[3].exam = 1;
+scoped[4].seg = 2; scoped[4].exam = 3;
+scoped[5].seg = 3; scoped[5].exam = 1;
+with_dataset({
+  meta: { title: 't' }, units: [{ id: 'u1', name: 'u1', module: 'cijie' }],
+  items: scoped, t2s: {}
+}, () => {
+  eq(C.filter_by_scope(scoped, { seg: '2', exam: 'all' }).length, 2, '段 2 有 2 題');
+  eq(C.filter_by_scope(scoped, { seg: '2', exam: '3' }).length, 1, '段 2・第 3 次有 1 題');
+  eq(C.filter_by_scope(scoped, { seg: 'all', exam: 'all' }).length, 6, '全部＝6 題');
+  eq(C.exam_rows(scoped, '2').map((r) => r.value), [1, 3], '段 2 的次選項＝1,3');
+  eq(C.seg_rows(scoped).map((r) => r.value), [1, 2, 3], '段選項＝1,2,3');
+  const sess = C.create_session({ module: 'cijie', mode: 'practice', seg: '2', exam: '3' });
+  eq(sess.total, 1, 'create_session 套用段／次 → 1 題');
+});
+
 /* ============================================================ */
 console.log('\n' + '='.repeat(52));
 if (failures.length) {

@@ -19,7 +19,10 @@
 8. 同 unit 內正規化後重複條目。
 9. 常識 accept 至少包含 a_t 去書名號後的形式。
 10. dataset.js 內容與 dataset.json 一致。
-11. 另印出來源統計（tools/build_report.json）：每 unit 題數、skip 原因、待人工處理的非 CSV 檔。
+11. 每題都有 seg / exam，且為 >=1 的整數。
+12. 名句有 author_t / author_s（不可為空；佚名也算有），且 src 不含作者樣式
+    （如 `屈原《離騷》`、開頭符合 `^[^《]+《` 一律 warning）。
+13. 另印出來源統計（tools/build_report.json）：每 unit 題數、skip 原因、待人工處理的非 CSV 檔。
 """
 
 from __future__ import annotations
@@ -51,6 +54,7 @@ PAIRS = [("【", "】"), ("《", "》"), ("「", "」"), ("『", "』"), ("（",
 VALID_MODULES = ("mingju", "cijie", "changshi")
 ID_RE = re.compile(r"^(mj|cj|cs)-(\d{3})$")
 PREFIX_OF = {"mingju": "mj", "cijie": "cj", "changshi": "cs"}
+AUTHOR_IN_SRC_RE = re.compile(r"^[^《]+《")   # 出處欄開頭疑似含作者
 
 errors = []
 warnings = []
@@ -169,6 +173,8 @@ def validate(data: dict, js_data, report):
     seen_ids = set()
     seen_keys = {}
     counts = {}
+    seg_counts = {}
+    author_kinds = {}
     t_side_chars = set()
     t_side_texts = []
     accept_violations = 0
@@ -195,12 +201,44 @@ def validate(data: dict, js_data, report):
             err("%s unit 不存在：%r" % (label, it.get("unit")))
         counts[(itype, it.get("unit"))] = counts.get((itype, it.get("unit")), 0) + 1
 
+        # 段／次大測：所有題型都必須有 >=1 的整數
+        for key in ("seg", "exam"):
+            val = it.get(key)
+            if isinstance(val, bool) or not isinstance(val, int):
+                err("%s %s 必須是整數：%r" % (label, key, val))
+            elif val < 1:
+                err("%s %s 必須 >= 1：%r" % (label, key, val))
+        seg_counts[(it.get("seg"), it.get("exam"))] = \
+            seg_counts.get((it.get("seg"), it.get("exam")), 0) + 1
+
         if itype == "mingju":
             for key in ("t", "s", "src_t", "src_s"):
                 if not it.get(key):
                     err("%s 缺 %s" % (label, key))
-            for key in ("t", "s", "src_t", "src_s"):
+            for key in ("author_t", "author_s"):
+                if not it.get(key):
+                    err("%s 缺 %s（名句必須有作者，佚名也算）" % (label, key))
+            for key in ("author_t", "author_s", "t", "s", "src_t", "src_s"):
                 check_brackets("%s.%s" % (label, key), it.get(key, ""))
+            if it.get("author_t") and len(it.get("author_t", "")) != len(it.get("author_s", "")):
+                err("%s 作者繁簡長度不一致：%s / %s"
+                    % (label, it.get("author_t"), it.get("author_s")))
+            for key in ("author_t", "author_s"):
+                val = it.get(key, "")
+                if "《" in val or "》" in val:
+                    warn("%s %s 含書名號，作者欄應只放作者：%s" % (label, key, val))
+            if it.get("author_t"):
+                author_norm = only_han(T2S.convert(it.get("author_t", "")))
+                if not author_norm:
+                    err("%s 作者欄沒有漢字：%r" % (label, it.get("author_t")))
+                kind = "佚名" if it.get("author_t") in ("佚名", "無名氏", "无名氏", "不詳", "不详") \
+                    else "具名"
+                author_kinds[kind] = author_kinds.get(kind, 0) + 1
+            for key in ("src_t", "src_s"):
+                val = it.get(key, "")
+                if AUTHOR_IN_SRC_RE.match(val):
+                    warn("%s %s 開頭疑似含作者，出處欄應只留書名（如《離騷》）：%s"
+                         % (label, key, val))
             if len(it.get("t", "")) != len(it.get("s", "")):
                 err("%s 繁簡長度不一致：t(%d) / s(%d)" % (label, len(it.get("t", "")), len(it.get("s", ""))))
             if len(it.get("src_t", "")) != len(it.get("src_s", "")):
@@ -350,6 +388,12 @@ def validate(data: dict, js_data, report):
         "%s %d" % (m, sum(c for (t, _), c in counts.items() if t == m))
         for m in VALID_MODULES) + "，合計 %d" % len(items))
     print("t2s 對照表：%d 字" % len(t2s))
+    seg_rows = sorted(seg_counts.items(), key=lambda kv: (str(kv[0][0]), str(kv[0][1])))
+    print("段／次大測：" + "、".join(
+        "seg %s / exam %s → %d 題" % (s, e, c) for (s, e), c in seg_rows))
+    if author_kinds:
+        print("名句作者：具名 %d 題／佚名 %d 題"
+              % (author_kinds.get("具名", 0), author_kinds.get("佚名", 0)))
 
     if report:
         dirs = report.get("source_dirs") or ["（未記錄）"]

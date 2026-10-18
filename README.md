@@ -46,11 +46,21 @@ python -m http.server 8137
 
 | 模組 | 內容 |
 | --- | --- |
-| 名句默寫 | 名句補全（可選「給上句填下句」或「給下句填上句」） |
+| 名句默寫 | 名句補全（給上句填下句／給下句填上句）或「作者・出處」模式 |
 | 詞解 | 依例句解釋加點詞，答中關鍵詞即算對 |
 | 常識 | 先秦文學常識、諸子寓言出處 |
 
-### 四種模式（設定頁／開始頁可切換）
+### 段／次大測篩選
+
+題庫可按「第幾段 → 第幾次大測」兩級篩選，再疊加篇章（unit）：
+
+- 段：全部／第 1 段／第 2 段…
+- 次：該段內的第 1 次／第 2 次…（只有一段或一次時自動隱藏該行）
+- 篇章：可多選（例如只練《關雎》＋《國殤》）
+
+現有示範資料全部標為「第 1 段・第 1 次大測」。
+
+### 三種練習模式（設定頁／開始頁可切換）
 
 | 模式 | 說明 |
 | --- | --- |
@@ -69,6 +79,8 @@ python -m http.server 8137
 
 ### 答題小技巧
 
+- 名句可選「作者・出處」：一題兩個輸入欄，兩欄都對才算對；答後逐欄顯示對錯。
+- 名句作者若為佚名，答「佚名／無名氏／不詳」都算對。
 - 只寫關鍵字或整句都可以；標點、空白、句末標點不影響判分。
 - 繁簡混寫也可以（例：`为什么` 與 `為什麼` 都算對）。
 - 詞解只要包含核心關鍵詞就算對（例如答「和鳴聲」即可）。
@@ -113,13 +125,17 @@ data/source/       ← 內建示範資料（可保留原樣，不用動）
 
 ### CSV 格式
 
-UTF-8、表頭 `word,chinese,example`：
+UTF-8、表頭 `word,chinese,example`（可再加選填的 `seg`、`exam` 兩欄）：
 
-| 檔案 | word | chinese | example |
-| --- | --- | --- | --- |
-| 名句（如 `mingju_shijing_chuci.csv`） | 句子（可用簡體） | 出處 | — |
-| 詞解（如 `guanju_cijie.csv`） | 要解釋的詞 | 詞義 | 課文例句 |
-| 常識（如 `xianqin_wenxue.csv`） | 問題 | 答案 | — |
+| 檔案 | word | chinese | example | seg / exam |
+| --- | --- | --- | --- | --- |
+| 名句（如 `mingju_shijing_chuci.csv`） | 句子（可用簡體） | 出處或「作者《出處》」 | — | 選填：第幾段／第幾次 |
+| 詞解（如 `guanju_cijie.csv`） | 要解釋的詞 | 詞義 | 課文例句 | 選填 |
+| 常識（如 `xianqin_wenxue.csv`） | 問題 | 答案 | — | 選填 |
+
+- `seg` = 第幾段、`exam` = 該段第幾次大測，由 1 起；逐行填寫，會覆蓋檔名／預設值。
+- 檔名也可寫 `seg2_exam3_xxx.csv` 或 `第2段_第3次_xxx.csv` 作整份預設。
+- 名句的出處欄可寫 `屈原《離騷》`，程式會自動拆成作者＋出處；只寫 `《詩經·大雅·蕩》` 時作者預設「佚名」（楚辭預設屈原）。
 
 - 名句句子請帶句讀標點（`，` 之類），程式才能自動切上下半句。
 - 詞解的 `example` 請包含 `word` 那個詞，程式會用【】標出加點詞；找不到時會自動改成「解釋『某詞』」。
@@ -138,7 +154,14 @@ python tools/validate_data.py            # 加 --strict 連警告都算失敗
 node tools/test_core.mjs
 ```
 
-若你在 `source/` 放了全新的 CSV，程式會**自動判斷模組**（檔名含 `mingju`／`名句` → 名句；`cijie`／`詞解` → 詞解；`changshi`／`常識`／`出處`／`wenxue` → 常識），並自動產生 unit。想指定顯示名稱、穩定 id 或模組，才需要在 `tools/build_dataset.py` 的 `UNITS_CONFIG` 補一行（`file` / `id` / `name` / `module`）。
+若你在 `source/` 放了全新的 CSV，程式會**自動判斷模組**（檔名含 `mingju`／`名句` → 名句；`cijie`／`詞解` → 詞解；`changshi`／`常識`／`出處`／`wenxue` → 常識），並自動產生 unit：
+
+- 檔名判斷不出來時，改看表頭：**有 `example` 欄 → 詞解，否則常識**，並在報告列 warning（`tools/build_report.json` 的 `warnings`）。
+- unit id 由檔名推導（ASCII 小寫、符號轉 `_`；純中文檔名依序給 `u01`、`u02`…）；unit 名稱＝檔名去掉副檔名與 `_cijie`／`_mingju`／`_changshi` 後綴。
+- **既有 7 個來源的 id 不會變**，新來源按檔名排序接在後面，重跑結果穩定。
+- 非 CSV 檔（`.docx`／`.pdf`／`.txt`／圖片）不會被讀取，會列在報告的「**待人工處理**」清單請你自行轉成 CSV；`放教材這裡.txt`、`README`、`.gitkeep` 之類的佔位檔則直接略過。
+
+想指定顯示名稱、固定 id 或模組，才需要在 `tools/build_dataset.py` 的 `UNITS_CONFIG` 補一行（`file` / `id` / `name` / `module`）。
 
 ---
 
@@ -192,7 +215,7 @@ docs/spec.md               規格書
 ## 7. 測試
 
 ```bash
-node tools/test_core.mjs          # 189 項斷言：判分、佇列、儲存、搜尋、全量回歸
+node tools/test_core.mjs          # 165 項斷言：判分、作者出處、段次、佇列、儲存、搜尋、全量回歸
 node --check js/core.js           # 語法檢查（ui.js / main.js / sw.js 同理）
 python tools/validate_data.py     # 資料結構與繁簡對照校驗
 ```

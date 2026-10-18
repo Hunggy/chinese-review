@@ -23,6 +23,8 @@
     result: null,
     browse: { q: '', units: ['all'], open: {} },
     draft: '',            /* 未提交的輸入 */
+    dual_author: '',      /* 作者・出處模式的兩欄草稿 */
+    dual_source: '',
     composing: false,
     timer: null,          /* 速通自動跳題 */
     overlay_ok: null
@@ -254,17 +256,53 @@
       '<button class="chip' + (all_on ? ' is-on' : '') + '" type="button" data-value="all" aria-pressed="' + (all_on ? 'true' : 'false') + '">全部</button>';
     rows.forEach(function (u) {
       var on = !all_on && sel.indexOf(u.id) >= 0;
+      var count = (u.count === undefined || u.count === null) ? '' : '<span class="chip-count">' + u.count + '</span>';
       html += '<button class="chip' + (on ? ' is-on' : '') + '" type="button" data-value="' + h(u.id) + '" aria-pressed="' + (on ? 'true' : 'false') + '">' +
-        h(u.name) + '<span class="chip-count">' + u.count + '</span></button>';
+        h(u.name) + count + '</button>';
     });
     return html + '</div>';
+  }
+
+  /* 段／次 chips 的資料（單選：'all' 或數字字串） */
+  function scope_chips_html(field, rows, current) {
+    var v = C.norm_scope_value(current);
+    return chips_html(field, rows.map(function (r) {
+      return { id: String(r.value), name: r.label, count: null };
+    }), [v]);
+  }
+
+  /* 目前模組的段／次狀態：有效值（不在資料內會退回 'all'）與過濾後題目 */
+  function scope_state() {
+    var module_items = C.items_for_module(S.module);
+    var segs = C.seg_rows(module_items);
+    var seg = C.norm_scope_value(S.settings.seg);
+    var seg_ids = segs.map(function (r) { return String(r.value); });
+    if (seg !== 'all' && seg_ids.indexOf(seg) < 0) seg = 'all';
+
+    var exams = C.exam_rows(module_items, seg);
+    var exam = C.norm_scope_value(S.settings.exam);
+    var exam_ids = exams.map(function (r) { return String(r.value); });
+    if (exam !== 'all' && exam_ids.indexOf(exam) < 0) exam = 'all';
+
+    var items = C.items_for(S.module, C.units_setting(S.module), { seg: seg, exam: exam });
+    return {
+      module_items: module_items,
+      segs: segs,
+      seg: seg,
+      exams: exams,
+      exam: exam,
+      items: items,
+      single_seg: segs.length <= 1,
+      single_exam: exams.length <= 1
+    };
   }
 
   function setup_html() {
     var m = C.module(S.module);
     var units = C.units_setting(S.module);
-    var scope = C.items_for(S.module, units);
-    var has_mingju = scope.some(function (it) { return it.type === 'mingju'; });
+    var st = scope_state();
+    var scope = st.items;
+    var has_mingju = st.module_items.some(function (it) { return it.type === 'mingju'; });
     var s = S.settings;
 
     var desc = {
@@ -274,11 +312,26 @@
       mixed: '名句、詞解、常識混合出題。'
     }[S.module] || '';
 
+    /* 段／次：只有一段（或一次）時整個區塊隱藏，避免只有「全部」可選 */
+    var seg_block = st.single_seg ? '' :
+      '<div class="setup-block" data-block="segments">' +
+        '<h3 class="setup-label">段</h3>' +
+        scope_chips_html('segments', st.segs, st.seg) +
+      '</div>';
+    var exam_block = st.single_exam ? '' :
+      '<div class="setup-block" data-block="exams">' +
+        '<h3 class="setup-label">次大測</h3>' +
+        scope_chips_html('exams', st.exams, st.exam) +
+      '</div>';
+
     return '' +
       '<main class="screen" data-screen="setup">' +
         '<section class="setup">' +
           '<h2 class="setup-title">' + h(m.name) + '</h2>' +
           '<p class="setup-desc">' + h(desc) + '</p>' +
+
+          seg_block +
+          exam_block +
 
           '<div class="setup-block">' +
             '<h3 class="setup-label">範圍</h3>' +
@@ -290,7 +343,7 @@
             seg_html('mode', [
               { value: 'practice', label: '練習', sub: '錯題會重現' },
               { value: 'speed', label: '⚡ 速通', sub: '一次刷完' },
-              { value: 'flash', label: '🃏 翻卡', sub: '自評記憶' }
+              { value: 'flash', label: '🃏 翻卡', sub: '自己評核' }
             ], s.mode) +
           '</div>' +
 
@@ -306,7 +359,8 @@
             '<h3 class="setup-label">默寫方向</h3>' +
             seg_html('direction', [
               { value: 'hs', label: '給上默下' },
-              { value: 'sh', label: '給下默上' }
+              { value: 'sh', label: '給下默上' },
+              { value: 'author', label: '作者・出處' }
             ], s.direction) +
           '</div>' +
 
@@ -357,6 +411,14 @@
   function prompt_block(item, dir) {
     var sm = is_simple();
     if (item.type === 'mingju') {
+      if (dir === 'author') {
+        var full = C.sentence(item);
+        return {
+          ask: '寫出作者與出處：',
+          prompt: sm ? full.s : full.t,
+          hint: '作者與出處兩欄都答對才算對（繁簡皆可）'
+        };
+      }
       var mp = C.mingju_pair(item, dir);
       return {
         ask: mp.ask,
@@ -379,10 +441,18 @@
     var line = '', src = '', note = '', alts = [], pre = '';
 
     if (item.type === 'mingju') {
-      var mp = C.mingju_pair(item, dir);
-      line = sm ? mp.answer_s : mp.answer_t;
-      var sc = C.pair(item, 'src');
-      src = sm ? sc.s : sc.t;
+      if (dir === 'author') {
+        /* 作者・出處模式：顯示整句 + 「作者《出處》」 */
+        var full = C.sentence(item);
+        line = sm ? full.s : full.t;
+        var av = C.author_variant(item);
+        src = sm ? av.s : av.t;
+      } else {
+        var mp = C.mingju_pair(item, dir);
+        line = sm ? mp.answer_s : mp.answer_t;
+        var sc = C.pair(item, 'src');
+        src = sm ? sc.s : sc.t;
+      }
     } else if (item.type === 'cijie') {
       var a = C.list_pair(item, 'a');
       var w = C.pair(item, 'w');
@@ -408,6 +478,7 @@
         cijie: ['✓ 詞義正確', '✗ 再記一次'],
         changshi: ['✓ 回答正確', '✗ 再記一次']
       }[item.type] || ['✓ 正確', '✗ 再記一次'];
+      if (rec.dual) words = ['✓ 作者出處正確', '✗ 作者或出處有誤'];
       verdict = '<div class="verdict ' + (rec.ok ? 'is-ok' : 'is-bad') + '" role="status">' + h(rec.ok ? words[0] : words[1]) + '</div>';
     }
 
@@ -417,10 +488,12 @@
         var chosen = rec.mc.options[rec.mc.chosen];
         var ctext = chosen ? (sm ? chosen.s : chosen.t) : '（未作答）';
         yours = '<div class="your-answer">你選的是：<span data-raw>' + h(ctext) + '</span></div>';
+      } else if (rec.dual) {
+        yours = '';   /* 作者・出處：逐欄顯示於 .dual-result */
       } else if (rec.gaveup) {
         yours = '<div class="your-answer">（直接看了答案）</div>';
       } else if (rec.user) {
-        yours = '<div class="your-answer">你寫的是：<span data-raw>' + h(rec.user) + '</span></div>';
+        yours = '<div class="your-answer">你的答案：<span data-raw>' + h(rec.user) + '</span></div>';
       } else {
         yours = '<div class="your-answer">（未作答）</div>';
       }
@@ -441,6 +514,51 @@
         yours +
         override +
       '</div>';
+  }
+
+  /* 作者・出處模式：兩個輸入欄（spec §5.5） */
+  function dual_form_html() {
+    return '' +
+      '<form class="answer-form answer-form--dual" data-mode="author" autocomplete="off">' +
+        '<label class="dual-field">' +
+          '<span class="field-label">' + h(T('作者')) + '</span>' +
+          '<input class="answer-input" id="authorInput" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" ' +
+          'placeholder="' + h(T('例如：屈原')) + '" value="' + h(S.dual_author) + '" aria-label="' + h(T('作者')) + '" />' +
+        '</label>' +
+        '<label class="dual-field">' +
+          '<span class="field-label">' + h(T('出處')) + '</span>' +
+          '<input class="answer-input" id="sourceInput" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" ' +
+          'placeholder="' + h(T('例如：《離騷》')) + '" value="' + h(S.dual_source) + '" aria-label="' + h(T('出處')) + '" />' +
+        '</label>' +
+        '<button class="btn btn-primary" type="submit" data-action="submit">提交</button>' +
+      '</form>';
+  }
+
+  /* 作者・出處答後逐欄判分（✓/✗ ＋「你寫：…」） */
+  function dual_result_html(item, rec) {
+    if (!item || item.type !== 'mingju') return '';
+    var sm = is_simple();
+    var ea = C.author_pair(item), es = C.source_pair(item);
+    var exp_a = sm ? ea.s : ea.t, exp_s = sm ? es.s : es.t;
+    var d = rec && rec.dual ? rec.dual : null;
+    var gave_up = !!(rec && rec.gaveup);
+
+    function row(label, expected, ok, yours) {
+      var cls = 'dual-result-row' + (ok === true ? ' is-ok' : (ok === false ? ' is-bad' : ''));
+      return '<div class="' + cls + '">' +
+        '<span class="field-label">' + h(T(label)) + '</span>' +
+        '<span class="dual-answer han" data-raw>' + h(expected) + '</span>' +
+        (ok === null ? '' : '<span class="dual-mark">' + (ok ? '✓' : '✗') + '</span>') +
+        (ok === false && yours ? '<span class="dual-yours">' + h(T('你寫：')) + '<span data-raw>' + h(yours) + '</span></span>' : '') +
+      '</div>';
+    }
+
+    var a_ok = d ? !!d.author_ok : (gave_up ? false : null);
+    var s_ok = d ? !!d.source_ok : (gave_up ? false : null);
+    return '<div class="dual-result">' +
+      row('作者', exp_a, a_ok, d ? d.author : '') +
+      row('出處', exp_s, s_ok, d ? d.source : '') +
+    '</div>';
   }
 
   function options_html(item, state, rec) {
@@ -485,9 +603,12 @@
     var item = v.item, state = v.state, rec = v.rec;
     var mode = s.mode;
     var dir = rec ? rec.direction : s.direction;
-    var pb = prompt_block(item, dir);
     var is_flash = mode === 'flash';
+    /* 作者・出處模式：翻卡照舊看句子回想出處（不受 direction 影響） */
+    var pdir = (!is_flash && dir === 'author') ? 'author' : (dir === 'sh' ? 'sh' : 'hs');
+    var pb = prompt_block(item, pdir);
     var answered = state === 'answered' || state === 'review';
+    var dual_mode = pdir === 'author' && item.type === 'mingju' && S.settings.question === 'type';
 
     var ask_label = state === 'flash-front' ? T(pb.ask) : pb.ask;
     var prompt_node = pb.html !== undefined
@@ -496,15 +617,21 @@
     var hint_node = (is_flash && state === 'flash-front')
       ? '' : '<p class="q-hint"' + (is_flash ? '' : '') + '>' + h(pb.hint || '') + '</p>';
 
-    var input_node = (mode === 'practice' || mode === 'speed') && S.settings.question === 'type' && !answered
-      ? '<form class="answer-form" autocomplete="off">' +
+    var can_input = (mode === 'practice' || mode === 'speed') && !answered;
+    var input_node = '';
+    if (can_input && dual_mode) {
+      input_node = dual_form_html();
+    } else if (can_input && S.settings.question === 'type') {
+      input_node = '<form class="answer-form" autocomplete="off">' +
           '<input class="answer-input" id="answerInput" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" ' +
           'placeholder="' + h(T('在此輸入答案')) + '" aria-label="' + h(T('答案輸入')) + '" />' +
           '<button class="btn btn-primary" type="submit" data-action="submit">提交</button>' +
-        '</form>'
-      : '';
+        '</form>';
+    }
 
     var mc_node = (!is_flash && S.settings.question === 'mc') ? options_html(item, state, rec) : '';
+    var dual_node = (pdir === 'author' && item.type === 'mingju' && !is_flash && (answered || state === 'flash-back') && !(rec && rec.mc))
+      ? dual_result_html(item, rec) : '';
 
     var review_banner = state === 'review' ? '<div class="review-banner">回顧中 · 按 → 返回</div>' : '';
 
@@ -538,9 +665,10 @@
             prompt_node +
             hint_node +
             input_node +
+            dual_node +
             mc_node +
             card_controls_html(state) +
-            (answered || state === 'flash-back' ? answer_box_html(item, dir, state === 'flash-back' ? null : rec) : '') +
+            (answered || state === 'flash-back' ? answer_box_html(item, pdir, state === 'flash-back' ? null : rec) : '') +
             review_banner +
           '</article>' +
 
@@ -569,7 +697,7 @@
       var qline = pb.html !== undefined ? C.dot_html(it, is_simple()) : h(pb.prompt);
       var det = C.detail(it, { simple: is_simple() });
       var meta = [];
-      if (per.last_user) meta.push('你寫的是：' + per.last_user);
+      if (per.last_user) meta.push('你的答案：' + per.last_user);
       if (det.src) meta.push(det.src);
       return '' +
         '<article class="wrong-item">' +
@@ -596,7 +724,7 @@
             '<button class="btn btn-ghost" type="button" data-action="retry-wrong"' + (r.wrong_ids.length ? '' : ' disabled') + '>只練錯題</button>' +
             '<button class="btn btn-ghost" type="button" data-action="home">回首頁</button>' +
           '</div>' +
-          (wrong_rows ? '<div class="wrong-list">' + wrong_rows + '</div>' : '<p class="empty">全部答對，漂亮。</p>') +
+          (wrong_rows ? '<div class="wrong-list">' + wrong_rows + '</div>' : '<p class="empty">全部答對，做得好。</p>') +
         '</section>' +
       '</main>';
   }
@@ -652,7 +780,8 @@
       if (src) rows.push('<div class="browse-src" data-raw>' + h(src) + '</div>');
     }
     if (it.note) rows.push('<div class="browse-note">' + h(it.note) + '</div>');
-    rows.push('<div class="browse-tag">' + h(type_label(it.type)) + ' · ' + h(it.unit) + '</div>');
+    var sl = C.scope_label(it);
+    rows.push('<div class="browse-tag">' + h(type_label(it.type)) + ' · ' + h(it.unit) + (sl ? ' · ' + h(sl) : '') + '</div>');
     return rows.join('');
   }
 
@@ -707,10 +836,14 @@
     var avg = rows.length ? (rows.reduce(function (a, r) { return a + r.wrong; }, 0) / rows.length) : 0;
 
     var body = rows.map(function (r) {
-      var pb = prompt_block(r.item, S.settings.direction);
+      /* 統計頁固定用「給上默下」呈現名句題面（方向只影響作答，不影響清單） */
+      var sdir = S.settings.direction === 'author' ? 'hs' : S.settings.direction;
+      var pb = prompt_block(r.item, sdir);
       var label = pb.html !== undefined ? C.dot_html(r.item, is_simple()) : h(pb.prompt);
+      var sl = C.scope_label(r.item);
       return '<tr>' +
-        '<td class="wrong-table-q" data-raw>' + label + '</td>' +
+        '<td class="wrong-table-q" data-raw>' + label +
+          (sl ? '<span class="q-scope"> · ' + h(sl) + '</span>' : '') + '</td>' +
         '<td>' + r.wrong + '</td>' +
         '<td>' + r.correct + '</td>' +
         '</tr>';
@@ -720,8 +853,8 @@
       '<main class="screen" data-screen="stats">' +
         '<section class="stats-screen">' +
           '<div class="stats-summary">' +
-            '<div class="stat"><span class="stat-value">' + sm.wrong_total + '</span><span class="stat-label">錯題總數</span></div>' +
-            '<div class="stat"><span class="stat-value">' + (avg ? avg.toFixed(1) : '0') + '</span><span class="stat-label">平均錯誤</span></div>' +
+            '<div class="stat"><span class="stat-value">' + sm.wrong_total + '</span><span class="stat-label">錯題數</span></div>' +
+            '<div class="stat"><span class="stat-value">' + (avg ? avg.toFixed(1) : '0') + '</span><span class="stat-label">平均錯次</span></div>' +
           '</div>' +
           (rows.length
             ? '<table class="wrong-table"><thead><tr><th>題目</th><th>答錯</th><th>答對</th></tr></thead><tbody>' + body + '</tbody></table>'
@@ -753,7 +886,7 @@
           setting_row('字形', '介面與題目顯示', seg_html('script', [
             { value: 't', label: '繁體' }, { value: 's', label: '簡體' }
           ], s.script)) +
-          setting_row('深色模式', '墨底紙白，夜間護眼', seg_html('theme', [
+          setting_row('深色模式', '深色底、淺色字，夜間護眼', seg_html('theme', [
             { value: 'light', label: '淺色' }, { value: 'dark', label: '深色' }
           ], s.theme)) +
           setting_row('字號', '詩句與正文大小', seg_html('font', [
@@ -796,7 +929,11 @@
 
   function capture_draft() {
     var input = $('#answerInput');
-    if (input && !input.disabled) return input.value;
+    if (input && !input.disabled) S.draft = input.value;
+    var ai = $('#authorInput');
+    if (ai && !ai.disabled) S.dual_author = ai.value;
+    var si = $('#sourceInput');
+    if (si && !si.disabled) S.dual_source = si.value;
     return S.draft;
   }
 
@@ -817,8 +954,16 @@
   }
 
   function restore_focus() {
+    if (S.screen !== 'quiz' || S.phase !== 'asking') return;
+    var ai = $('#authorInput');
+    if (ai && !ai.disabled) {
+      var si = $('#sourceInput');
+      var target = (S.dual_author && !S.dual_source) ? si : ai;
+      if (target) { try { target.focus(); target.setSelectionRange(target.value.length, target.value.length); } catch (e) { } }
+      return;
+    }
     var input = $('#answerInput');
-    if (input && !input.disabled && S.screen === 'quiz' && S.phase === 'asking') {
+    if (input && !input.disabled) {
       if (S.draft) input.value = S.draft;
       try { input.focus(); input.setSelectionRange(input.value.length, input.value.length); } catch (e) { }
     }
@@ -858,9 +1003,12 @@
     var cfg = S.settings;
     var module_id = opts.module || S.module;
     var mode = opts.mode || cfg.mode;
+    var scope = opts.ids ? null : scope_state();
     var session = C.create_session({
       module: module_id,
       units: opts.ids ? null : C.units_setting(module_id),
+      seg: opts.ids ? null : (opts.seg !== undefined ? opts.seg : scope.seg),
+      exam: opts.ids ? null : (opts.exam !== undefined ? opts.exam : scope.exam),
       ids: opts.ids || null,
       mode: mode,
       question: cfg.question,
@@ -874,6 +1022,8 @@
     S.options = null;
     S.review = null;
     S.draft = '';
+    S.dual_author = '';
+    S.dual_source = '';
     S.phase = mode === 'flash' ? 'flash-front' : 'asking';
     S.live_phase = S.phase;
     clear_auto();
@@ -889,6 +1039,23 @@
     if (!s || S.phase !== 'asking') return;
     var item = cur_item();
     if (!item) return;
+
+    /* 作者・出處：兩欄都對才算對（Enter 提交、兩欄都空不提交） */
+    if (s.direction === 'author' && S.settings.question === 'type' && item.type === 'mingju') {
+      var ai = $('#authorInput'), si = $('#sourceInput');
+      var a_text = String(ai ? ai.value : S.dual_author).trim();
+      var s_text = String(si ? si.value : S.dual_source).trim();
+      if (!a_text && !s_text) { toast('請先寫下答案'); return; }
+      var dual_res = C.grade_author(item, a_text, s_text, {});
+      S.dual_author = a_text;
+      S.dual_source = s_text;
+      do_answer(item, !!dual_res.ok, {
+        user: '作者：' + (a_text || '（空）') + '　出處：' + (s_text || '（空）'),
+        dual: { author: a_text, source: s_text, author_ok: !!dual_res.author_ok, source_ok: !!dual_res.source_ok }
+      });
+      return;
+    }
+
     var text = String(user_text === undefined ? ($('#answerInput') ? $('#answerInput').value : S.draft) : user_text);
     if (!text.trim()) { toast('請先寫下答案'); return; }
     var res = C.grade_text(item, text, { direction: s.direction });
@@ -921,8 +1088,9 @@
     render();
 
     if (S.screen === 'quiz') {
-      if (!rec.ok) toast('答錯了，稍後會再出現');
-      else toast('答對了');
+      if (rec.ok) toast('答對了');
+      else if (rec.dual && (rec.dual.author_ok || rec.dual.source_ok)) toast('只對了一半，稍後會再出現');
+      else toast('答錯了，稍後會再出現');
     }
     if (s.mode === 'speed') schedule_auto();
   }
@@ -943,6 +1111,8 @@
     S.last = null;
     S.options = null;
     S.draft = '';
+    S.dual_author = '';
+    S.dual_source = '';
     if (!s.pending.length) { finish(); return; }
     S.phase = s.mode === 'flash' ? 'flash-front' : 'asking';
     S.live_phase = S.phase;
@@ -1087,6 +1257,27 @@
     if (it) { /* 保持捲動：不整頁重繪 */ }
   }
 
+  /* 段／次 chips：切段時若當前次不在新段內，重置為「全部」 */
+  function set_segment(value) {
+    var v = C.norm_scope_value(value);
+    var module_items = C.items_for_module(S.module);
+    var exams = C.exam_rows(module_items, v).map(function (r) { return String(r.value); });
+    var patch = { seg: v };
+    var cur_exam = C.norm_scope_value(S.settings.exam);
+    if (cur_exam !== 'all' && exams.indexOf(cur_exam) < 0) patch.exam = 'all';
+    set_setting(patch);
+    render();
+  }
+
+  function set_exam(value) {
+    var v = C.norm_scope_value(value);
+    var st = scope_state();
+    var ids = st.exams.map(function (r) { return String(r.value); });
+    if (v !== 'all' && ids.indexOf(v) < 0) return;
+    set_setting({ exam: v });
+    render();
+  }
+
   function on_value(el) {
     var field = el.parentElement ? el.parentElement.getAttribute('data-field') : null;
     var value = el.getAttribute('data-value');
@@ -1094,6 +1285,8 @@
     if (!field) return;
 
     if (container.classList.contains('chips')) {
+      if (field === 'segments') { set_segment(value); return; }
+      if (field === 'exams') { set_exam(value); return; }
       if (S.screen === 'browse') {
         var cur = S.browse.units.slice();
         if (value === 'all') cur = ['all'];
@@ -1262,6 +1455,12 @@
     return t === 'INPUT' || t === 'TEXTAREA' || a.isContentEditable;
   }
 
+  /* 作答輸入框（單欄或作者／出處兩欄） */
+  function is_answer_input(el) {
+    if (!el || !el.id) return false;
+    return el.id === 'answerInput' || el.id === 'authorInput' || el.id === 'sourceInput';
+  }
+
   function on_keydown(e) {
     var k = e.key;
 
@@ -1339,18 +1538,20 @@
     });
 
     document.addEventListener('compositionstart', function (e) {
-      if (e.target.id === 'answerInput') S.composing = true;
+      if (is_answer_input(e.target)) S.composing = true;
     });
     document.addEventListener('compositionend', function (e) {
-      if (e.target.id === 'answerInput') S.composing = false;
+      if (is_answer_input(e.target)) S.composing = false;
     });
 
     document.addEventListener('keydown', function (e) {
-      if (e.target && e.target.id === 'answerInput') on_keydown_input(e);
+      if (is_answer_input(e.target)) on_keydown_input(e);
     }, true);
 
     document.addEventListener('input', function (e) {
       if (e.target.id === 'answerInput') { S.draft = e.target.value; return; }
+      if (e.target.id === 'authorInput') { S.dual_author = e.target.value; return; }
+      if (e.target.id === 'sourceInput') { S.dual_source = e.target.value; return; }
       if (e.target.id === 'browseSearch') {
         S.browse.q = e.target.value;
         refresh_browse();

@@ -74,16 +74,22 @@ window.CN_DATASET = {
   id: "mj-001",
   type: "mingju",
   unit: "mingju",
+  seg: 1,               // 第幾段（1 起）
+  exam: 1,              // 該段第幾次大測（1 起）
   t: "關關雎鳩，在河之洲；窈窕淑女，君子好逑。",
   s: "关关雎鸠，在河之洲；窈窕淑女，君子好逑。",
-  src_t: "《詩經・周南・關雎》",
+  author_t: "佚名",     // 作者；詩經／古詩十九首等用「佚名」
+  author_s: "佚名",
+  src_t: "《詩經・周南・關雎》",   // 出處（不含作者）
   src_s: "《诗经・周南・关雎》",
-  note: ""            // 可選
+  note: ""
 }
 ```
 
-- 題目以第一個標點（`，,；;：:？?！!`）切開；「給上默下」顯示前半（含標點），答案為後半；「給下默上」相反。
+- 題目以第一個標點（`，,；;：:？?！!`，否則 `。`）切開；「給上默下」顯示前半（含標點），答案為後半；「給下默上」相反。
+- **作者出處模式**：顯示整句，兩個輸入欄（作者／出處），兩欄都對才算對；逐欄顯示對錯。
 - 判分：去標點、去空白、繁→簡後**完全相等**。使用者可按「意思對了，算我對」覆寫。
+- 作者若為佚名，接受「佚名／無名氏／不詳」。
 
 ### 3.2 詞解 `type: "cijie"`
 
@@ -131,6 +137,13 @@ window.CN_DATASET = {
 
 - 只收錄資料中出現的繁體字；`build_dataset.py` 用 OpenCC `t2s` 逐字產生。
 - 執行時判分用 `t2s` 正規化；顯示用 `s` 欄位（預先轉好，避免逐字轉換出錯）。
+
+### 3.5 段／次大測 `seg` / `exam`
+
+- 所有題目（不限名句）都有 `seg`（第幾段）與 `exam`（該段第幾次大測），由 1 起。
+- CSV 可加選填欄位 `seg`、`exam`（每行）；沒有欄位時用檔名或 `UNITS_CONFIG` 的預設值（現有資料全部為 `1/1`）。
+- 篩選為兩級：先選段，再選該段內的次；另可再疊加篇章（unit）篩選。
+- 顯示時用「第 1 段」「第 1 次大測」。
 
 ## 4. 模組與模式
 
@@ -247,6 +260,22 @@ window.CN_DATASET = {
   <h2 class="setup-title">名句默寫</h2>
   <p class="setup-desc">標點由系統給出，只需默寫漢字；繁簡皆可。</p>
 
+  <div class="setup-block" data-block="segments">
+    <h3 class="setup-label">段</h3>
+    <div class="chips" data-field="segments">
+      <button class="chip is-on" data-value="all">全部</button>
+      <button class="chip" data-value="1">第 1 段</button>
+    </div>
+  </div>
+
+  <div class="setup-block" data-block="exams">
+    <h3 class="setup-label">次大測</h3>
+    <div class="chips" data-field="exams">
+      <button class="chip is-on" data-value="all">全部</button>
+      <button class="chip" data-value="1">第 1 次</button>
+    </div>
+  </div>
+
   <div class="setup-block">
     <h3 class="setup-label">範圍</h3>
     <div class="chips" data-field="units">
@@ -277,6 +306,7 @@ window.CN_DATASET = {
     <div class="segmented" data-field="direction">
       <button class="seg is-on" data-value="hs">給上默下</button>
       <button class="seg" data-value="sh">給下默上</button>
+      <button class="seg" data-value="author">作者・出處</button>
     </div>
   </div>
 
@@ -317,6 +347,25 @@ window.CN_DATASET = {
       <input class="answer-input" id="answerInput" type="text" ... />
       <button class="btn btn-primary" data-action="submit" type="submit">提交</button>
     </form>
+
+    <!-- 名句・作者出處：兩個輸入欄 -->
+    <form class="answer-form answer-form--dual" data-mode="author" autocomplete="off">
+      <label class="dual-field">
+        <span class="field-label">作者</span>
+        <input class="answer-input" id="authorInput" type="text" placeholder="例如：屈原" />
+      </label>
+      <label class="dual-field">
+        <span class="field-label">出處</span>
+        <input class="answer-input" id="sourceInput" type="text" placeholder="例如：《離騷》" />
+      </label>
+      <button class="btn btn-primary" data-action="submit" type="submit">提交</button>
+    </form>
+
+    <!-- 作者出處答後：逐欄判分 -->
+    <div class="dual-result">
+      <div class="dual-result-row is-ok"><span class="field-label">作者</span><span class="dual-answer">屈原</span><span class="dual-mark">✓</span></div>
+      <div class="dual-result-row is-bad"><span class="field-label">出處</span><span class="dual-answer">《離騷》</span><span class="dual-mark">✗</span><span class="dual-yours">你寫：離騷</span></div>
+    </div>
 
     <!-- 選擇題 -->
     <div class="options" data-mode="mc">
@@ -471,10 +520,10 @@ norm(text)      // 只保留漢字，t2s 轉簡，去掉標點/空白/英數
 norm_answer(s)  // 再去掉「意思是/指/即/為/就是/指的是」前綴與「的意思/之意」後綴
 ```
 
-- 名句：`norm(用戶) === norm(標準答案)`。
+- 名句：`norm(用戶) === norm(標準答案)`（給上／給下）；作者出處模式分別比對作者與出處，兩欄都對才 `ok`。
 - 詞解：`norm_answer(用戶)` 等於任一 `a`，或包含任一 `k`（`k` 長度 ≥ 1 漢字）。
 - 常識：`norm_answer(用戶)` 等於 `a` 或任一 `accept`（比較時去掉書名號）。
-- 選擇題：選中 `option.dataset.index` 對應正確項。
+- 選擇題：選中 `option.dataset.index` 對應正確項；作者出處＋選擇題時，選項為「作者《出處》」組合。
 - 所有題型提供「算我對」覆寫（選擇題除外）。
 - 使用者輸入為空時不提交，提示「請先寫下答案」。
 
@@ -510,6 +559,7 @@ norm_answer(s)  // 再去掉「意思是/指/即/為/就是/指的是」前綴�
 - 深色模式變數完整；`data-theme="dark"`。
 - 字號：`--fs-scale`（0.9 / 1 / 1.1 / 1.2），由 `html[style]` 或 `data-font` 控制。
 - 提供 `design/preview.html`：用假資料靜態展示所有畫面與狀態（含深色切換示範），供實作對照與使用者預覽。
+- v1.1 新增：`.answer-form--dual`（兩欄作者／出處，手機上可上下排列）、`.dual-field`、`.field-label`、`.dual-result` / `.dual-result-row.is-ok|.is-bad`、`.dual-answer`、`.dual-mark`、`.dual-yours`；設定頁的段／次 chips 沿用 `.chips` 樣式即可。
 
 ## 11. 驗收清單
 

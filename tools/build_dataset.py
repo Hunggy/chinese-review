@@ -22,9 +22,10 @@
 
 欄位
 ----
-- mingju  : word=句子（簡體）、chinese=出處。
+- mingju  : word=句子（簡體）、chinese=出處（可寫成「屈原《離騷》」或只有「《詩經·周南·關雎》」）。
 - cijie   : word=詞、chinese=義、example=例句（繁體）。
 - changshi: word=問、chinese=答（繁體）。
+- 選填（所有題型）：seg=第幾段、exam=該段第幾次大測（皆為 >=1 的整數）。
 
 規則摘要
 --------
@@ -36,6 +37,10 @@
 4. 所有繁體欄位以 OpenCC t2s 產生簡體欄位；t2s 表逐字轉換、只留有差異的字。
 5. id 依「來源檔順序＋行號」編號（mj- / cj- / cs-），已知來源在前、新增來源按檔名排序，
    重跑穩定；重複條目會跳過。
+6. 名句的 chinese 若寫成「作者《出處》」，拆成 author_t/author_s 與 src_t/src_s（出處只留書名號）；
+   沒寫作者時由出處推斷（詩經／古詩十九首→佚名、楚辭→屈原，其餘暫定佚名並列進報告待覆核）。
+7. 每題都有 seg / exam：CSV 欄 seg、exam 優先；其次檔名（seg1／第1段、exam1／第1次）；
+   最後用 UNITS_CONFIG 的 seg／exam（預設 1）。分佈統計列在報告的 segments／exams。
 """
 
 from __future__ import annotations
@@ -67,22 +72,6 @@ OUT_JSON = ROOT / "data" / "dataset.json"
 OUT_REPORT = ROOT / "tools" / "build_report.json"
 
 
-def resolve_source(filename: str):
-    """（單檔查詢用）在多個來源目錄中找出檔案；同名時以較前面的目錄（source/）為準。
-
-    回傳 (path, 相對路徑字串)；都找不到時回傳 (None, None)。
-    """
-    for d in SOURCE_DIRS:
-        p = d / filename
-        if p.exists():
-            try:
-                rel = p.relative_to(ROOT).as_posix()
-            except ValueError:
-                rel = str(p)
-            return p, rel
-    return None, None
-
-
 T2S = opencc.OpenCC("t2s")
 S2T = opencc.OpenCC("s2t")
 
@@ -112,8 +101,8 @@ UNIT_SUFFIX_RE = re.compile(r"[_\-\s]*(cijie|mingju|changshi)$", re.I)
 SLUG_KEEP_RE = re.compile(r"[^a-z0-9]+")
 SLUG_ALNUM_RE = re.compile(r"[a-z]")
 # 佔位／說明／系統檔：略過且不算「待人工處理」
-PLACEHOLDER_HINTS = ("放教材", "readme", "說明", "说明", "note", "place",
-                     "gitkeep", "desktop.ini", "thumbs.db", ".ds_store")
+PLACEHOLDER_HINTS = ("放教材", "readme", "說明", "说明", "資材", "gitkeep",
+                     "desktop.ini", "thumbs.db", ".ds_store")
 CSV_EXT = ".csv"
 
 SPLIT_PUNCT = "，,；;：:？?！!"           # 名句切半用標點
@@ -126,6 +115,20 @@ LEAD_NOISE_RE = re.compile(r"^(?:一種|一類|一些|一個|某種|泛指|指|�
 TAIL_NOISE_RE = re.compile(r"(?:的樣子|的人|之事|之貌)$")
 GRAMMAR_META = ("作動詞", "用作動詞", "使動用法", "意動用法", "為動用法",
                 "詞類活用", "活用", "通假", "古今異義", "音譯")
+
+# ---------- 名句：作者／出處 ----------
+SRC_AUTHOR_RE = re.compile(r"^([^《》]+)《([^《》]+)》(.*)$")   # 「屈原《離騷》」→ 作者＋《出處》
+ANON_HINTS = ("詩經", "诗经", "古詩十九首", "古诗十九首")        # 無作者 → 佚名
+CHUCI_HINTS = ("楚辭", "楚辞")                                  # 無作者 → 屈原
+ANON_AUTHOR = "佚名"
+CHUCI_AUTHOR = "屈原"
+
+# ---------- 段／次大測：檔名 seg1 / seg 1 / 第1段 / exam1 / 第1次 ----------
+LEVEL_PATTERNS = {
+    "seg": (re.compile(r"seg\s*(\d+)", re.I), re.compile(r"第\s*(\d+)\s*段")),
+    "exam": (re.compile(r"exam\s*(\d+)", re.I), re.compile(r"第\s*(\d+)\s*次")),
+}
+LEVEL_KEYS = ("seg", "exam")
 
 
 # ---------- 小型工具 ----------
@@ -208,6 +211,82 @@ def clean_annotations(text: str) -> str:
 def is_grammar_meta(text: str) -> bool:
     """是否為語法／詞類活用之類的說明詞（不算義項關鍵詞）。"""
     return any(k in text for k in GRAMMAR_META)
+
+
+# ---------- 名句：作者／出處解析 ----------
+def split_author_source(text: str):
+    """把 chinese 欄拆成 (作者, 出處)。
+
+    - `屈原《離騷》`  → ("屈原", "《離騷》")
+    - `《詩經·大雅·蕩》` → ("", "《詩經·大雅·蕩》")（開頭就是書名號＝無作者）
+    - 沒書名號（如 `離騷`）→ ("", 原文)。出處一律保留書名號。
+    """
+    raw = (text or "").strip()
+    if not raw:
+        return "", ""
+    m = SRC_AUTHOR_RE.match(raw)
+    if not m:
+        return "", raw
+    author = m.group(1).strip()
+    if not author:
+        return "", raw
+    src = ("《%s》" % m.group(2).strip()) + m.group(3).strip()
+    return author, src
+
+
+def guess_author(src: str):
+    """沒有明寫作者時由出處推斷，回傳 (作者, 是否需人工覆核)。
+
+    詩經／古詩十九首 → 佚名（確定）；楚辭 → 屈原；其餘暫定佚名並要求人工覆核。
+    """
+    text = src or ""
+    if any(k in text for k in ANON_HINTS):
+        return ANON_AUTHOR, False
+    if any(k in text for k in CHUCI_HINTS):
+        return CHUCI_AUTHOR, False
+    return ANON_AUTHOR, True
+
+
+# ---------- 段／次大測 ----------
+def parse_level(text: str, kind: str):
+    """由檔名抓 seg／exam（seg1／第1段、exam1／第1次）；抓不到回傳 None。"""
+    for pat in LEVEL_PATTERNS[kind]:
+        m = pat.search(text or "")
+        if m:
+            n = int(m.group(1))
+            if n >= 1:
+                return n
+    return None
+
+
+def source_levels(filename: str, cfg: dict) -> dict:
+    """檔案層級的 seg／exam：檔名優先，其次 UNITS_CONFIG，最後 1。"""
+    out = {}
+    for kind in LEVEL_KEYS:
+        n = parse_level(filename, kind)
+        if n is None:
+            try:
+                n = int(cfg.get(kind, 1))
+            except (TypeError, ValueError):
+                n = 1
+            if n < 1:
+                n = 1
+        out[kind] = n
+    return out
+
+
+def row_level(rec: dict, kind: str, default: int):
+    """每行自己的 seg／exam（有填就用），回傳 (值, 是否為無效值)。"""
+    raw = (rec.get(kind) or "").strip()
+    if not raw:
+        return default, False
+    try:
+        n = int(raw)
+    except ValueError:
+        return default, True
+    if n < 1:
+        return default, True
+    return n, False
 
 
 # ---------- 詞解：義項與關鍵詞 ----------
@@ -305,7 +384,10 @@ def read_header(path: Path):
 
 
 def read_rows(path: Path):
-    """回傳 [(行號, {'word':…, 'chinese':…, 'example':…})]；行號從 1 起算（含表頭）。"""
+    """回傳 [(行號, {欄名: 值})]；行號從 1 起算（含表頭）。
+
+    表頭所有欄位原樣帶入（含選填的 seg / exam），缺欄位補空字串。
+    """
     with path.open("r", encoding="utf-8-sig", newline="") as fh:
         reader = csv.reader(fh)
         rows = list(reader)
@@ -347,7 +429,7 @@ def guess_module(filename: str, path: Path):
     header = read_header(path)
     if "example" in header:
         return "cijie", "表頭有 example 欄", True
-    return "changshi", "表頭無 example 欄（預設常識）", True
+    return "changshi", "表頭無 example 欄，預設為常識", True
 
 
 def unit_stem(filename: str) -> str:
@@ -445,21 +527,32 @@ def discover_sources():
 # ---------- 條目建構 ----------
 def build_mingju(rec: dict, unit: str):
     raw = rec.get("word", "").strip()
-    src = rec.get("chinese", "").strip()
+    src_raw = rec.get("chinese", "").strip()
     if not raw:
         return None, "word（句子）為空"
     t = s2t_fixed(raw)
+    author, src = split_author_source(src_raw)
+    need_review = False
+    if author:
+        author_use = author
+    else:
+        author_use, need_review = guess_author(src)
     note = ""
     if not any(ch in SPLIT_PUNCT for ch in raw):
         note = "原句無句讀標點，無法切半（仍保留）"
     if not src:
         note = (note + "；" if note else "") + "出處從缺"
-    return {
+    item = {
         "type": "mingju", "unit": unit,
         "t": t, "s": raw,
+        "author_t": s2t_fixed(author_use), "author_s": t2s(author_use),
         "src_t": s2t_fixed(src), "src_s": src,
         "note": note,
-    }, None
+    }
+    if need_review:
+        item["_author_note"] = ("出處「%s」判斷不出作者，暫定「%s」，請人工覆核"
+                                % (src or "(從缺)", author_use))
+    return item, None
 
 
 def build_cijie(rec: dict, unit: str):
@@ -534,6 +627,7 @@ def build_dataset(now: str = None):
 
     entries, manual_todo, ignored_files, shadowed = discover_sources()
     present = {e["file"].lower() for e in entries}
+    cfg_by_file = {c["file"].lower(): c for c in UNITS_CONFIG}
 
     # 已知來源檔缺席（兩個目錄都找不到）
     for cfg in UNITS_CONFIG:
@@ -552,6 +646,7 @@ def build_dataset(now: str = None):
 
         rows = read_rows(path)
         builder = BUILDERS[module]
+        levels = source_levels(e["file"], cfg_by_file.get(e["file"].lower(), {}))
         seen = {}
         count = 0
         skipped = 0
@@ -574,12 +669,24 @@ def build_dataset(now: str = None):
                               "raw": [rec.get("word", ""), rec.get("chinese", "")]})
                 continue
             seen[key] = line_no
+            # 段／次大測：每行自己的值優先，否則用檔案層級預設
+            bad = []
+            for kind in LEVEL_KEYS:
+                value, invalid = row_level(rec, kind, levels[kind])
+                item[kind] = value
+                if invalid:
+                    bad.append("%s=%r" % (kind, (rec.get(kind) or "").strip()))
+            if bad:
+                warnings.append("來源 %s:%d 的段／次大測欄位無效（%s），已改用預設 seg=%d exam=%d"
+                                % (e["file"], line_no, "、".join(bad),
+                                   levels["seg"], levels["exam"]))
             count += 1
             drafts.append(item)
 
         unit_stats.append({"file": e["file"], "source": e["rel"], "unit": unit,
                            "name": e["name"], "module": module, "known": e["known"],
                            "detected_by": e["detected_by"],
+                           "seg": levels["seg"], "exam": levels["exam"],
                            "count": count, "skipped": skipped})
         if count:
             units.append({"id": unit, "name": e["name"], "module": module})
@@ -594,16 +701,24 @@ def build_dataset(now: str = None):
     # 穩定 id：同 type 依出現順序編號
     counters = {"mingju": 0, "cijie": 0, "changshi": 0}
     items = []
+    author_review = []
     for d in drafts:
         t = d["type"]
         counters[t] = counters.get(t, 0) + 1
-        item = {"id": "%s-%03d" % (ID_PREFIX[t], counters[t]), "type": t, "unit": d["unit"]}
+        iid = "%s-%03d" % (ID_PREFIX[t], counters[t])
+        item = {"id": iid, "type": t, "unit": d["unit"],
+                "seg": d["seg"], "exam": d["exam"]}
         item["module"] = d["module"]
+        author_note = d.pop("_author_note", None)
         for k, v in d.items():
-            if k in ("type", "module", "unit"):
+            if k in ("type", "module", "unit", "seg", "exam"):
                 continue
             item[k] = v
         items.append(item)
+        if author_note:
+            author_review.append({"id": iid, "unit": d["unit"],
+                                  "src_t": d.get("src_t", ""), "reason": author_note})
+            warnings.append("名句 %s（%s）%s" % (iid, d["unit"], author_note))
 
     # t2s 對照表：收集所有繁體欄位的字，逐字轉換、只留有差異者
     t_fields = []
@@ -646,6 +761,12 @@ def build_dataset(now: str = None):
         "t2s": t2s_table,
     }
 
+    # 段／次大測分佈（鍵為字串，方便 JSON 穩定排序）
+    seg_counts, exam_counts = {}, {}
+    for it in items:
+        seg_counts[it["seg"]] = seg_counts.get(it["seg"], 0) + 1
+        exam_counts[it["exam"]] = exam_counts.get(it["exam"], 0) + 1
+
     report = {
         "generated_at": now,
         "source_dirs": [rel_path(d) for d in SOURCE_DIRS],
@@ -653,6 +774,9 @@ def build_dataset(now: str = None):
         "units": unit_stats,
         "module_counts": module_counts,
         "total": len(items),
+        "segments": {str(k): seg_counts[k] for k in sorted(seg_counts)},
+        "exams": {str(k): exam_counts[k] for k in sorted(exam_counts)},
+        "author_review": author_review,
         "skips": skips,
         "warnings": warnings,
         "manual_todo": manual_todo,
@@ -696,6 +820,8 @@ def print_report(dataset: dict, report: dict, show: str = None):
                          "" if st.get("known", True) else "，自動判斷：" + st["detected_by"]))
     print("模組題數：" + " / ".join("%s %d" % (m, c) for m, c in report["module_counts"].items())
           + "，合計 %d" % report["total"])
+    print("段／次大測分佈：seg " + "、".join("%s×%d" % (k, v) for k, v in report["segments"].items())
+          + "；exam " + "、".join("%s×%d" % (k, v) for k, v in report["exams"].items()))
     if report["skips"]:
         print("跳過 %d 筆：" % len(report["skips"]))
         for s in report["skips"]:
@@ -711,6 +837,10 @@ def print_report(dataset: dict, report: dict, show: str = None):
         for n in report["notes"]:
             print("  %s %s：%s" % (n["id"], n["unit"], n["note"]))
     print("t2s 對照表：%d 字" % report["t2s_count"])
+    if report.get("author_review"):
+        print("名句作者待人工覆核 %d 筆：" % len(report["author_review"]))
+        for a in report["author_review"]:
+            print("  %s %s" % (a["id"], a["reason"]))
     if report.get("warnings"):
         print("來源提醒 %d 筆：" % len(report["warnings"]))
         for w in report["warnings"]:
@@ -741,17 +871,19 @@ def print_report(dataset: dict, report: dict, show: str = None):
         limit = len(items) if show == "all" else max(0, int(show))
         for it in items[:limit]:
             if it["type"] == "mingju":
-                print("  %s [%s] t=%s | src=%s%s"
-                      % (it["id"], it["unit"], it["t"], it["src_t"],
+                print("  %s [%s seg%d/exam%d] t=%s | %s《%s》%s"
+                      % (it["id"], it["unit"], it["seg"], it["exam"], it["t"],
+                         it["author_t"], it["src_t"].strip("《》"),
                          (" | note=" + it["note"]) if it["note"] else ""))
             elif it["type"] == "cijie":
-                print("  %s [%s] q=%s | a=%s | k=%s%s"
-                      % (it["id"], it["unit"], it["q_t"], "／".join(it["a_t"]),
+                print("  %s [%s seg%d/exam%d] q=%s | a=%s | k=%s%s"
+                      % (it["id"], it["unit"], it["seg"], it["exam"], it["q_t"],
+                         "／".join(it["a_t"]),
                          ",".join(it["k_t"]),
                          (" | note=" + it["note"]) if it["note"] else ""))
             else:
-                print("  %s [%s] q=%s | a=%s | accept=%s"
-                      % (it["id"], it["unit"], it["q_t"], it["a_t"],
+                print("  %s [%s seg%d/exam%d] q=%s | a=%s | accept=%s"
+                      % (it["id"], it["unit"], it["seg"], it["exam"], it["q_t"], it["a_t"],
                          ",".join(it["accept"])))
 
 

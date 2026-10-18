@@ -65,6 +65,8 @@
   /* ---- 版面 ---- */
   --content-max: 720px;
   --gutter: 18px;
+  --actionbar-h: 74px;   /* sticky 操作列實測高度（12+48+12+1px 邊框） */
+  --toast-gap: 12px;     /* toast 與操作列的距離 */
 
   /* ---- 色彩：淺色（米白紙底・墨黑正文・朱砂強調・金棕次強調） ---- */
   --paper:       #F5EFE2;   /* 紙底 */
@@ -88,6 +90,8 @@
   --ok-soft:     rgba(44, 106, 76, 0.11);
   --bad:         #A32B1E;   /* 答錯（5.6:1） */
   --bad-soft:    rgba(163, 43, 30, 0.10);
+  --disabled-bg:  #E7E0D1;  /* 不可用：灰底 */
+  --disabled-ink: #635A4C;  /* 不可用：灰字（對灰底 5.2:1） */
   --surface-blur: rgba(252, 248, 239, 0.92);   /* sticky 條 */
   --scrim:       rgba(26, 22, 16, 0.46);
   --hero-ink-a:  #2C2620;   /* 標題漸層上 */
@@ -127,11 +131,13 @@ html[data-theme="dark"] {
   --gold:        #D3B070;
   --gold-fill:   #A5854A;
   --gold-soft:   rgba(211, 176, 112, 0.14);
-  --ok:          #7CC49B;
+  --ok:          #7CC49B;   /* 對比 8.6:1 */
   --ok-fill:     #4F9B72;
   --ok-soft:     rgba(124, 196, 155, 0.14);
   --bad:         #E88A77;
   --bad-soft:    rgba(232, 138, 119, 0.14);
+  --disabled-bg:  #272218;  /* 不可用：墨灰底 */
+  --disabled-ink: #9A9184;  /* 不可用：灰字（對灰底 4.3:1） */
   --surface-blur: rgba(27, 24, 18, 0.92);
   --scrim:       rgba(6, 5, 3, 0.66);
   --hero-ink-a:  #F5EFE1;
@@ -440,15 +446,7 @@ a { color: var(--accent-ink); text-underline-offset: 3px; }
 .btn-ghost.danger { color: var(--bad); border-color: var(--bad-soft); }
 .btn-ghost.danger:hover { background: var(--bad-soft); border-color: var(--bad); color: var(--bad); }
 
-.btn[disabled],
-.btn[aria-disabled="true"],
-.btn-mini[disabled] {
-  opacity: 0.5;
-  cursor: not-allowed;
-  box-shadow: none;
-  transform: none;
-  filter: none;
-}
+/* 不可用（disabled）樣式集中在 §5 末段，避免被 hover 規則蓋過 */
 
 .btn-mini {
   display: inline-flex;
@@ -475,6 +473,55 @@ a { color: var(--accent-ink); text-underline-offset: 3px; }
   color: var(--gold);
   background: var(--gold-soft);
   border-color: var(--gold);
+}
+
+/* ---- 不可用（disabled）：統一中性灰，一眼可辨「未可用」 ---- */
+.btn[disabled],
+.btn[aria-disabled="true"],
+.btn-mini[disabled],
+.seg[disabled],
+.chip[disabled],
+.tool[disabled] {
+  color: var(--disabled-ink);
+  background: var(--disabled-bg);
+  border-color: var(--line);
+  border-style: dashed;      /* 虛線＝不可用，與唯讀輸入框同一語言 */
+  box-shadow: none;
+  filter: none;
+  transform: none;
+  opacity: 1;
+  cursor: not-allowed;
+}
+
+/* 朱砂／danger 的停用鍵同樣褪成中性，不留紅色殘影 */
+.btn-primary[disabled],
+.btn-primary[aria-disabled="true"],
+.btn-ghost[disabled],
+.btn-ghost[aria-disabled="true"],
+.btn-ghost.danger[disabled],
+.btn-ghost.danger[aria-disabled="true"],
+.btn-mini[aria-pressed="true"][disabled] {
+  color: var(--disabled-ink);
+  background: var(--disabled-bg);
+  border-color: var(--line);
+}
+
+/* 停用時不回應 hover / active，避免看起來仍可按 */
+.btn[disabled]:hover,
+.btn[disabled]:active,
+.btn[aria-disabled="true"]:hover,
+.btn[aria-disabled="true"]:active,
+.btn-mini[disabled]:hover,
+.btn-mini[disabled]:active,
+.seg[disabled]:hover,
+.chip[disabled]:hover,
+.tool[disabled]:hover {
+  color: var(--disabled-ink);
+  background: var(--disabled-bg);
+  border-color: var(--line);
+  box-shadow: none;
+  filter: none;
+  transform: none;
 }
 
 /* ==========================================================================
@@ -634,19 +681,25 @@ a { color: var(--accent-ink); text-underline-offset: 3px; }
 
 .module-progress {
   display: block;
-  height: 3px;
+  height: 5px;
   margin-top: var(--sp-2);
   background: var(--paper-3);
+  box-shadow: inset 0 0 0 1px var(--line);   /* 深色下槽身仍有輪廓 */
   border-radius: var(--r-pill);
   overflow: hidden;
 }
 .module-progress i {
   display: block;
   height: 100%;
+  min-width: 4px;                            /* 有進度就一定看得見 */
   background-image: linear-gradient(90deg, var(--gold-fill), var(--accent));
   border-radius: inherit;
   transition: width var(--t-slow) var(--ease);
 }
+/* 完全沒有進度（0%）時不留任何色點 */
+.module-progress i[style*="width:0%"],
+.module-progress i[style*="width: 0%"],
+.module-progress i[style*="width:0 %"] { min-width: 0; }
 
 .module-card-go {
   flex: none;
@@ -1076,6 +1129,18 @@ a { color: var(--accent-ink); text-underline-offset: 3px; }
   gap: var(--sp-2);
   margin-top: var(--sp-5);
 }
+
+/* 翻卡正面／背面用同一條格線：卡片具最小高度，自評按鈕組以 margin-top:auto 貼底，
+   並用 order 把「答案 → 自評」的視覺次序固定下來（DOM 次序不變），
+   兩個狀態的按鈕位置與間距一致，翻面時不會跳動。 */
+.qcard[data-state^="flash"] {
+  display: flex;
+  flex-direction: column;
+  min-height: min(560px, 70vh);
+}
+.qcard[data-state^="flash"] .q-hint { order: 3; }
+.qcard[data-state^="flash"] .answer-box { order: 4; }
+.qcard[data-state^="flash"] .card-controls { order: 5; margin-top: auto; }
 
 /* ---- 判分結果 ---- */
 .verdict {
@@ -1557,10 +1622,11 @@ a { color: var(--accent-ink); text-underline-offset: 3px; }
 .toast {
   position: fixed;
   left: 50%;
-  bottom: calc(84px + env(safe-area-inset-bottom, 0px));
+  /* 永遠浮在黏底操作列之上 12px（含 iPhone 安全區） */
+  bottom: calc(var(--actionbar-h) + var(--toast-gap) + env(safe-area-inset-bottom, 0px));
   z-index: 60;
   width: max-content;
-  max-width: min(88vw, 420px);
+  max-width: calc(100% - 32px);
   padding: 10px var(--sp-5);
   font-size: var(--fs-sm);
   text-align: center;
@@ -1689,7 +1755,7 @@ html[data-theme="dark"] .answer-input[disabled] { background: var(--paper-3); }
   .stats-actions { grid-template-columns: repeat(2, 1fr); }
   .settings-actions { grid-template-columns: repeat(2, 1fr); }
   .settings-actions .btn.danger { grid-column: 1 / -1; }
-  .toast { bottom: calc(28px + env(safe-area-inset-bottom, 0px)); }
+  .toast { bottom: calc(var(--actionbar-h) + var(--toast-gap) + env(safe-area-inset-bottom, 0px)); }
   .quiz-actions { border-radius: var(--r-md); }
 }
 
@@ -1708,7 +1774,7 @@ html[data-theme="dark"] .answer-input[disabled] { background: var(--paper-3); }
   }
   .quiz-actions::before { left: var(--sp-2); right: var(--sp-2); top: -1px; }
   .quiz-actions .btn-mini { padding-inline: var(--sp-4); }
-  .toast { bottom: 32px; }
+  .toast { max-width: min(calc(100% - 32px), 420px); }
 }
 
 @media (min-width: 1080px) {
@@ -1752,6 +1818,20 @@ html[data-theme="dark"] .answer-input[disabled] { background: var(--paper-3); }
   .quiz-actions { gap: 6px; }
   .quiz-actions .btn-mini { padding-inline: 10px; font-size: var(--fs-2xs); }
   .quick-row { grid-template-columns: repeat(2, 1fr); }
+  :root { --actionbar-h: 126px; }   /* 操作條可能折成兩行 */
+}
+
+/* 窄機（≤380px）：收窄間距與標題字級，保 44px 觸控鍵不被擠走 */
+@media (max-width: 380px) {
+  .appbar { gap: 6px; padding-inline: 14px; }
+  .appbar-tools { gap: 2px; }
+  .appbar-title-main { font-size: var(--fs-md); letter-spacing: 0.02em; }
+}
+
+/* 極窄（≤344px）：工具列換行，不用縮小觸控區換空間 */
+@media (max-width: 344px) {
+  .appbar { flex-wrap: wrap; }
+  .appbar-tools { flex: 1 0 100%; justify-content: flex-end; }
 }
 
 /* 窄機（≤439px）：標題副行會擠壓工具列，直接收起（首頁 hero 已有相同訊息） */
@@ -1762,4 +1842,45 @@ html[data-theme="dark"] .answer-input[disabled] { background: var(--paper-3); }
 @media print {
   .appbar, .quiz-actions, .toast, .overlay, .quick-row { display: none !important; }
   body::before, body::after { display: none; }
+}
+
+/* ==========================================================================
+   作者・出處（v1.1）：雙欄輸入與逐欄判分
+   ========================================================================== */
+.answer-form--dual { display: grid; gap: var(--sp-3); }
+.answer-form--dual .dual-field { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.answer-form--dual .field-label {
+  font-size: var(--fs-2xs); font-weight: 600; letter-spacing: .08em; color: var(--ink-3);
+}
+.answer-form--dual .answer-input { min-width: 0; }
+.answer-form--dual .btn { width: 100%; }
+
+@media (min-width: 560px) {
+  .answer-form--dual { grid-template-columns: 1fr 1fr; }
+  .answer-form--dual .btn { grid-column: 1 / -1; }
+}
+
+.dual-result { display: flex; flex-direction: column; gap: 8px; margin-top: var(--sp-3); }
+.dual-result-row {
+  display: grid; grid-template-columns: auto 1fr auto; gap: 10px; align-items: baseline;
+  padding: 10px 12px; border: 1px solid var(--line); border-radius: var(--r-sm);
+  background: var(--paper-2);
+}
+.dual-result-row .field-label {
+  font-size: var(--fs-2xs); font-weight: 600; letter-spacing: .06em;
+  color: var(--ink-3); white-space: nowrap;
+}
+.dual-answer { font-family: var(--font-serif); overflow-wrap: anywhere; }
+.dual-mark { font-weight: 700; font-size: var(--fs-md); }
+.dual-result-row.is-ok { border-color: var(--ok); background: var(--ok-soft); }
+.dual-result-row.is-ok .dual-mark { color: var(--ok); }
+.dual-result-row.is-bad { border-color: var(--bad); background: var(--bad-soft); }
+.dual-result-row.is-bad .dual-mark { color: var(--bad); }
+.dual-yours {
+  grid-column: 1 / -1; font-size: var(--fs-2xs); color: var(--ink-3);
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 439px) {
+  .dual-result-row { gap: 6px; padding: 8px 10px; }
 }

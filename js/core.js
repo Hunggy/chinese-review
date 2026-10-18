@@ -158,14 +158,93 @@
 
   function units_for_module(module_id) { return unit_rows(module_id); }
 
-  /* 範圍過濾：unit_ids 為 ['all'] 或空 → 全部 */
-  function filter_by_units(items, unit_ids) {
-    if (!is_array(unit_ids) || !unit_ids.length || unit_ids.indexOf('all') >= 0) return items.slice();
-    return items.filter(function (it) { return unit_ids.indexOf(it.unit) >= 0; });
+  /* 範圍過濾：unit_ids 為 ['all'] 或空 → 全部；filters 可再疊加段／次（向後兼容） */
+  function filter_by_units(items, unit_ids, filters) {
+    var out;
+    if (!is_array(unit_ids) || !unit_ids.length || unit_ids.indexOf('all') >= 0) out = items.slice();
+    else out = items.filter(function (it) { return unit_ids.indexOf(it.unit) >= 0; });
+    return filters ? filter_by_scope(out, filters) : out;
   }
 
-  function items_for(module_id, unit_ids) {
-    return filter_by_units(items_for_module(module_id), unit_ids);
+  function items_for(module_id, unit_ids, filters) {
+    return filter_by_units(items_for_module(module_id), unit_ids, filters);
+  }
+
+  /* ============================================================
+   * 1b. 段／次大測（seg / exam，spec §3.5）
+   * ============================================================ */
+
+  function int_field(item, name) {
+    var v = item ? item[name] : null;
+    var n = parseInt(v, 10);
+    return (isFinite(n) && n >= 1) ? n : 1;
+  }
+
+  function item_seg(item) { return int_field(item, 'seg'); }
+  function item_exam(item) { return int_field(item, 'exam'); }
+
+  /* 資料是否帶段／次欄位（瀏覽／統計的標籤只在有資料時顯示） */
+  function has_scope_field(item) {
+    if (!item) return false;
+    var a = item.seg, b = item.exam;
+    return (a !== undefined && a !== null && a !== '') || (b !== undefined && b !== null && b !== '');
+  }
+
+  function scope_label(item, opts) {
+    if (!has_scope_field(item) && !(opts && opts.force)) return '';
+    return '第 ' + item_seg(item) + ' 段・第 ' + item_exam(item) + ' 次大測';
+  }
+
+  function scope_label_seg(v) { return '第 ' + v + ' 段'; }
+  function scope_label_exam(v) { return '第 ' + v + ' 次'; }
+
+  /* 段／次的合法值：'all' 或 1 起的數字字串 */
+  function norm_scope_value(v) {
+    if (v === undefined || v === null || v === '' || v === 'all') return 'all';
+    var n = parseInt(v, 10);
+    return (isFinite(n) && n >= 1) ? String(n) : 'all';
+  }
+
+  function scope_values(items, kind) {
+    var seen = {}, out = [], i, v;
+    for (i = 0; i < items.length; i++) {
+      v = kind === 'exam' ? item_exam(items[i]) : item_seg(items[i]);
+      if (!seen[v]) { seen[v] = 1; out.push(v); }
+    }
+    out.sort(function (a, b) { return a - b; });
+    return out;
+  }
+
+  /* [{value:1, label:'第 1 段', count:n}] */
+  function seg_rows(items) {
+    return scope_values(items, 'seg').map(function (v) {
+      var n = 0, i;
+      for (i = 0; i < items.length; i++) { if (item_seg(items[i]) === v) n += 1; }
+      return { id: String(v), value: v, label: scope_label_seg(v), count: n };
+    });
+  }
+
+  /* 指定段內的次（seg 為 'all' → 所有次） */
+  function exam_rows(items, seg) {
+    var base = filter_by_scope(items, { seg: seg });
+    return scope_values(base, 'exam').map(function (v) {
+      var n = 0, i;
+      for (i = 0; i < base.length; i++) { if (item_exam(base[i]) === v) n += 1; }
+      return { id: String(v), value: v, label: scope_label_exam(v), count: n };
+    });
+  }
+
+  function filter_by_scope(items, opts) {
+    opts = opts || {};
+    var seg = norm_scope_value(opts.seg), exam = norm_scope_value(opts.exam);
+    if (seg === 'all' && exam === 'all') return items.slice();
+    var sn = seg === 'all' ? 0 : parseInt(seg, 10);
+    var en = exam === 'all' ? 0 : parseInt(exam, 10);
+    return items.filter(function (it) {
+      if (sn && item_seg(it) !== sn) return false;
+      if (en && item_exam(it) !== en) return false;
+      return true;
+    });
   }
 
   /* ============================================================
@@ -194,6 +273,41 @@
     if (!t) t = s;
     if (!s) s = t;
     return { t: t, s: s };
+  }
+
+  /* 作者欄位缺資料時視為「佚名」（詩經／古詩十九首等本無作者） */
+  var ANON_NAMES = ['佚名', '無名氏', '不詳'];
+
+  function author_pair(item) {
+    var p = pair(item, 'author');
+    if (!p.t && !p.s) return { t: ANON_NAMES[0], s: to_simple(ANON_NAMES[0]) };
+    return p;
+  }
+
+  function source_pair(item) { return pair(item, 'src'); }
+
+  /* 是否為「佚名」類寫法（含簡體變體） */
+  function is_anon_text(text) {
+    var n = norm(text);
+    if (!n) return false;
+    var forms = ANON_NAMES.concat(ANON_NAMES.map(to_simple)), i;
+    for (i = 0; i < forms.length; i++) { if (norm(forms[i]) === n) return true; }
+    return false;
+  }
+
+  /* 作者 +《出處》組合成一個字串（出處已含書名號時不重複加） */
+  function join_author_src(author, src) {
+    var a = str(author).trim(), s = str(src).trim();
+    if (!s) return a;
+    if (!a) return s;
+    if (s.charAt(0) === '《' || s.charAt(0) === '【') return a + s;
+    return a + '《' + s + '》';
+  }
+
+  /* 名句「作者・出處」模式的組合答案（選擇題選項用） */
+  function author_variant(item) {
+    var a = author_pair(item), s = source_pair(item);
+    return { t: join_author_src(a.t, s.t), s: join_author_src(a.s, s.s) };
   }
 
   /* 取繁/簡成對欄位（如 a_t/a_s、src_t/src_s）；缺簡體欄位時退回繁體 */
@@ -229,7 +343,11 @@
   }
 
   /* 去掉口語外殼後再正規化（詞解／常識用） */
-  var WRAP_PREFIX = ['答案是', '答案應是', '答案应为', '應為', '应为', '是指', '指的是', '就是', '意思是', '意為', '意为', '即', '指', '為', '是'];
+  var WRAP_PREFIX = [
+    '答案是', '答案應是', '答案应为',
+    '作者是', '作者為', '作者为', '出處是', '出處為', '出处是', '出处为',
+    '應為', '应为', '是指', '指的是', '就是', '意思是', '意為', '意为', '即', '指', '為', '是'
+  ];
   var WRAP_SUFFIX = ['的意思', '之意', '的含義', '的含义', '的意義', '的意义', '意思', '含義', '含义'];
   var LEAD_RE = /^[「『“"'（）()《》【】\[\]\s、，,。.；;：:！!？?]+/;
 
@@ -316,8 +434,15 @@
 
     if (type === 'mingju') {
       var mp = mingju_pair(item, opts.direction);
-      var target = norm(mp.answer_t);
       got = norm(raw);
+      if (opts.direction === 'author') {
+        /* 程式化呼叫（單一欄位）時，比對「作者《出處》」組合 */
+        var av = author_variant(item);
+        var a_forms = uniq([norm(raw), norm_answer(raw)]).filter(Boolean);
+        var a_targets = uniq([norm(av.t), norm(av.s)]).filter(Boolean);
+        return { ok: norm_match(a_forms, a_targets), expected: av.t, got: got, reason: 'author' };
+      }
+      var target = norm(mp.answer_t);
       return { ok: !!target && got === target, expected: mp.answer_t, got: got, reason: 'mingju' };
     }
 
@@ -368,6 +493,54 @@
     return { ok: false, expected: ch.a.t, got: got, reason: 'mismatch' };
   }
 
+  /* 任一組寫法等於任一標準答案 */
+  function norm_match(forms, targets) {
+    var i, j;
+    for (i = 0; i < forms.length; i++) {
+      if (!forms[i]) continue;
+      for (j = 0; j < targets.length; j++) {
+        if (targets[j] && forms[i] === targets[j]) return true;
+      }
+    }
+    return false;
+  }
+
+  /* 名句「作者・出處」判分：兩欄都對才算 ok；回傳逐欄結果（spec §7） */
+  function grade_author(item, author_text, source_text, opts) {
+    opts = opts || {};
+    var a_raw = str(author_text).trim(), s_raw = str(source_text).trim();
+    var exp_a = author_pair(item), exp_s = source_pair(item);
+    var out = {
+      ok: false,
+      author_ok: false,
+      source_ok: false,
+      expected_author: exp_a.t,
+      expected_author_s: exp_a.s,
+      expected_source: exp_s.t,
+      expected_source_s: exp_s.s,
+      got_author: a_raw,
+      got_source: s_raw,
+      author_empty: !norm(a_raw),
+      source_empty: !norm(s_raw),
+      reason: 'author'
+    };
+    if (out.author_empty && out.source_empty) { out.empty = true; out.reason = 'empty'; return out; }
+
+    var a_forms = uniq([norm(a_raw), norm_answer(a_raw)]).filter(Boolean);
+    var s_forms = uniq([norm(s_raw), norm_answer(s_raw)]).filter(Boolean);
+    var a_targets = uniq([norm(exp_a.t), norm(exp_a.s)]).filter(Boolean);
+    var s_targets = uniq([norm(exp_s.t), norm(exp_s.s)]).filter(Boolean);
+    /* 標準為「佚名」時，接受無名氏／不詳 */
+    var anon_targets = ANON_NAMES.concat(ANON_NAMES.map(to_simple)).map(norm).filter(Boolean);
+    var anon_expected = norm_match(a_targets, anon_targets);
+
+    out.author_ok = norm_match(a_forms, a_targets) || (anon_expected && norm_match(a_forms, anon_targets));
+    out.source_ok = !!(s_forms.length && s_targets.length) && norm_match(s_forms, s_targets);
+    out.ok = out.author_ok && out.source_ok;
+    if (!out.ok) out.reason = (out.author_ok ? 'source' : (out.source_ok ? 'author' : 'both'));
+    return out;
+  }
+
   /* 關鍵詞正規化：長度 ≥ 1 漢字 */
   function cs_keywords(cd) {
     var out = [], i;
@@ -380,7 +553,10 @@
   function expected_text(item, opts) {
     opts = opts || {};
     if (!item) return '';
-    if (item.type === 'mingju') return mingju_pair(item, opts.direction).answer_t;
+    if (item.type === 'mingju') {
+      if (opts.direction === 'author') return author_variant(item).t;
+      return mingju_pair(item, opts.direction).answer_t;
+    }
     if (item.type === 'cijie') return list_pair(item, 'a').t[0] || '';
     return pair(item, 'a').t;
   }
@@ -389,6 +565,7 @@
   function answer_variants(item, direction) {
     if (!item) return { t: '', s: '' };
     if (item.type === 'mingju') {
+      if (direction === 'author') return author_variant(item);
       var mp = mingju_pair(item, direction);
       return { t: mp.answer_t, s: mp.answer_s };
     }
@@ -409,6 +586,11 @@
     var rng = opts.rng || make_rng(opts.seed === undefined ? undefined : opts.seed);
     var direction = opts.direction;
     pool = is_array(pool) && pool.length ? pool : all_items();
+    /* 作者・出處模式：干擾項一律用其他名句的「作者《出處》」組合 */
+    if (direction === 'author') {
+      var only_mj = pool.filter(function (it) { return it && it.type === 'mingju'; });
+      if (only_mj.length >= 4) pool = only_mj;
+    }
     var correct = answer_variants(item, direction);
     var seen = {};
     seen[norm(correct.t)] = 1;
@@ -482,7 +664,7 @@
     } else if (is_array(opts.ids) && opts.ids.length) {
       items = opts.ids.map(item_by_id).filter(Boolean);
     } else {
-      items = items_for(module_id, opts.units);
+      items = items_for(module_id, opts.units, { seg: opts.seg, exam: opts.exam });
     }
 
     var ids = items.map(function (it) { return it.id; });
@@ -495,9 +677,11 @@
       module: module_id,
       mode: mode,
       question: opts.question || 'type',
-      direction: opts.direction === 'sh' ? 'sh' : 'hs',
+      direction: (opts.direction === 'sh' || opts.direction === 'author') ? opts.direction : 'hs',
       order: order,
       units: opts.units || ['all'],
+      seg: norm_scope_value(opts.seg),
+      exam: norm_scope_value(opts.exam),
       seed: seed,
       rng: rng,
       item_map: item_map,
@@ -554,6 +738,7 @@
       user: str(payload.user),
       gaveup: !!payload.gaveup,
       mc: payload.mc || null,
+      dual: payload.dual || null,
       ts: Date.now(),
       seq: s.history.length,
       mode: s.mode,
@@ -672,6 +857,8 @@
       question: 'type',
       direction: 'hs',
       module: 'mingju',
+      seg: 'all',
+      exam: 'all',
       units: {}
     };
   }
@@ -717,8 +904,10 @@
     if (['shuffle', 'original'].indexOf(s.order) < 0) s.order = d.order;
     if (['practice', 'speed', 'flash'].indexOf(s.mode) < 0) s.mode = d.mode;
     if (['type', 'mc'].indexOf(s.question) < 0) s.question = d.question;
-    if (['hs', 'sh'].indexOf(s.direction) < 0) s.direction = d.direction;
+    if (['hs', 'sh', 'author'].indexOf(s.direction) < 0) s.direction = d.direction;
     if (['mingju', 'cijie', 'changshi', 'mixed'].indexOf(s.module) < 0) s.module = d.module;
+    s.seg = norm_scope_value(s.seg);
+    s.exam = norm_scope_value(s.exam);
     if (!s.units || typeof s.units !== 'object' || is_array(s.units)) s.units = {};
     return s;
   }
@@ -997,7 +1186,7 @@
 
   function search_haystack(item) {
     if (!item) return '';
-    var parts = [item.t, item.s, item.q_t, item.q_s, item.w_t, item.w_s, item.src_t, item.src_s, item.note];
+    var parts = [item.t, item.s, item.q_t, item.q_s, item.w_t, item.w_s, item.src_t, item.src_s, item.author_t, item.author_s, item.note];
     var lists = ['a_t', 'a_s', 'k_t', 'k_s', 'accept'];
     var i, j, v;
     for (i = 0; i < lists.length; i++) {
@@ -1047,6 +1236,14 @@
       if (opts.flash) {
         var full = sentence(item);
         return { ask: '看句子，回想出處：', prompt: use_s ? full.s : full.t, hint: '' };
+      }
+      if (opts.direction === 'author') {
+        var full2 = sentence(item);
+        return {
+          ask: '寫出作者與出處：',
+          prompt: use_s ? full2.s : full2.t,
+          hint: '作者與出處兩欄都答對才算對（繁簡皆可）'
+        };
       }
       return {
         ask: mp.ask,
@@ -1144,11 +1341,27 @@
     units_for_module: units_for_module,
     items_for: items_for,
     filter_by_units: filter_by_units,
+    filter_by_scope: filter_by_scope,
+    item_seg: item_seg,
+    item_exam: item_exam,
+    has_scope: has_scope_field,
+    scope_label: scope_label,
+    scope_label_seg: scope_label_seg,
+    scope_label_exam: scope_label_exam,
+    scope_values: scope_values,
+    seg_rows: seg_rows,
+    exam_rows: exam_rows,
+    norm_scope_value: norm_scope_value,
     str_field: str_field,
     list_field: list_field,
     pair: pair,
     list_pair: list_pair,
     sentence: sentence,
+    author_pair: author_pair,
+    source_pair: source_pair,
+    author_variant: author_variant,
+    join_author_src: join_author_src,
+    is_anon_text: is_anon_text,
 
     /* 文字 */
     t2s_map: t2s_map,
@@ -1165,6 +1378,8 @@
     changshi_data: changshi_data,
     cs_keywords: cs_keywords,
     grade_text: grade_text,
+    grade_author: grade_author,
+    norm_match: norm_match,
     expected_text: expected_text,
     answer_variants: answer_variants,
 
