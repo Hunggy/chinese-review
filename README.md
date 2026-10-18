@@ -33,6 +33,19 @@ python -m http.server 8137
 3. 等一兩分鐘，開 `https://<帳號>.github.io/<專案名>/`。
    所有路徑都是相對路徑，放在子目錄也能正常運作。
 
+### 一鍵推送（改完教材用這個）
+
+更新題庫後，雙擊 **`push.bat`**（或在終端跑 `pwsh -File .\push.ps1`）：
+
+1. 重建題庫（`source/` + `data/source/`）
+2. 驗證資料、跑邏輯測試（有錯會停，不會推壞資料）
+3. 自動更新 `sw.js` 的 `VERSION`（強制瀏覽器換新快取）
+4. `git add → commit → push`
+5. 等 Pages 建置完成並印出網址
+
+可自訂訊息：`pwsh -File .\push.ps1 -Message "feat: 新增第2段名句"`；
+想跳過測試（不建議）：`-NoTest`。
+
 ### 加到主畫面（離線使用）
 
 - **iPhone / iPad（Safari）**：分享 → 「加入主畫面」。
@@ -215,7 +228,7 @@ docs/spec.md               規格書
 ## 7. 測試
 
 ```bash
-node tools/test_core.mjs          # 165 項斷言：判分、作者出處、段次、佇列、儲存、搜尋、全量回歸
+node tools/test_core.mjs          # 全量斷言：判分、作者出處、段次、佇列、儲存、搜尋、全量回歸
 node --check js/core.js           # 語法檢查（ui.js / main.js / sw.js 同理）
 python tools/validate_data.py     # 資料結構與繁簡對照校驗
 ```

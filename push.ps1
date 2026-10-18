@@ -25,6 +25,12 @@ $ErrorActionPreference = "Stop"
 $root = Split-Path -Parent $MyInvocation.MyCommand.Path
 Set-Location $root
 
+# 中文輸出（Windows PowerShell 5.1 / pwsh 都適用）
+try {
+  [Console]::OutputEncoding = New-Object System.Text.UTF8Encoding($false)
+  $OutputEncoding = [Console]::OutputEncoding
+} catch { }
+
 function Write-Step($text) {
   Write-Host ""
   Write-Host "== $text" -ForegroundColor Cyan
