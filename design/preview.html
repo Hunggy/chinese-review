@@ -1,0 +1,916 @@
+<!doctype html>
+<html lang="zh-Hant" data-theme="light" data-script="t" data-font="md">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>設計預覽 · 中文溫習</title>
+<link rel="stylesheet" href="../css/style.css">
+<style>
+/* ==========================================================================
+   只屬於預覽頁的外框（pv-* 前綴，不屬於產品樣式）
+   ========================================================================== */
+:root { --pv-barh: 54px; }
+
+.pv-bar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  background: #191712;
+  color: #EFE8D8;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+  font-family: "PingFang HK", "Microsoft JhengHei", system-ui, sans-serif;
+}
+.pv-brand {
+  font-family: var(--font-serif);
+  font-size: 12px;
+  letter-spacing: 0.22em;
+  color: #C9BFA9;
+  margin-right: 4px;
+  white-space: nowrap;
+}
+.pv-tabs { display: flex; flex-wrap: wrap; gap: 6px; }
+.pv-tab {
+  min-height: 34px;
+  padding: 0 11px;
+  font-size: 12px;
+  color: #E7E0D0;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background-color 160ms, border-color 160ms, color 160ms;
+}
+.pv-tab:hover { background: rgba(255, 255, 255, 0.1); }
+.pv-tab.is-on { background: #B23A2C; border-color: #B23A2C; color: #FFF8EC; font-weight: 600; }
+.pv-tools { display: flex; flex-wrap: wrap; gap: 6px; margin-left: auto; }
+.pv-tog {
+  min-height: 34px;
+  padding: 0 12px;
+  font-size: 12px;
+  color: #EFE8D8;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 8px;
+  cursor: pointer;
+}
+.pv-tog:hover { background: rgba(255, 255, 255, 0.16); }
+.pv-hint {
+  width: 100%;
+  font-size: 11px;
+  line-height: 1.6;
+  color: #9C9384;
+  letter-spacing: 0.02em;
+}
+
+.pv-stage { display: block; }
+/* 預覽時 appbar 不黏頂，避免與上方工具列重疊 */
+.pv-stage .appbar { position: static; }
+.pv-stage.is-phone {
+  max-width: 390px;
+  margin: 18px auto 40px;
+  border: 1px solid rgba(0, 0, 0, 0.28);
+  border-radius: 26px;
+  overflow: clip;
+  box-shadow: 0 24px 70px -34px rgba(0, 0, 0, 0.65);
+}
+.pv-stage.is-phone .appbar,
+.pv-stage.is-phone .screen { max-width: 390px; }
+</style>
+</head>
+<body>
+
+<!-- 預覽工具列（非產品樣式） -->
+<div class="pv-bar">
+  <span class="pv-brand">設計預覽</span>
+  <div class="pv-tabs">
+    <button class="pv-tab is-on" data-target="s-home" aria-pressed="true">首頁</button>
+    <button class="pv-tab" data-target="s-setup" aria-pressed="false">練習設定</button>
+    <button class="pv-tab" data-target="s-quiz-ask" aria-pressed="false">答題·名句未答</button>
+    <button class="pv-tab" data-target="s-quiz-ok" aria-pressed="false">答題·答對</button>
+    <button class="pv-tab" data-target="s-quiz-bad" aria-pressed="false">答題·答錯</button>
+    <button class="pv-tab" data-target="s-quiz-cijie" aria-pressed="false">答題·詞解</button>
+    <button class="pv-tab" data-target="s-mc-ask" aria-pressed="false">選擇題·未答</button>
+    <button class="pv-tab" data-target="s-mc-done" aria-pressed="false">選擇題·已答</button>
+    <button class="pv-tab" data-target="s-flash-front" aria-pressed="false">翻卡·正面</button>
+    <button class="pv-tab" data-target="s-flash-back" aria-pressed="false">翻卡·背面</button>
+    <button class="pv-tab" data-target="s-review" aria-pressed="false">回顧</button>
+    <button class="pv-tab" data-target="s-result" aria-pressed="false">結算</button>
+    <button class="pv-tab" data-target="s-browse" aria-pressed="false">瀏覽</button>
+    <button class="pv-tab" data-target="s-browse-empty" aria-pressed="false">瀏覽·無結果</button>
+    <button class="pv-tab" data-target="s-stats" aria-pressed="false">錯題統計</button>
+    <button class="pv-tab" data-target="s-stats-empty" aria-pressed="false">錯題·空</button>
+    <button class="pv-tab" data-target="s-settings" aria-pressed="false">設定頁</button>
+    <button class="pv-tab" data-target="s-dialog" aria-pressed="false">對話框＋提示</button>
+  </div>
+  <div class="pv-tools">
+    <button class="pv-tog" data-pv-toggle="theme">深色／淺色</button>
+    <button class="pv-tog" data-pv-toggle="script" data-script-label>繁／簡</button>
+    <button class="pv-tog" data-pv-toggle="font">字號</button>
+    <button class="pv-tog" data-pv-toggle="width">手機框</button>
+  </div>
+  <p class="pv-hint" data-pv-hint>字號：md（基準 17.8px）・字形：繁體・主題：淺色。所有畫面與狀態以假資料呈現，供對照實作。</p>
+</div>
+
+<div class="pv-stage" id="pv-stage">
+
+  <!-- 共用 Appbar -->
+  <header class="appbar">
+    <button class="appbar-back" data-action="back" aria-label="返回">‹</button>
+    <div class="appbar-title">
+      <div class="appbar-title-main" data-t="中文溫習" data-s="中文温习">中文溫習</div>
+      <div class="appbar-title-sub" data-t="練習 · 自動判分 · 繁簡皆可" data-s="练习 · 自动判分 · 繁简皆可">練習 · 自動判分 · 繁簡皆可</div>
+    </div>
+    <div class="appbar-tools">
+      <button class="tool" data-action="toggle-script" title="切換繁簡" data-t="繁" data-s="简">繁</button>
+      <button class="tool" data-action="toggle-theme" title="深色模式">🌙</button>
+      <button class="tool" data-action="font-dec" title="縮小字號">A-</button>
+      <button class="tool" data-action="font-inc" title="放大字號">A+</button>
+    </div>
+  </header>
+
+  <!-- ============================ 首頁 ============================ -->
+  <section class="screen" id="s-home" data-screen="home">
+    <section class="hero">
+      <p class="hero-kicker" data-t="文言 · 默寫 · 詞解" data-s="文言 · 默写 · 词解">文言 · 默寫 · 詞解</p>
+      <h1 class="hero-title" data-t="中文溫習" data-s="中文温习">中文溫習</h1>
+      <p class="hero-sub" data-t="每天十分鐘，把名句與詞解記牢。" data-s="每天十分钟，把名句与词解记牢。">每天十分鐘，把名句與詞解記牢。</p>
+      <div class="hero-stats">
+        <div class="stat"><span class="stat-value">12</span><span class="stat-label" data-t="今日已答" data-s="今日已答">今日已答</span></div>
+        <div class="stat"><span class="stat-value">76%</span><span class="stat-label" data-t="正確率" data-s="正确率">正確率</span></div>
+        <div class="stat"><span class="stat-value">8</span><span class="stat-label" data-t="待複習" data-s="待复习">待複習</span></div>
+      </div>
+    </section>
+
+    <div class="module-grid">
+      <button class="module-card" data-module="mingju">
+        <span class="module-card-no">一</span>
+        <span class="module-card-body">
+          <span class="module-card-name" data-t="名句默寫" data-s="名句默写">名句默寫</span>
+          <span class="module-card-desc" data-t="給上／下半句，手寫默出" data-s="给上／下半句，手写默出">給上／下半句，手寫默出</span>
+          <span class="module-card-meta" data-t="共 52 題 · 已掌握 18" data-s="共 52 题 · 已掌握 18">共 52 題 · 已掌握 18</span>
+          <span class="module-progress"><i style="width:35%"></i></span>
+        </span>
+        <span class="module-card-go">›</span>
+      </button>
+
+      <button class="module-card" data-module="cijie">
+        <span class="module-card-no">二</span>
+        <span class="module-card-body">
+          <span class="module-card-name" data-t="詞解" data-s="词解">詞解</span>
+          <span class="module-card-desc" data-t="解釋句中加點詞，近義算對" data-s="解释句中加点词，近义算对">解釋句中加點詞，近義算對</span>
+          <span class="module-card-meta" data-t="共 86 題 · 已掌握 41" data-s="共 86 题 · 已掌握 41">共 86 題 · 已掌握 41</span>
+          <span class="module-progress"><i style="width:48%"></i></span>
+        </span>
+        <span class="module-card-go">›</span>
+      </button>
+
+      <button class="module-card" data-module="changshi">
+        <span class="module-card-no">三</span>
+        <span class="module-card-body">
+          <span class="module-card-name" data-t="文學常識・出處" data-s="文学常识・出处">文學常識・出處</span>
+          <span class="module-card-desc" data-t="問答與選擇題，考作者出處" data-s="问答与选择题，考作者出处">問答與選擇題，考作者出處</span>
+          <span class="module-card-meta" data-t="共 34 題 · 已掌握 12" data-s="共 34 题 · 已掌握 12">共 34 題 · 已掌握 12</span>
+          <span class="module-progress"><i style="width:35%"></i></span>
+        </span>
+        <span class="module-card-go">›</span>
+      </button>
+
+      <button class="module-card" data-module="mixed">
+        <span class="module-card-no">四</span>
+        <span class="module-card-body">
+          <span class="module-card-name" data-t="全部混合" data-s="全部混合">全部混合</span>
+          <span class="module-card-desc" data-t="名句・詞解・常識隨機出題" data-s="名句・词解・常识随机出题">名句・詞解・常識隨機出題</span>
+          <span class="module-card-meta" data-t="共 172 題 · 已掌握 71" data-s="共 172 题 · 已掌握 71">共 172 題 · 已掌握 71</span>
+          <span class="module-progress"><i style="width:41%"></i></span>
+        </span>
+        <span class="module-card-go">›</span>
+      </button>
+    </div>
+
+    <div class="quick-row">
+      <button class="quick" data-action="open-stats">📊 <span data-t="錯題統計" data-s="错题统计">錯題統計</span></button>
+      <button class="quick" data-action="open-browse">📖 <span data-t="瀏覽" data-s="浏览">瀏覽</span></button>
+      <button class="quick" data-action="open-settings">⚙️ <span data-t="設定" data-s="设定">設定</span></button>
+    </div>
+
+    <footer class="appfoot">
+      <p data-t="零依賴 · 可離線 · 資料只存在這部裝置" data-s="零依赖 · 可离线 · 数据只存在这部设备">零依賴 · 可離線 · 資料只存在這部裝置</p>
+      <p class="appfoot-version">版本 2026-10-18</p>
+    </footer>
+  </section>
+
+  <!-- ========================== 練習設定 ========================== -->
+  <section class="screen" id="s-setup" data-screen="setup" hidden>
+    <section class="setup">
+      <h2 class="setup-title" data-t="名句默寫" data-s="名句默写">名句默寫</h2>
+      <p class="setup-desc" data-t="標點由系統給出，只需默寫漢字；繁簡皆可。" data-s="标点由系统给出，只需默写汉字；繁简皆可。">標點由系統給出，只需默寫漢字；繁簡皆可。</p>
+
+      <div class="setup-block">
+        <h3 class="setup-label">範圍</h3>
+        <div class="chips" data-field="units">
+          <button class="chip is-on" data-value="all" aria-pressed="true">全部<span class="chip-count">52</span></button>
+          <button class="chip" data-value="shijing" aria-pressed="false">《詩經》<span class="chip-count">22</span></button>
+          <button class="chip" data-value="chuci" aria-pressed="false">《楚辭》<span class="chip-count">14</span></button>
+          <button class="chip" data-value="zhuzi" aria-pressed="false">諸子散文<span class="chip-count">8</span></button>
+          <button class="chip" data-value="tangssong" aria-pressed="false">唐詩宋詞<span class="chip-count">8</span></button>
+        </div>
+      </div>
+
+      <div class="setup-block">
+        <h3 class="setup-label">模式</h3>
+        <div class="segmented" data-field="mode">
+          <button class="seg is-on" data-value="practice" aria-pressed="true">練習<span class="seg-sub">錯題會重現</span></button>
+          <button class="seg" data-value="speed" aria-pressed="false">⚡ 速通<span class="seg-sub">一次刷完</span></button>
+          <button class="seg" data-value="flash" aria-pressed="false">🃏 翻卡<span class="seg-sub">自評記憶</span></button>
+        </div>
+      </div>
+
+      <div class="setup-block" data-block="question">
+        <h3 class="setup-label">作答方式</h3>
+        <div class="segmented" data-field="question">
+          <button class="seg is-on" data-value="type" aria-pressed="true">手打</button>
+          <button class="seg" data-value="mc" aria-pressed="false">選擇題</button>
+        </div>
+      </div>
+
+      <div class="setup-block" data-block="mingju-direction">
+        <h3 class="setup-label">默寫方向</h3>
+        <div class="segmented" data-field="direction">
+          <button class="seg is-on" data-value="hs" aria-pressed="true">給上默下</button>
+          <button class="seg" data-value="sh" aria-pressed="false">給下默上</button>
+        </div>
+      </div>
+
+      <div class="setup-block">
+        <h3 class="setup-label">順序</h3>
+        <div class="segmented" data-field="order">
+          <button class="seg is-on" data-value="shuffle" aria-pressed="true">亂序</button>
+          <button class="seg" data-value="original" aria-pressed="false">原順序</button>
+        </div>
+      </div>
+
+      <button class="btn btn-primary start-btn" data-action="start">開始練習（52 題）</button>
+    </section>
+  </section>
+
+  <!-- ============================ 設定頁 ============================ -->
+  <section class="screen" id="s-settings" data-screen="settings" hidden>
+    <section class="settings">
+      <div class="setting-row">
+        <div class="setting-text">
+          <b data-t="字形" data-s="字形">字形</b>
+          <small data-t="介面與題目顯示" data-s="界面与题目显示">介面與題目顯示</small>
+        </div>
+        <div class="segmented" data-field="script">
+          <button class="seg is-on" data-value="t" aria-pressed="true">繁體</button>
+          <button class="seg" data-value="s" aria-pressed="false">簡體</button>
+        </div>
+      </div>
+
+      <div class="setting-row">
+        <div class="setting-text">
+          <b data-t="深色模式" data-s="深色模式">深色模式</b>
+          <small data-t="夜間閱讀，墨底紙白" data-s="夜间阅读，墨底纸白">夜間閱讀，墨底紙白</small>
+        </div>
+        <div class="segmented" data-field="theme">
+          <button class="seg is-on" data-value="light" aria-pressed="true">淺色</button>
+          <button class="seg" data-value="dark" aria-pressed="false">深色</button>
+        </div>
+      </div>
+
+      <div class="setting-row">
+        <div class="setting-text">
+          <b data-t="字號" data-s="字号">字號</b>
+          <small data-t="影響全部文字" data-s="影响全部文字">影響全部文字</small>
+        </div>
+        <div class="segmented" data-field="font">
+          <button class="seg" data-value="sm" aria-pressed="false">小</button>
+          <button class="seg is-on" data-value="md" aria-pressed="true">標準</button>
+          <button class="seg" data-value="lg" aria-pressed="false">大</button>
+          <button class="seg" data-value="xl" aria-pressed="false">特大</button>
+        </div>
+      </div>
+
+      <div class="setting-row">
+        <div class="setting-text">
+          <b data-t="顯示提示" data-s="显示提示">顯示提示</b>
+          <small data-t="題目下方顯示字數提示" data-s="题目下方显示字数提示">題目下方顯示字數提示</small>
+        </div>
+        <div class="segmented" data-field="hint">
+          <button class="seg is-on" data-value="on" aria-pressed="true">開</button>
+          <button class="seg" data-value="off" aria-pressed="false">關</button>
+        </div>
+      </div>
+
+      <div class="settings-actions">
+        <button class="btn btn-ghost" data-action="export">📤 匯出進度</button>
+        <button class="btn btn-ghost" data-action="import">📥 匯入進度</button>
+        <input id="importFile" type="file" accept=".json" hidden>
+        <button class="btn btn-ghost danger" data-action="reset">重設所有進度</button>
+      </div>
+
+      <p class="about" data-t="資料只存在你的瀏覽器；換裝置請先匯出。" data-s="数据只存在你的浏览器；换设备请先导出。">資料只存在你的瀏覽器；換裝置請先匯出。</p>
+    </section>
+  </section>
+
+  <!-- ======================= 答題·名句·未答 ======================= -->
+  <section class="screen" id="s-quiz-ask" data-screen="quiz" hidden>
+    <section class="quiz">
+      <div class="quiz-head">
+        <span class="quiz-progress-text">第 3 / 52 題</span>
+        <span class="quiz-score"><span class="is-ok">✓ 2</span><span class="is-bad">✗ 1</span></span>
+        <button class="btn-mini" data-action="reshuffle">重新打亂</button>
+      </div>
+      <div class="progress"><i style="width:6%"></i></div>
+
+      <article class="qcard" data-qtype="mingju" data-state="asking">
+        <p class="q-ask" data-t="請默寫下半句：" data-s="请默写下半句：">請默寫下半句：</p>
+        <div class="q-prompt han"><span data-t="非淡泊無以明志，" data-s="非淡泊无以明志，">非淡泊無以明志，</span></div>
+        <p class="q-hint" data-t="標點已給出，共需 7 個漢字（繁簡皆可）" data-s="标点已给出，共需 7 个汉字（繁简皆可）">標點已給出，共需 7 個漢字（繁簡皆可）</p>
+
+        <form class="answer-form" autocomplete="off">
+          <input class="answer-input" id="answerInput" type="text" aria-label="默寫答案"
+                 data-ph-t="寫下你記得的句子" data-ph-s="写下你记得的句子" placeholder="寫下你記得的句子">
+          <button class="btn btn-primary" data-action="submit" type="submit">提交</button>
+        </form>
+      </article>
+
+      <div class="quiz-actions">
+        <button class="btn-mini" data-action="hard" aria-pressed="false">⭐ 標記</button>
+        <button class="btn-mini" data-action="giveup">看答案</button>
+        <button class="btn btn-primary" data-action="next">下一題 ›</button>
+        <button class="btn-mini" data-action="prev-review">‹ 回顧</button>
+      </div>
+    </section>
+  </section>
+
+  <!-- ======================= 答題·名句·答對 ======================= -->
+  <section class="screen" id="s-quiz-ok" data-screen="quiz" hidden>
+    <section class="quiz">
+      <div class="quiz-head">
+        <span class="quiz-progress-text">第 3 / 52 題</span>
+        <span class="quiz-score"><span class="is-ok">✓ 3</span><span class="is-bad">✗ 1</span></span>
+        <button class="btn-mini" data-action="reshuffle">重新打亂</button>
+      </div>
+      <div class="progress"><i style="width:9%"></i></div>
+
+      <article class="qcard is-ok" data-qtype="mingju" data-state="answered">
+        <p class="q-ask" data-t="請默寫下半句：" data-s="请默写下半句：">請默寫下半句：</p>
+        <div class="q-prompt han">非淡泊無以明志，</div>
+
+        <form class="answer-form" autocomplete="off">
+          <input class="answer-input" type="text" aria-label="你的答案" value="非寧靜無以致遠" readonly>
+          <button class="btn btn-primary" data-action="submit" type="submit" hidden>提交</button>
+        </form>
+
+        <div class="verdict is-ok" data-t="✓ 默寫正確" data-s="✓ 默写正确">✓ 默寫正確</div>
+        <div class="answer-box">
+          <div class="answer-line han"><span data-t="非寧靜無以致遠。" data-s="非宁静无以致远。">非寧靜無以致遠。</span></div>
+          <div class="answer-src" data-t="—— 諸葛亮《誡子書》" data-s="—— 诸葛亮《诫子书》">—— 諸葛亮《誡子書》</div>
+          <div class="your-answer" data-t="你寫的是：非寧靜無以致遠" data-s="你写的是：非宁静无以致远">你寫的是：非寧靜無以致遠</div>
+          <button class="btn btn-ghost" data-action="override">意思對了，算我對</button>
+        </div>
+      </article>
+
+      <div class="quiz-actions">
+        <button class="btn-mini" data-action="hard" aria-pressed="false">⭐ 標記</button>
+        <button class="btn-mini" data-action="giveup">看答案</button>
+        <button class="btn btn-primary" data-action="next">下一題 ›</button>
+        <button class="btn-mini" data-action="prev-review">‹ 回顧</button>
+      </div>
+    </section>
+  </section>
+
+  <!-- ======================= 答題·名句·答錯 ======================= -->
+  <section class="screen" id="s-quiz-bad" data-screen="quiz" hidden>
+    <section class="quiz">
+      <div class="quiz-head">
+        <span class="quiz-progress-text">第 7 / 52 題</span>
+        <span class="quiz-score"><span class="is-ok">✓ 4</span><span class="is-bad">✗ 3</span></span>
+        <button class="btn-mini" data-action="reshuffle">重新打亂</button>
+      </div>
+      <div class="progress"><i style="width:14%"></i></div>
+
+      <article class="qcard is-bad" data-qtype="mingju" data-state="answered">
+        <p class="q-ask" data-t="請默寫下半句：" data-s="请默写下半句：">請默寫下半句：</p>
+        <div class="q-prompt han">海內存知己，</div>
+
+        <form class="answer-form" autocomplete="off">
+          <input class="answer-input" type="text" aria-label="你的答案" value="天涯若比臨" readonly>
+          <button class="btn btn-primary" data-action="submit" type="submit" hidden>提交</button>
+        </form>
+
+        <div class="verdict is-bad" data-t="✗ 默寫有誤" data-s="✗ 默写有误">✗ 默寫有誤</div>
+        <div class="answer-box">
+          <div class="answer-line han">天涯若比鄰。</div>
+          <div class="answer-src">王勃《送杜少府之任蜀州》</div>
+          <div class="your-answer" data-t="你寫的是：天涯若比臨" data-s="你写的是：天涯若比临">你寫的是：天涯若比臨</div>
+          <button class="btn btn-ghost" data-action="override">意思對了，算我對</button>
+        </div>
+        <p class="q-hint" data-t="這題會在 5 題後再出現。" data-s="这题会在 5 题后再出现。">這題會在 5 題後再出現。</p>
+      </article>
+
+      <div class="quiz-actions">
+        <button class="btn-mini" data-action="hard" aria-pressed="true">⭐ 標記</button>
+        <button class="btn-mini" data-action="giveup">看答案</button>
+        <button class="btn btn-primary" data-action="next">下一題 ›</button>
+        <button class="btn-mini" data-action="prev-review">‹ 回顧</button>
+      </div>
+    </section>
+  </section>
+
+  <!-- ======================== 答題·詞解（加點詞） ======================== -->
+  <section class="screen" id="s-quiz-cijie" data-screen="quiz" hidden>
+    <section class="quiz">
+      <div class="quiz-head">
+        <span class="quiz-progress-text">第 12 / 86 題</span>
+        <span class="quiz-score"><span class="is-ok">✓ 9</span><span class="is-bad">✗ 2</span></span>
+        <button class="btn-mini" data-action="reshuffle">重新打亂</button>
+      </div>
+      <div class="progress"><i style="width:14%"></i></div>
+
+      <article class="qcard" data-qtype="cijie" data-state="asking">
+        <p class="q-ask" data-t="請解釋句中加點的詞：" data-s="请解释句中加点的词：">請解釋句中加點的詞：</p>
+        <div class="q-prompt han">窈窕<em>淑女</em>，君子好逑。</div>
+        <p class="q-hint" data-t="答中意思就算對（例如「文靜」「美好」）" data-s="答中意思就算对（例如「文静」「美好」）">答中意思就算對（例如「文靜」「美好」）</p>
+
+        <form class="answer-form" autocomplete="off">
+          <input class="answer-input" type="text" aria-label="詞語解釋"
+                 data-ph-t="寫下詞語的意思" data-ph-s="写下词语的意思" placeholder="寫下詞語的意思">
+          <button class="btn btn-primary" data-action="submit" type="submit">提交</button>
+        </form>
+      </article>
+
+      <div class="quiz-actions">
+        <button class="btn-mini" data-action="hard" aria-pressed="false">⭐ 標記</button>
+        <button class="btn-mini" data-action="giveup">看答案</button>
+        <button class="btn btn-primary" data-action="next">下一題 ›</button>
+        <button class="btn-mini" data-action="prev-review">‹ 回顧</button>
+      </div>
+    </section>
+  </section>
+
+  <!-- ======================= 選擇題·未答 ======================= -->
+  <section class="screen" id="s-mc-ask" data-screen="quiz" hidden>
+    <section class="quiz">
+      <div class="quiz-head">
+        <span class="quiz-progress-text">第 5 / 34 題</span>
+        <span class="quiz-score"><span class="is-ok">✓ 3</span><span class="is-bad">✗ 0</span></span>
+        <button class="btn-mini" data-action="reshuffle">重新打亂</button>
+      </div>
+      <div class="progress"><i style="width:15%"></i></div>
+
+      <article class="qcard" data-qtype="changshi" data-state="asking">
+        <p class="q-ask" data-t="請選擇正確答案：" data-s="请选择正确答案：">請選擇正確答案：</p>
+        <div class="q-prompt" data-t="第一部詩歌總集" data-s="第一部诗歌总集">第一部詩歌總集</div>
+        <p class="q-hint" data-t="鍵盤可按 1–4 作答" data-s="键盘可按 1–4 作答">鍵盤可按 1–4 作答</p>
+
+        <div class="options" data-mode="mc">
+          <button class="option" data-index="0"><span class="option-key">A</span><span class="option-text">《詩經》</span></button>
+          <button class="option" data-index="1"><span class="option-key">B</span><span class="option-text">《尚書》</span></button>
+          <button class="option" data-index="2"><span class="option-key">C</span><span class="option-text">《春秋》</span></button>
+          <button class="option" data-index="3"><span class="option-key">D</span><span class="option-text">《易經》</span></button>
+        </div>
+      </article>
+
+      <div class="quiz-actions">
+        <button class="btn-mini" data-action="hard" aria-pressed="false">⭐ 標記</button>
+        <button class="btn-mini" data-action="giveup">看答案</button>
+        <button class="btn btn-primary" data-action="next">下一題 ›</button>
+        <button class="btn-mini" data-action="prev-review">‹ 回顧</button>
+      </div>
+    </section>
+  </section>
+
+  <!-- ======================= 選擇題·已答 ======================= -->
+  <section class="screen" id="s-mc-done" data-screen="quiz" hidden>
+    <section class="quiz">
+      <div class="quiz-head">
+        <span class="quiz-progress-text">第 5 / 34 題</span>
+        <span class="quiz-score"><span class="is-ok">✓ 3</span><span class="is-bad">✗ 1</span></span>
+        <button class="btn-mini" data-action="reshuffle">重新打亂</button>
+      </div>
+      <div class="progress"><i style="width:18%"></i></div>
+
+      <article class="qcard is-bad" data-qtype="changshi" data-state="answered">
+        <p class="q-ask" data-t="請選擇正確答案：" data-s="请选择正确答案：">請選擇正確答案：</p>
+        <div class="q-prompt" data-t="第一部詩歌總集" data-s="第一部诗歌总集">第一部詩歌總集</div>
+
+        <div class="options" data-mode="mc">
+          <button class="option is-correct" data-index="0" disabled><span class="option-key">A</span><span class="option-text">《詩經》</span></button>
+          <button class="option" data-index="1" disabled><span class="option-key">B</span><span class="option-text">《尚書》</span></button>
+          <button class="option is-wrong" data-index="2" disabled><span class="option-key">C</span><span class="option-text">《春秋》</span></button>
+          <button class="option" data-index="3" disabled><span class="option-key">D</span><span class="option-text">《易經》</span></button>
+        </div>
+
+        <div class="verdict is-bad" data-t="✗ 正確答案是 A《詩經》" data-s="✗ 正确答案是 A《诗经》">✗ 正確答案是 A《詩經》</div>
+        <div class="answer-box">
+          <div class="answer-src" data-t="《詩經》是我國第一部詩歌總集，收詩三百零五篇。" data-s="《诗经》是我国第一部诗歌总集，收诗三百零五篇。">《詩經》是我國第一部詩歌總集，收詩三百零五篇。</div>
+        </div>
+      </article>
+
+      <div class="quiz-actions">
+        <button class="btn-mini" data-action="hard" aria-pressed="false">⭐ 標記</button>
+        <button class="btn-mini" data-action="giveup">看答案</button>
+        <button class="btn btn-primary" data-action="next">下一題 ›</button>
+        <button class="btn-mini" data-action="prev-review">‹ 回顧</button>
+      </div>
+    </section>
+  </section>
+
+  <!-- ======================= 翻卡·正面 ======================= -->
+  <section class="screen" id="s-flash-front" data-screen="quiz" hidden>
+    <section class="quiz">
+      <div class="quiz-head">
+        <span class="quiz-progress-text">第 4 / 52 張</span>
+        <span class="quiz-score"><span class="is-ok">✓ 3</span><span class="is-bad">✗ 0</span></span>
+        <button class="btn-mini" data-action="reshuffle">重新打亂</button>
+      </div>
+      <div class="progress"><i style="width:8%"></i></div>
+
+      <article class="qcard" data-qtype="mingju" data-state="flash-front">
+        <p class="q-ask" data-t="先自己回想，再翻面核對：" data-s="先自己回想，再翻面核对：">先自己回想，再翻面核對：</p>
+        <div class="q-prompt han">昔我往矣，楊柳依依；</div>
+        <p class="q-hint" data-t="按空白鍵或「翻面」看答案" data-s="按空格键或「翻面」看答案">按空白鍵或「翻面」看答案</p>
+
+        <div class="card-controls">
+          <button class="btn btn-ghost" data-action="flip">翻面</button>
+          <button class="btn btn-ghost" data-action="again" disabled>✗ 還沒記住</button>
+          <button class="btn btn-primary" data-action="known" disabled>✓ 記住了</button>
+        </div>
+      </article>
+
+      <div class="quiz-actions">
+        <button class="btn-mini" data-action="hard" aria-pressed="false">⭐ 標記</button>
+        <button class="btn-mini" data-action="giveup">看答案</button>
+        <button class="btn btn-primary" data-action="next">下一張 ›</button>
+        <button class="btn-mini" data-action="prev-review">‹ 回顧</button>
+      </div>
+    </section>
+  </section>
+
+  <!-- ======================= 翻卡·背面 ======================= -->
+  <section class="screen" id="s-flash-back" data-screen="quiz" hidden>
+    <section class="quiz">
+      <div class="quiz-head">
+        <span class="quiz-progress-text">第 4 / 52 張</span>
+        <span class="quiz-score"><span class="is-ok">✓ 3</span><span class="is-bad">✗ 1</span></span>
+        <button class="btn-mini" data-action="reshuffle">重新打亂</button>
+      </div>
+      <div class="progress"><i style="width:8%"></i></div>
+
+      <article class="qcard" data-qtype="mingju" data-state="flash-back">
+        <p class="q-ask" data-t="核對答案後自評：" data-s="核对答案后自评：">核對答案後自評：</p>
+        <div class="q-prompt han">昔我往矣，楊柳依依；</div>
+
+        <div class="answer-box">
+          <div class="answer-line han">今我來思，雨雪霏霏。</div>
+          <div class="answer-src">《詩經・小雅・采薇》</div>
+        </div>
+
+        <div class="card-controls">
+          <button class="btn btn-ghost" data-action="flip">翻回正面</button>
+          <button class="btn btn-ghost" data-action="again">✗ 還沒記住</button>
+          <button class="btn btn-primary" data-action="known">✓ 記住了</button>
+        </div>
+        <p class="q-hint" data-t="未記住的卡會在 5 張後重現。" data-s="未记住的卡会在 5 张后重现。">未記住的卡會在 5 張後重現。</p>
+      </article>
+
+      <div class="quiz-actions">
+        <button class="btn-mini" data-action="hard" aria-pressed="false">⭐ 標記</button>
+        <button class="btn-mini" data-action="giveup">看答案</button>
+        <button class="btn btn-primary" data-action="next">下一張 ›</button>
+        <button class="btn-mini" data-action="prev-review">‹ 回顧</button>
+      </div>
+    </section>
+  </section>
+
+  <!-- ========================= 回顧 ========================= -->
+  <section class="screen" id="s-review" data-screen="quiz" hidden>
+    <section class="quiz">
+      <div class="quiz-head">
+        <span class="quiz-progress-text">回顧 · 第 2 / 52 題</span>
+        <span class="quiz-score"><span class="is-ok">✓ 1</span><span class="is-bad">✗ 1</span></span>
+        <button class="btn-mini" data-action="reshuffle">重新打亂</button>
+      </div>
+      <div class="progress"><i style="width:4%"></i></div>
+
+      <article class="qcard" data-qtype="cijie" data-state="review">
+        <div class="review-banner" data-t="回顧中 · 按 → 返回" data-s="回顾中 · 按 → 返回">回顧中 · 按 → 返回</div>
+        <p class="q-ask" data-t="這題你答錯了：" data-s="这题你答错了：">這題你答錯了：</p>
+        <div class="q-prompt han">參差<em>荇菜</em>，左右流之。</div>
+
+        <div class="verdict is-bad" data-t="✗ 你的答案：一種菜" data-s="✗ 你的答案：一种菜">✗ 你的答案：一種菜</div>
+        <div class="answer-box">
+          <div class="answer-line">一種水生植物</div>
+          <div class="answer-src" data-t="——《關雎》・詞解" data-s="——《关雎》・词解">——《關雎》・詞解</div>
+          <div class="your-answer" data-t="你寫的是：一種菜　·　錯過 1 次" data-s="你写的是：一种菜　·　错过 1 次">你寫的是：一種菜　·　錯過 1 次</div>
+        </div>
+        <p class="q-hint" data-t="回顧中不會計分。" data-s="回顾中不会计分。">回顧中不會計分。</p>
+      </article>
+
+      <div class="quiz-actions">
+        <button class="btn-mini" data-action="hard" aria-pressed="false">⭐ 標記</button>
+        <button class="btn-mini" data-action="prev-review">‹ 上一題</button>
+        <button class="btn btn-primary" data-action="back-to-quiz">返回作答 ›</button>
+      </div>
+    </section>
+  </section>
+
+  <!-- ========================= 結算 ========================= -->
+  <section class="screen" id="s-result" data-screen="result" hidden>
+    <section class="result">
+      <div class="result-hero">
+        <div class="result-rate">86%<small data-t="正確率" data-s="正确率">正確率</small></div>
+        <p class="result-sub" data-t="52 題 · 答對 45 · 答錯 7" data-s="52 题 · 答对 45 · 答错 7">52 題 · 答對 45 · 答錯 7</p>
+      </div>
+
+      <div class="result-stats">
+        <div class="stat"><span class="stat-value">45</span><span class="stat-label" data-t="答對" data-s="答对">答對</span></div>
+        <div class="stat"><span class="stat-value">7</span><span class="stat-label" data-t="答錯" data-s="答错">答錯</span></div>
+        <div class="stat"><span class="stat-value">6:32</span><span class="stat-label" data-t="用時" data-s="用时">用時</span></div>
+      </div>
+
+      <div class="result-actions">
+        <button class="btn btn-primary" data-action="again">再來一輪</button>
+        <button class="btn btn-ghost" data-action="retry-wrong">只練錯題</button>
+        <button class="btn btn-ghost" data-action="home">回首頁</button>
+      </div>
+
+      <div class="wrong-list">
+        <article class="wrong-item">
+          <p class="wrong-q" data-t="請默寫下半句：非淡泊無以明志，" data-s="请默写下半句：非淡泊无以明志，">請默寫下半句：非淡泊無以明志，</p>
+          <p class="wrong-a han">非寧靜無以致遠。</p>
+          <p class="wrong-meta" data-t="你寫的是：非寧致遠　·　諸葛亮《誡子書》" data-s="你写的是：非宁致远　·　诸葛亮《诫子书》">你寫的是：非寧致遠　·　諸葛亮《誡子書》</p>
+        </article>
+        <article class="wrong-item">
+          <p class="wrong-q" data-t="請默寫下半句：海內存知己，" data-s="请默写下半句：海内存知己，">請默寫下半句：海內存知己，</p>
+          <p class="wrong-a han">天涯若比鄰。</p>
+          <p class="wrong-meta" data-t="你寫的是：天涯若比臨　·　王勃《送杜少府之任蜀州》" data-s="你写的是：天涯若比临　·　王勃《送杜少府之任蜀州》">你寫的是：天涯若比臨　·　王勃《送杜少府之任蜀州》</p>
+        </article>
+        <article class="wrong-item">
+          <p class="wrong-q" data-t="請解釋句中加點的詞：參差荇菜" data-s="请解释句中加点的词：参差荇菜">請解釋句中加點的詞：參差<em>荇菜</em></p>
+          <p class="wrong-a">一種水生植物</p>
+          <p class="wrong-meta" data-t="你寫的是：一種菜　·　《關雎》" data-s="你写的是：一种菜　·　《关雎》">你寫的是：一種菜　·　《關雎》</p>
+        </article>
+      </div>
+    </section>
+  </section>
+
+  <!-- ========================= 瀏覽 ========================= -->
+  <section class="screen" id="s-browse" data-screen="browse" hidden>
+    <section class="browse">
+      <div class="browse-tools">
+        <input class="search-input" id="browseSearch" type="search" aria-label="搜尋"
+               data-ph-t="搜尋名句、詞解、出處…" data-ph-s="搜寻名句、词解、出处…" placeholder="搜尋名句、詞解、出處…">
+      </div>
+
+      <div class="chips" data-field="units">
+        <button class="chip is-on" data-value="all" aria-pressed="true">全部<span class="chip-count">172</span></button>
+        <button class="chip" data-value="guanju" aria-pressed="false">《關雎》<span class="chip-count">18</span></button>
+        <button class="chip" data-value="mingju" aria-pressed="false">名句<span class="chip-count">52</span></button>
+        <button class="chip" data-value="xianqin" aria-pressed="false">先秦常識<span class="chip-count">34</span></button>
+      </div>
+
+      <div class="browse-list">
+        <button class="browse-item is-open" data-id="mj-001" aria-expanded="true">
+          <span class="browse-item-head">
+            <span class="browse-item-term han">關關雎鳩，在河之洲；窈窕淑女，君子好逑。</span>
+            <span class="browse-item-sub" data-t="名句默寫 · 《詩經・周南・關雎》" data-s="名句默写 · 《诗经・周南・关雎》">名句默寫 · 《詩經・周南・關雎》</span>
+          </span>
+          <span class="browse-item-body">
+            <b data-t="出處：" data-s="出处：">出處：</b>《詩經・周南・關雎》<br>
+            <b data-t="字詞：" data-s="字词：">字詞：</b>窈窕（文靜美好）、逑（配偶）<br>
+            <b data-t="記錄：" data-s="记录：">記錄：</b>答對 3 次 · 答錯 0 次
+          </span>
+        </button>
+
+        <button class="browse-item" data-id="cj-001" aria-expanded="false">
+          <span class="browse-item-head">
+            <span class="browse-item-term han">窈窕<em>淑女</em>，君子好逑。</span>
+            <span class="browse-item-sub" data-t="詞解 · 《關雎》" data-s="词解 · 《关雎》">詞解 · 《關雎》</span>
+          </span>
+          <span class="browse-item-body" hidden>
+            <b data-t="答案：" data-s="答案：">答案：</b>文靜而美好的女子<br>
+            <b data-t="關鍵詞：" data-s="关键词：">關鍵詞：</b>文靜、美好、美善
+          </span>
+        </button>
+
+        <button class="browse-item" data-id="cs-001" aria-expanded="false">
+          <span class="browse-item-head">
+            <span class="browse-item-term han">第一部詩歌總集</span>
+            <span class="browse-item-sub" data-t="文學常識 · 先秦" data-s="文学常识 · 先秦">文學常識 · 先秦</span>
+          </span>
+          <span class="browse-item-body" hidden>
+            <b data-t="答案：" data-s="答案：">答案：</b>《詩經》<br>
+            <b data-t="備註：" data-s="备注：">備註：</b>收詩三百零五篇，分風、雅、頌。
+          </span>
+        </button>
+
+        <button class="browse-item" data-id="mj-002" aria-expanded="false">
+          <span class="browse-item-head">
+            <span class="browse-item-term han">路漫漫其修遠兮，吾將上下而求索。</span>
+            <span class="browse-item-sub" data-t="名句默寫 · 屈原《離騷》" data-s="名句默写 · 屈原《离骚》">名句默寫 · 屈原《離騷》</span>
+          </span>
+          <span class="browse-item-body" hidden>
+            <b data-t="出處：" data-s="出处：">出處：</b>屈原《離騷》<br>
+            <b data-t="記錄：" data-s="记录：">記錄：</b>答對 1 次 · 答錯 2 次
+          </span>
+        </button>
+      </div>
+    </section>
+  </section>
+
+  <!-- ======================= 瀏覽·無結果 ======================= -->
+  <section class="screen" id="s-browse-empty" data-screen="browse" hidden>
+    <section class="browse">
+      <div class="browse-tools">
+        <input class="search-input" type="search" aria-label="搜尋" value="納蘭性德">
+      </div>
+      <div class="chips" data-field="units">
+        <button class="chip is-on" data-value="all" aria-pressed="true">全部<span class="chip-count">172</span></button>
+      </div>
+      <p class="empty" data-t="沒有符合的項目。試試其他關鍵詞，繁簡皆可搜尋。" data-s="没有符合的项目。试试其他关键词，繁简皆可搜寻。">沒有符合的項目。試試其他關鍵詞，繁簡皆可搜尋。</p>
+    </section>
+  </section>
+
+  <!-- ======================= 錯題統計 ======================= -->
+  <section class="screen" id="s-stats" data-screen="stats" hidden>
+    <section class="stats-screen">
+      <div class="stats-summary">
+        <div class="stat"><span class="stat-value">14</span><span class="stat-label" data-t="錯題總數" data-s="错题总数">錯題總數</span></div>
+        <div class="stat"><span class="stat-value">3.2</span><span class="stat-label" data-t="平均錯誤" data-s="平均错误">平均錯誤</span></div>
+      </div>
+
+      <table class="wrong-table">
+        <thead><tr><th data-t="題目" data-s="题目">題目</th><th data-t="答錯" data-s="答错">答錯</th><th data-t="答對" data-s="答对">答對</th></tr></thead>
+        <tbody>
+          <tr><td class="wrong-table-q">窈窕<em>淑女</em></td><td>3</td><td>1</td></tr>
+          <tr><td class="wrong-table-q">非淡泊無以明志，非寧靜無以致遠。</td><td>3</td><td>0</td></tr>
+          <tr><td class="wrong-table-q">海內存知己，天涯若比鄰。</td><td>2</td><td>1</td></tr>
+          <tr><td class="wrong-table-q">參差<em>荇菜</em>，左右流之。</td><td>2</td><td>2</td></tr>
+          <tr><td class="wrong-table-q">第一部詩歌總集</td><td>1</td><td>2</td></tr>
+          <tr><td class="wrong-table-q">路漫漫其修遠兮，吾將上下而求索。</td><td>1</td><td>0</td></tr>
+        </tbody>
+      </table>
+
+      <div class="stats-actions">
+        <button class="btn btn-primary" data-action="practice-wrong">只練這些錯題</button>
+        <button class="btn btn-ghost" data-action="clear-wrong">清空錯題記錄</button>
+      </div>
+    </section>
+  </section>
+
+  <!-- ======================= 錯題·空狀態 ======================= -->
+  <section class="screen" id="s-stats-empty" data-screen="stats" hidden>
+    <section class="stats-screen">
+      <div class="stats-summary">
+        <div class="stat"><span class="stat-value">0</span><span class="stat-label" data-t="錯題總數" data-s="错题总数">錯題總數</span></div>
+        <div class="stat"><span class="stat-value">—</span><span class="stat-label" data-t="平均錯誤" data-s="平均错误">平均錯誤</span></div>
+      </div>
+      <table class="wrong-table">
+        <thead><tr><th data-t="題目" data-s="题目">題目</th><th data-t="答錯" data-s="答错">答錯</th><th data-t="答對" data-s="答对">答對</th></tr></thead>
+        <tbody></tbody>
+      </table>
+      <p class="empty" data-t="還沒有錯題，繼續保持。" data-s="还没有错题，继续保持。">還沒有錯題，繼續保持。</p>
+      <div class="stats-actions">
+        <button class="btn btn-ghost" data-action="clear-wrong" disabled>清空錯題記錄</button>
+      </div>
+    </section>
+  </section>
+
+  <!-- =================== 對話框＋提示（overlay / toast） =================== -->
+  <section class="screen" id="s-dialog" data-screen="settings" hidden>
+    <section class="settings">
+      <div class="setting-row">
+        <div class="setting-text">
+          <b data-t="字形" data-s="字形">字形</b>
+          <small data-t="介面與題目顯示" data-s="界面与题目显示">介面與題目顯示</small>
+        </div>
+        <div class="segmented" data-field="script">
+          <button class="seg is-on" data-value="t" aria-pressed="true">繁體</button>
+          <button class="seg" data-value="s" aria-pressed="false">簡體</button>
+        </div>
+      </div>
+      <div class="setting-row">
+        <div class="setting-text">
+          <b data-t="深色模式" data-s="深色模式">深色模式</b>
+          <small data-t="夜間閱讀，墨底紙白" data-s="夜间阅读，墨底纸白">夜間閱讀，墨底紙白</small>
+        </div>
+        <div class="segmented" data-field="theme">
+          <button class="seg is-on" data-value="light" aria-pressed="true">淺色</button>
+          <button class="seg" data-value="dark" aria-pressed="false">深色</button>
+        </div>
+      </div>
+      <div class="settings-actions">
+        <button class="btn btn-ghost danger" data-action="reset">重設所有進度</button>
+      </div>
+      <p class="about" data-t="按下「重設所有進度」會彈出確認框；儲存或標記動作會以底部提示回饋。" data-s="按下「重设所有进度」会弹出确认框；储存或标记动作会以底部提示回馈。">按下「重設所有進度」會彈出確認框；儲存或標記動作會以底部提示回饋。</p>
+    </section>
+  </section>
+
+</div><!-- /.pv-stage -->
+
+<div id="toast" class="toast" role="status" aria-live="polite">已標記為重點複習</div>
+
+<div id="overlay" class="overlay" hidden>
+  <div class="overlay-card">
+    <h3 data-t="重設所有進度？" data-s="重设所有进度？">重設所有進度？</h3>
+    <p data-t="這會清空答題記錄、錯題統計與偏好設定，無法復原。" data-s="这会清空答题记录、错题统计与偏好设定，无法复原。">這會清空答題記錄、錯題統計與偏好設定，無法復原。</p>
+    <ul>
+      <li data-t="錯題記錄 14 條" data-s="错题记录 14 条">錯題記錄 14 條</li>
+      <li data-t="已答題目 172 題" data-s="已答题目 172 题">已答題目 172 題</li>
+    </ul>
+    <p data-t="建議先匯出進度備份。" data-s="建议先导出进度备份。">建議先匯出進度備份。</p>
+    <div class="overlay-actions">
+      <button class="btn btn-ghost" data-action="cancel">取消</button>
+      <button class="btn btn-primary" data-action="confirm">確定重設</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* 只服務預覽頁：切換畫面、深色、繁簡示範、字號、手機框 */
+(function () {
+  var stage   = document.getElementById('pv-stage');
+  var tabs    = [].slice.call(document.querySelectorAll('.pv-tab'));
+  var screens = [].slice.call(document.querySelectorAll('.screen'));
+  var back    = document.querySelector('.appbar-back');
+  var overlay = document.getElementById('overlay');
+  var toast   = document.getElementById('toast');
+  var hint    = document.querySelector('[data-pv-hint]');
+  var font_order = ['sm', 'md', 'lg', 'xl'];
+  var font_name  = { sm: '小 0.9', md: '標準 1', lg: '大 1.1', xl: '特大 1.2' };
+
+  function paint_hint() {
+    var d = document.documentElement;
+    hint.textContent = '字號：' + font_name[d.dataset.font || 'md'] +
+      '（基準 17.8px）・字形：' + (d.dataset.script === 's' ? '簡體' : '繁體') +
+      '・主題：' + (d.dataset.theme === 'dark' ? '深色' : '淺色') +
+      '。所有畫面與狀態以假資料呈現，供對照實作。';
+  }
+
+  function apply_text() {
+    var s = document.documentElement.dataset.script === 's';
+    document.querySelectorAll('[data-t]').forEach(function (el) {
+      el.textContent = s ? el.dataset.s : el.dataset.t;
+    });
+    document.querySelectorAll('[data-ph-t]').forEach(function (el) {
+      el.placeholder = s ? el.dataset.phS : el.dataset.phT;
+    });
+    document.querySelectorAll('[data-script-label]').forEach(function (el) {
+      el.textContent = s ? '簡' : '繁';
+    });
+    paint_hint();
+  }
+
+  function show(id) {
+    screens.forEach(function (sc) { sc.hidden = sc.id !== id; });
+    tabs.forEach(function (t) {
+      var on = t.dataset.target === id;
+      t.classList.toggle('is-on', on);
+      t.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
+    if (back) back.hidden = (id === 's-home');
+    var dialog = (id === 's-dialog');
+    overlay.hidden = !dialog;
+    toast.classList.toggle('is-show', dialog);
+    if (history.replaceState) history.replaceState(null, '', '#' + id);
+    /* 瀏覽器會因 fragment 自動捲動，這裡強制回到頂部 */
+    window.scrollTo(0, 0);
+    requestAnimationFrame(function () { window.scrollTo(0, 0); });
+  }
+
+  tabs.forEach(function (t) {
+    t.addEventListener('click', function () { show(t.dataset.target); });
+  });
+
+  document.querySelectorAll('[data-pv-toggle]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var d = document.documentElement;
+      var kind = b.dataset.pvToggle;
+      if (kind === 'theme') d.dataset.theme = (d.dataset.theme === 'dark' ? 'light' : 'dark');
+      if (kind === 'script') { d.dataset.script = (d.dataset.script === 's' ? 't' : 's'); apply_text(); }
+      if (kind === 'font') {
+        var i = font_order.indexOf(d.dataset.font || 'md');
+        d.dataset.font = font_order[(i + 1) % font_order.length];
+        paint_hint();
+      }
+      if (kind === 'width') stage.classList.toggle('is-phone');
+      if (kind !== 'script') paint_hint();
+    });
+  });
+
+  apply_text();
+  var start = (location.hash || '').replace('#', '');
+  show(document.getElementById(start) ? start : 's-home');
+})();
+</script>
+</body>
+</html>
+

@@ -1,0 +1,15 @@
+# OS
+Thumbs.db
+desktop.ini
+.DS_Store
+# local
+*.log
+.serve/
+temp/
+
+# playwright cli scratch
+.playwright-cli/
+
+# python
+__pycache__/
+*.pyc

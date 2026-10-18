@@ -1,0 +1,200 @@
+{
+  "generated_at": "2026-10-18T12:36:31+08:00",
+  "source_dirs": [
+    "source",
+    "data/source"
+  ],
+  "source_dir": "source（優先）＋ data/source",
+  "units": [
+    {
+      "file": "mingju_shijing_chuci.csv",
+      "source": "data/source/mingju_shijing_chuci.csv",
+      "unit": "mingju",
+      "name": "名句・詩經楚辭",
+      "module": "mingju",
+      "known": true,
+      "detected_by": "已知來源",
+      "count": 50,
+      "skipped": 0
+    },
+    {
+      "file": "guanju_cijie.csv",
+      "source": "data/source/guanju_cijie.csv",
+      "unit": "guanju",
+      "name": "《關雎》",
+      "module": "cijie",
+      "known": true,
+      "detected_by": "已知來源",
+      "count": 18,
+      "skipped": 0
+    },
+    {
+      "file": "guoshang_cijie.csv",
+      "source": "data/source/guoshang_cijie.csv",
+      "unit": "guoshang",
+      "name": "《國殤》",
+      "module": "cijie",
+      "known": true,
+      "detected_by": "已知來源",
+      "count": 25,
+      "skipped": 0
+    },
+    {
+      "file": "jishi_cijie.csv",
+      "source": "data/source/jishi_cijie.csv",
+      "unit": "jishi",
+      "name": "《季氏將伐顓臾》",
+      "module": "cijie",
+      "known": true,
+      "detected_by": "已知來源",
+      "count": 23,
+      "skipped": 0
+    },
+    {
+      "file": "liao_e_cijie.csv",
+      "source": "data/source/liao_e_cijie.csv",
+      "unit": "liao_e",
+      "name": "《蓼莪》",
+      "module": "cijie",
+      "known": true,
+      "detected_by": "已知來源",
+      "count": 25,
+      "skipped": 0
+    },
+    {
+      "file": "xianqin_wenxue.csv",
+      "source": "data/source/xianqin_wenxue.csv",
+      "unit": "xianqin",
+      "name": "先秦文學常識",
+      "module": "changshi",
+      "known": true,
+      "detected_by": "已知來源",
+      "count": 10,
+      "skipped": 0
+    },
+    {
+      "file": "zhuzi_yuyan.csv",
+      "source": "data/source/zhuzi_yuyan.csv",
+      "unit": "zhuzi",
+      "name": "諸子寓言出處",
+      "module": "changshi",
+      "known": true,
+      "detected_by": "已知來源",
+      "count": 16,
+      "skipped": 0
+    }
+  ],
+  "module_counts": {
+    "mingju": 50,
+    "cijie": 91,
+    "changshi": 26
+  },
+  "total": 167,
+  "skips": [],
+  "warnings": [],
+  "manual_todo": [],
+  "ignored_files": [
+    {
+      "file": "放教材這裡.txt",
+      "source": "source/放教材這裡.txt",
+      "ext": ".txt",
+      "placeholder": true
+    }
+  ],
+  "shadowed": [],
+  "notes": [
+    {
+      "id": "mj-038",
+      "unit": "mingju",
+      "note": "原句無句讀標點，無法切半（仍保留）"
+    },
+    {
+      "id": "cj-019",
+      "unit": "guoshang",
+      "note": "例句未出現該詞，題面改為「解釋「詞」」"
+    },
+    {
+      "id": "cj-020",
+      "unit": "guoshang",
+      "note": "例句未出現該詞，題面改為「解釋「詞」」"
+    },
+    {
+      "id": "cj-037",
+      "unit": "guoshang",
+      "note": "例句從缺，題面改為「解釋「詞」」"
+    },
+    {
+      "id": "cj-072",
+      "unit": "liao_e",
+      "note": "來源僅提供注音，未提供義項"
+    },
+    {
+      "id": "cj-082",
+      "unit": "liao_e",
+      "note": "例句未出現該詞，題面改為「解釋「詞」」"
+    }
+  ],
+  "fallback_q": [
+    {
+      "id": "cj-019",
+      "unit": "guoshang",
+      "w_t": "國殤",
+      "q_t": "解釋「國殤」"
+    },
+    {
+      "id": "cj-020",
+      "unit": "guoshang",
+      "w_t": "殤",
+      "q_t": "解釋「殤」"
+    },
+    {
+      "id": "cj-037",
+      "unit": "guoshang",
+      "w_t": "躓",
+      "q_t": "解釋「躓」"
+    },
+    {
+      "id": "cj-082",
+      "unit": "liao_e",
+      "w_t": "鞫",
+      "q_t": "解釋「鞫」"
+    }
+  ],
+  "t2s_count": 254,
+  "s2t_fixes": [
+    {
+      "from": "为",
+      "opencc": "爲",
+      "used": "為",
+      "count": 3
+    },
+    {
+      "from": "众",
+      "opencc": "衆",
+      "used": "眾",
+      "count": 1
+    },
+    {
+      "from": "余",
+      "opencc": "餘",
+      "used": "余",
+      "count": 1
+    },
+    {
+      "from": "启",
+      "opencc": "啓",
+      "used": "啟",
+      "count": 1
+    },
+    {
+      "from": "峰",
+      "opencc": "峯",
+      "used": "峰",
+      "count": 1
+    }
+  ],
+  "stray_simplified_chars": [
+    "余",
+    "干"
+  ]
+}

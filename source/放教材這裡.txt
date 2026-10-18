@@ -1,0 +1,9 @@
+把新教材放進這個資料夾（CSV / Word .docx / PDF / 圖片都可以）。
+放好後告訴我，我會整理成題庫並重新建置 data/dataset.js。
+
+命名建議（可選）：
+- 名句：xxx_mingju.csv        （word=句子, chinese=出處）
+- 詞解：xxx_cijie.csv         （word=詞, chinese=解釋, example=例句）
+- 常識：xxx_changshi.csv      （word=問, chinese=答）
+
+現有示範教材在 data/source/，可保留或刪除。

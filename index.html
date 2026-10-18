@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-Hant" data-theme="light" data-script="t" data-font="md">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>中文溫習</title>
+  <meta name="description" content="名句默寫、詞解、文學常識：零依賴、可離線、自動判分的中文溫習網站。" />
+  <meta name="theme-color" content="#f7f2e8" />
+  <meta name="color-scheme" content="light dark" />
+
+  <!-- 加到主畫面（iOS） -->
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="中文溫習" />
+  <link rel="apple-touch-icon" href="icons/icon-192.png" />
+
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" href="icons/icon-192.png" />
+  <link rel="stylesheet" href="css/style.css" />
+
+  <script>
+    /* 首屏前先套用已保存的偏好，避免閃白／閃換字形 */
+    (function () {
+      try {
+        var raw = localStorage.getItem('cn_review_v1');
+        if (!raw) return;
+        var s = (JSON.parse(raw) || {}).settings || {};
+        var el = document.documentElement;
+        if (s.theme === 'dark') el.setAttribute('data-theme', 'dark');
+        if (s.script === 's') { el.setAttribute('data-script', 's'); el.setAttribute('lang', 'zh-Hans'); }
+        if (s.font) el.setAttribute('data-font', s.font);
+      } catch (e) { /* 忽略 */ }
+    })();
+  </script>
+</head>
+<body>
+  <div id="app"></div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <div id="overlay" class="overlay" hidden></div>
+
+  <!-- 載入順序：資料 → 核心 → 介面 → 啟動 -->
+  <script src="data/dataset.js"></script>
+  <script src="js/core.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
