@@ -627,6 +627,20 @@ def build_dataset(now: str = None):
     warnings = []
 
     entries, manual_todo, ignored_files, shadowed = discover_sources()
+    if now is None:
+        # 用來源檔的最新修改時間作 generated_at：來源不變 → 輸出穩定，不會每次建置都產生 diff
+        mtimes = []
+        for e in entries:
+            p = e.get("path")
+            try:
+                if p and Path(p).exists():
+                    mtimes.append(Path(p).stat().st_mtime)
+            except OSError:
+                pass
+        base = max(mtimes) if mtimes else dt.datetime.now().timestamp()
+        now = dt.datetime.fromtimestamp(
+            base, dt.timezone(dt.timedelta(hours=8))
+        ).replace(microsecond=0).isoformat()
     present = {e["file"].lower() for e in entries}
     cfg_by_file = {c["file"].lower(): c for c in UNITS_CONFIG}
 
@@ -902,13 +916,13 @@ def main(argv=None) -> int:
                     help="另印題目摘要（數字＝前 N 題，all＝全部）")
     args = ap.parse_args(argv)
 
-    now = dt.datetime.now(dt.timezone(dt.timedelta(hours=8))).replace(microsecond=0).isoformat()
+    now = None
 
     if args.check:
         if OUT_JSON.exists():
             try:
                 old = json.loads(OUT_JSON.read_text(encoding="utf-8"))
-                now = old.get("meta", {}).get("generated_at", now)
+                now = old.get("meta", {}).get("generated_at", None)
             except Exception:
                 pass
 
