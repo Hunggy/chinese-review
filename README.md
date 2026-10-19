@@ -51,6 +51,9 @@ python -m http.server 8137
 - **iPhone / iPad（Safari）**：分享 → 「加入主畫面」。
 - **Android（Chrome）**：右上選單 → 「安裝應用程式／加到主畫面」。
 
+> 此站的 manifest 固定 `id=/chinese-review/`，英文站是 `/vocab-test/`，兩者在 Android 上可同時安裝。
+> 如果之前裝過舊版（那時還沒有 `id`），請先卸載舊的，再重新安裝一次。
+
 ---
 
 ## 2. 怎麼用

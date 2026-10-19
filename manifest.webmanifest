@@ -1,6 +1,7 @@
 {
   "name": "中文溫習",
   "short_name": "中文溫習",
+  "id": "/chinese-review/",
   "description": "名句默寫、詞解、文學常識：零依賴、可離線、自動判分。",
   "lang": "zh-Hant",
   "dir": "ltr",
