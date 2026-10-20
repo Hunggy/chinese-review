@@ -227,6 +227,19 @@ with_dataset(ds_mc, () => {
   eq(C.norm(built.options[built.correct_index].t), C.norm(C.answer_variants(target, 'hs').t), type + ' 正確項索引正確');
   eq(C.uniq(built.options.map((o) => C.norm(o.t))).length, built.options.length, type + ' 選項不重複');
 });
+/* 迴歸：direction='author' 只影響名句，不得把非名句題型的干擾項全換成名句作者出處 */
+['cijie', 'changshi'].forEach((type) => {
+  const pool = items.filter((it) => it.type === type);
+  if (!pool.length) return;
+  const target = pool[0];
+  const built = C.build_options(target, items, { direction: 'author', seed: 5 });
+  const own = new Set(pool.map((it) => C.norm(C.answer_variants(it).t)).filter(Boolean));
+  eq(
+    built.options.map((o) => C.norm(o.t)).filter((n) => !own.has(n)),
+    [],
+    type + '（author 模式）干擾項仍取自同題型答案'
+  );
+});
 eq(C.option_key(0) + C.option_key(3), 'AD', '選項鍵 A/B/C/D');
 
 /* ============================================================ */

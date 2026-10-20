@@ -586,8 +586,9 @@
     var rng = opts.rng || make_rng(opts.seed === undefined ? undefined : opts.seed);
     var direction = opts.direction;
     pool = is_array(pool) && pool.length ? pool : all_items();
-    /* 作者・出處模式：干擾項一律用其他名句的「作者《出處》」組合 */
-    if (direction === 'author') {
+    /* 作者・出處模式：干擾項一律用其他名句的「作者《出處》」組合（只限名句題；
+       詞解／常識題若沿用使用者的「作者・出處」設定，仍須取同題型的答案作干擾項） */
+    if (direction === 'author' && item.type === 'mingju') {
       var only_mj = pool.filter(function (it) { return it && it.type === 'mingju'; });
       if (only_mj.length >= 4) pool = only_mj;
     }
