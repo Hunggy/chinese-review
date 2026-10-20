@@ -580,8 +580,49 @@
   }
 
   /* ============================================================
-   * 4. 選擇題選項生成（同 type/unit 優先，答案不重複，4 個）
+   * 4. 選擇題選項生成（同類優先：group／答案形態，答案不重複，4 個）
    * ============================================================ */
+
+  /* 干擾項「同類」機制
+   * - group：資料層選填欄（如「數量」「稱謂」），同 group 的答案才互當干擾項
+   * - answer_shape：答案的粗分類（數量／書名／人／家／制度／節慶／文字長度）
+   * 分層由近到遠：同 unit 同 group → 跨 unit 同 group → 同 unit 同形態 →
+   * 同 unit → 同題型 → 同 unit → 全部；每層取滿 3 個不同答案才往下走。
+   */
+
+  /* 群組欄位（可為 undefined／空字串） */
+  function item_group(item) {
+    if (!item) return '';
+    return str(item.group).trim();
+  }
+
+  /* 數量答案：開頭是漢字數字、結尾是量詞 */
+  var SHAPE_NUM_HEAD = '一二三四五六七八九十百千萬零兩';
+  var SHAPE_QUANT_TAIL = '卷篇章首人天年月日次甲科個位名里分歲';
+
+  /* 答案形態：num:卷 / num:* / book / person / school / system / festival / text:2|text:3|text:6 */
+  function answer_shape(text) {
+    var s = str(text).trim();
+    if (!s) return 'text:2';
+    if (SHAPE_NUM_HEAD.indexOf(s.charAt(0)) >= 0) {
+      var tail = s.charAt(s.length - 1);
+      return 'num:' + (SHAPE_QUANT_TAIL.indexOf(tail) >= 0 ? tail : '*');
+    }
+    if (s.indexOf('《') >= 0 || s.indexOf('》') >= 0) return 'book';
+    var last = s.charAt(s.length - 1);
+    if (last === '人') return 'person';
+    if (last === '家') return 'school';
+    if (last === '制' || last === '法') return 'system';
+    if (last === '節') return 'festival';
+    var n = count_han(s);
+    return 'text:' + (n <= 2 ? 2 : (n <= 5 ? 3 : 6));
+  }
+
+  /* 形態家族：num:卷 與 num:篇 同屬 num；其餘形態各自成族 */
+  function shape_family(shape) {
+    var s = str(shape);
+    return s.indexOf('num:') === 0 ? 'num' : s;
+  }
 
   function build_options(item, pool, opts) {
     opts = opts || {};
@@ -595,28 +636,75 @@
       if (only_mj.length >= 4) pool = only_mj;
     }
     var correct = answer_variants(item, direction);
-    var seen = {};
-    seen[norm(correct.t)] = 1;
-    if (norm(correct.s)) seen[norm(correct.s)] = 1;
 
+    /* 名句維持原狀（不做形態分組）；常識／詞解才用 group + 答案形態 */
+    var use_shape = item.type !== 'mingju';
+    var want_shape = use_shape ? answer_shape(correct.t) : '';
+    var want_len = count_han(correct.t);
+    var want_group = item_group(item);
+
+    /* 候選一次算好（答案／形態／長度／群組），避免逐層重算：O(n)
+       去重鍵（norm）延遲計算：norm 會逐字轉簡，成本高，只在真的要取用時才算 */
+    var cands = [], i;
+    for (i = 0; i < pool.length; i++) {
+      var it = pool[i];
+      if (!it || it.id === item.id) continue;
+      var v = answer_variants(it, direction);
+      cands.push({
+        v: v, n: null, type: it.type, unit: it.unit, group: item_group(it),
+        shape: use_shape ? answer_shape(v.t) : '', len: count_han(v.t)
+      });
+    }
+    cands = shuffle(cands, rng);
+
+    /* 分層（依序嘗試，每層取滿 3 個不同答案才往下走） */
     var tiers = [
-      function (it) { return it.type === item.type && it.unit === item.unit; },
-      function (it) { return it.type === item.type; },
-      function (it) { return it.unit === item.unit; },
+      function (c) { return !!want_group && c.type === item.type && c.unit === item.unit && c.group === want_group; },
+      function (c) { return !!want_group && c.type === item.type && c.group === want_group; },
+      function (c) { return use_shape && c.type === item.type && c.unit === item.unit && c.shape === want_shape; },
+      function (c) { return c.type === item.type && c.unit === item.unit; },
+      function (c) { return c.type === item.type; },
+      function (c) { return c.unit === item.unit; },
       function () { return true; }
     ];
-    var picked = [], i, j, v, n;
+
+    var picked = [], taken = {};
+    taken[norm(correct.t)] = 1;
+    if (norm(correct.s)) taken[norm(correct.s)] = 1;
+    function cand_norm(c) {
+      if (c.n === null) c.n = norm(c.v.t) || norm(c.v.s);
+      return c.n;
+    }
+    function pick(c) {
+      if (picked.length >= 3) return false;
+      var n = cand_norm(c);
+      if (!n || taken[n]) return false;
+      taken[n] = 1;
+      picked.push(c.v);
+      return true;
+    }
+
     for (i = 0; i < tiers.length && picked.length < 3; i++) {
-      var candidates = shuffle(pool, rng);
-      for (j = 0; j < candidates.length && picked.length < 3; j++) {
-        var it = candidates[j];
-        if (!it || it.id === item.id) continue;
-        if (!tiers[i](it)) continue;
-        v = answer_variants(it, direction);
-        n = norm(v.t) || norm(v.s);
-        if (!n || seen[n]) continue;
-        seen[n] = 1;
-        picked.push(v);
+      var matched = cands.filter(tiers[i]);
+      if (!matched.length) continue;
+      if (!use_shape) {
+        for (var k = 0; k < matched.length && picked.length < 3; k++) pick(matched[k]);
+        continue;
+      }
+      /* 同層內：先取形態完全相同者 → 再取同家族（如 num:卷 ← num:篇）→ 最後取長度相近者 */
+      var pass, j, c0;
+      for (pass = 0; pass < 2 && picked.length < 3; pass++) {
+        for (j = 0; j < matched.length && picked.length < 3; j++) {
+          c0 = matched[j];
+          if (pass === 0) { if (c0.shape !== want_shape) continue; }
+          else if (shape_family(c0.shape) !== shape_family(want_shape)) continue;
+          pick(c0);
+        }
+      }
+      if (picked.length < 3) {
+        var rest = matched.slice();
+        rest.sort(function (a, b) { return Math.abs(a.len - want_len) - Math.abs(b.len - want_len); });
+        for (j = 0; j < rest.length && picked.length < 3; j++) pick(rest[j]);
       }
     }
 
@@ -1422,6 +1510,9 @@
     /* 選擇題 */
     build_options: build_options,
     option_key: option_key,
+    answer_shape: answer_shape,
+    shape_family: shape_family,
+    item_group: item_group,
 
     /* 隊列 */
     create_session: create_session,

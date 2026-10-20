@@ -272,6 +272,128 @@ with_dataset(ds_mc, () => {
 });
 eq(C.option_key(0) + C.option_key(3), 'AD', '選項鍵 A/B/C/D');
 
+/* ============================================================
+ * 7b. 選擇題干擾項同類（group + 答案形態）
+ * ============================================================ */
+section('7b. 選擇題干擾項同類');
+
+/* 答案形態的基本分類 */
+eq(C.answer_shape('二十六卷'), 'num:卷', '數量＋量詞 → num:卷');
+eq(C.answer_shape('三十三篇'), 'num:篇', '數量＋量詞 → num:篇');
+eq(C.answer_shape('三百零五首'), 'num:首', '數量＋量詞 → num:首');
+eq(C.answer_shape('一百六十篇'), 'num:篇', '數量＋量詞 → num:篇');
+eq(C.answer_shape('三十六計'), 'num:*', '有數字但量詞不同 → num:*');
+eq(C.answer_shape('《詩經》'), 'book', '含書名號 → book');
+eq(C.answer_shape('韓國人'), 'person', '結尾「人」→ person');
+eq(C.answer_shape('儒家'), 'school', '結尾「家」→ school');
+eq(C.answer_shape('科舉制'), 'system', '結尾「制」→ system');
+eq(C.answer_shape('重陽節'), 'festival', '結尾「節」→ festival');
+eq(C.answer_shape('顯學'), 'text:2', '其餘依長度分桶（≤2 字）→ text:2');
+eq(C.answer_shape('顯學著作'), 'text:3', '其餘依長度分桶（3–5 字）→ text:3');
+eq(C.answer_shape('顯學著作流派研究'), 'text:6', '其餘依長度分桶（≥6 字）→ text:6');
+eq(C.item_group({}), '', '沒有 group 時安全回傳空字串');
+eq(C.item_group({ group: ' 數量 ' }), '數量', 'group 取 trim 後的值');
+
+function mk_cs(id, unit, q, a, group) {
+  const it = {
+    id: id, type: 'changshi', unit: unit,
+    q_t: q, q_s: q, a_t: a, a_s: a, accept: [a], note: ''
+  };
+  if (group !== undefined) it.group = group;
+  return it;
+}
+
+/* 假資料集：12 題 changshi，5 題 group='數量'（跨 unit），其餘不同群組 */
+const ds_group = {
+  meta: { title: 't' },
+  units: [{ id: 'A', name: 'A' }, { id: 'B', name: 'B' }, { id: 'C', name: 'C' }],
+  items: [
+    mk_cs('n-0', 'A', '《呂氏春秋》共多少卷？', '二十六卷', '數量'),
+    mk_cs('n-1', 'A', '《論語》共多少篇？', '三十三篇', '數量'),
+    mk_cs('n-2', 'B', '《道德經》共多少章？', '八十一章', '數量'),
+    mk_cs('n-3', 'B', '孔門弟子共多少人？', '七十二人', '數量'),
+    mk_cs('n-4', 'C', '《詩經》共多少首？', '三百零五首', '數量'),
+    mk_cs('n-5', 'C', '《史記》共多少卷？', '四十六卷', '數量'),
+    mk_cs('o-0', 'A', '荀子是哪國人？', '韓國人'),
+    mk_cs('o-1', 'A', '《漢書》屬於何種學問？', '顯學'),
+    mk_cs('o-2', 'B', '建安文學代表體裁？', '文學'),
+    mk_cs('o-3', 'B', '孔子屬於哪一家？', '儒家'),
+    mk_cs('o-4', 'C', '漢代文體代表？', '駢文'),
+    mk_cs('o-5', 'C', '元曲代表形式？', '雜劇')
+  ],
+  t2s: {}
+};
+
+with_dataset(ds_group, () => {
+  const all = C.items();
+  const target = all.find((it) => it.id === 'n-0');
+  const built = C.build_options(target, all, { seed: 21 });
+  eq(built.options.length, 4, '同類干擾項：仍有 4 個選項');
+  const distractors = built.options.filter((_, i) => i !== built.correct_index);
+  const dtexts = distractors.map((o) => o.t);
+
+  /* 1. 三個干擾項的答案形態都是數量（num:*） */
+  ok(distractors.every((o) => /^num:/.test(C.answer_shape(o.t))),
+    '干擾項的答案形態都是數量（num:…）：' + dtexts.map((t) => C.answer_shape(t)).join(','));
+  ok(!dtexts.some((t) => C.answer_shape(t) === 'person' || C.answer_shape(t) === 'text:2'),
+    '干擾項不會是「韓國人／顯學」這類不相干的答案');
+
+  /* 2. 同 group 優先：干擾項全部來自 group='數量' */
+  const group_answers = new Set(all.filter((it) => it.group === '數量').map((it) => it.a_t));
+  ok(dtexts.every((t) => group_answers.has(t)),
+    '干擾項全部來自 group「數量」：' + dtexts.join('、'));
+  ok(dtexts.indexOf('四十六卷') >= 0,
+    '同 group 內形態完全相同者優先被選（num:卷 → 四十六卷）：' + dtexts.join('、'));
+});
+
+/* 3. group 不足 3 個成員 → 退回下一層，仍可作答且不會少於 2 個選項 */
+const ds_small_group = {
+  meta: { title: 't' },
+  units: [{ id: 'A', name: 'A' }, { id: 'B', name: 'B' }],
+  items: [
+    mk_cs('s-0', 'A', '小群題一', '甲組答案', '小群'),
+    mk_cs('s-1', 'B', '小群題二', '乙組答案', '小群'),
+    mk_cs('s-2', 'A', '大群題一', '丙組答案', '大群'),
+    mk_cs('s-3', 'A', '大群題二', '丁組答案', '大群'),
+    mk_cs('s-4', 'B', '大群題三', '戊組答案', '大群'),
+    mk_cs('s-5', 'B', '無群組題', '己組答案')
+  ],
+  t2s: {}
+};
+with_dataset(ds_small_group, () => {
+  const all = C.items();
+  const target = all.find((it) => it.id === 's-0');
+  let built = null, threw = null;
+  try { built = C.build_options(target, all, { seed: 33 }); } catch (e) { threw = e; }
+  ok(!threw, 'group 成員不足時不拋錯');
+  ok(built && built.options.length >= 2, 'group 成員不足時仍有至少 2 個選項（' + (built ? built.options.length : 0) + '）');
+  if (built) {
+    const ds = built.options.filter((_, i) => i !== built.correct_index).map((o) => o.t);
+    ok(ds.indexOf('乙組答案') >= 0, '同 group 的另一題仍會被優先採用');
+    ok(ds.some((t) => ['丙組答案', '丁組答案', '戊組答案', '己組答案'].indexOf(t) >= 0),
+      'group 不足 3 個成員時退回下一層抽取：' + ds.join('、'));
+    eq(C.norm(built.options[built.correct_index].t), C.norm(target.a_t), '退回下一層時正確項仍正確');
+  }
+});
+
+/* 4. 名句 author 模式：仍有 4 個「作者《出處》」選項 */
+const named_mj = mj.find((it) => it.author_t && !C.is_anon_text(it.author_t));
+if (named_mj) {
+  const ao = C.build_options(named_mj, mj, { direction: 'author', seed: 13 });
+  eq(ao.options.length, 4, '名句 author 模式仍有 4 個選項');
+  ok(ao.options.every((o) => o.t.indexOf('《') >= 0), '名句 author 模式每個選項都是「作者《出處》」');
+  eq(new Set(ao.options.map((o) => C.norm(o.t))).size, 4, '名句 author 模式選項不重複');
+} else {
+  ok(true, '名句 author 模式：題庫無具名作者，略過');
+}
+
+/* 沒有 group 欄位的資料（舊資料）也照常產生 4 個選項 */
+with_dataset({ meta: { title: 't' }, units: [{ id: 'A', name: 'A' }], items: mk_items(8, 'changshi'), t2s: {} }, () => {
+  const all = C.items();
+  const b = C.build_options(all[0], all, { seed: 4 });
+  eq(b.options.length, 4, '沒有 group 欄位時仍有 4 個選項');
+});
+
 /* ============================================================ */
 section('8. 隊列：錯題 5/10/20 重現');
 const items25 = mk_items(25, 'changshi', () => 'u1');

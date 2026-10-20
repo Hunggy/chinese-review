@@ -28,6 +28,9 @@
 - 選填（所有題型）：seg=第幾段、exam=該段第幾次大測（皆為 >=1 的整數）。
 - 選填（僅 changshi）：accept=其他可接受的同義答案，以全形分號「；」或「|」分隔
   （例：`楚辭體,楚辭體（騷體）,騷體`）。空值不影響，未填此欄時自動產生的 accept 不變。
+- 選填（僅 changshi）：group=干擾項的「同類」群組名（如 `數量`、`稱謂`、`書名`）；
+  選擇題會優先取同 unit 同 group 的答案作干擾項。留空則只按 unit／題型抽，
+  空值時該欄完全不輸出（資料檔與未填時一致）。
 
 規則摘要
 --------
@@ -626,13 +629,18 @@ def build_changshi(rec: dict, unit: str):
         return None, "word（問）為空"
     if not a:
         return None, "chinese（答）為空"
-    return {
+    item = {
         "type": "changshi", "unit": unit,
         "q_t": q, "q_s": t2s(q),
         "a_t": a, "a_s": t2s(a),
         "accept": build_accept(a, parse_accept(rec.get("accept", ""))),
         "note": "",
-    }, None
+    }
+    # 選填：干擾項同類群組（空值時不輸出，維持既有資料檔內容）
+    group = (rec.get("group") or "").strip()
+    if group:
+        item["group"] = group
+    return item, None
 
 
 BUILDERS = {"mingju": build_mingju, "cijie": build_cijie, "changshi": build_changshi}

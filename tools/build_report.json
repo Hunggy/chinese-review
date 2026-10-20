@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-21T01:03:09+08:00",
+  "generated_at": "2026-10-21T01:27:28+08:00",
   "source_dirs": [
     "source",
     "data/source"
@@ -107,7 +107,7 @@
       "detected_by": "已知來源",
       "seg": 1,
       "exam": 2,
-      "count": 66,
+      "count": 68,
       "skipped": 0
     },
     {
@@ -120,7 +120,7 @@
       "detected_by": "已知來源",
       "seg": 1,
       "exam": 2,
-      "count": 47,
+      "count": 49,
       "skipped": 0
     },
     {
@@ -166,15 +166,15 @@
   "module_counts": {
     "mingju": 100,
     "cijie": 90,
-    "changshi": 237
+    "changshi": 241
   },
-  "total": 427,
+  "total": 431,
   "segments": {
-    "1": 427
+    "1": 431
   },
   "exams": {
     "1": 166,
-    "2": 261
+    "2": 265
   },
   "author_review": [
     {

@@ -19,6 +19,8 @@
 8. 同 unit 內正規化後重複條目。
 9. 常識 accept 至少包含 a_t 去書名號後的形式（CSV 另填的同義答案只是併入，不影響此規則）；
    且 a_t 與每個 accept 都不得含數字／英文字母（判分只留漢字，含數字必判錯）。
+   選填 group 若有值必須是字串；某 unit 內同 group 少於 3 題時印 warning
+   （干擾項分組太細，會退回下一層抽取）。
 10. dataset.js 內容與 dataset.json 一致。
 11. 每題都有 seg / exam，且為 >=1 的整數。
 12. 名句有 author_t / author_s（不可為空；佚名也算有），且 src 不含作者樣式
@@ -183,6 +185,7 @@ def validate(data: dict, js_data, report):
     t_side_chars = set()
     t_side_texts = []
     accept_violations = 0
+    group_counts = {}      # (unit, group) -> 題數（檢查分組是否太細）
 
     for idx, it in enumerate(items):
         label = it.get("id", "#%d" % idx)
@@ -347,6 +350,14 @@ def validate(data: dict, js_data, report):
                 err("%s 題面繁簡長度不一致：%s / %s" % (label, it.get("q_t"), it.get("q_s")))
             if len(it.get("a_t", "")) != len(it.get("a_s", "")):
                 err("%s 答案繁簡長度不一致：%s / %s" % (label, it.get("a_t"), it.get("a_s")))
+            # 選填 group：干擾項同類群組；必須是字串（可為空）
+            if "group" in it:
+                grp = it.get("group")
+                if not isinstance(grp, str):
+                    err("%s group 必須是字串（可為空）：%r" % (label, grp))
+                elif grp.strip():
+                    gkey = (it.get("unit"), grp.strip())
+                    group_counts[gkey] = group_counts.get(gkey, 0) + 1
             for key in ("q_t", "a_t"):
                 check_brackets("%s.%s" % (label, key), it.get(key, ""))
             for form in (acc or []):
@@ -385,6 +396,12 @@ def validate(data: dict, js_data, report):
         if n == 0:
             err("unit %s（%s，module=%s）題數為 0"
                 % (u.get("id"), u.get("name"), u.get("module")))
+
+    # 3c. group 分組太細：同 unit 內同 group 少於 3 題 → 干擾項會退回下一層
+    for (unit, gname), n in sorted(group_counts.items()):
+        if n < 3:
+            warn("unit %s 的 group「%s」只有 %d 題（少於 3 題，選項干擾項會退回下一層抽取）"
+                 % (unit, gname, n))
 
     # 4. t2s 覆蓋率
     if isinstance(t2s, dict):

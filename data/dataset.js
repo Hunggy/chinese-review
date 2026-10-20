@@ -3,7 +3,7 @@ window.CN_DATASET = {
   "meta": {
     "title": "中文溫習",
     "version": "2026-10-21",
-    "generated_at": "2026-10-21T01:03:09+08:00"
+    "generated_at": "2026-10-21T01:27:28+08:00"
   },
   "units": [
     {
@@ -3165,7 +3165,8 @@ window.CN_DATASET = {
         "詩經",
         "诗经"
       ],
-      "note": ""
+      "note": "",
+      "group": "書名"
     },
     {
       "id": "cs-002",
@@ -3182,7 +3183,8 @@ window.CN_DATASET = {
         "楚辭",
         "楚辞"
       ],
-      "note": ""
+      "note": "",
+      "group": "書名"
     },
     {
       "id": "cs-003",
@@ -3201,7 +3203,8 @@ window.CN_DATASET = {
         "離騷",
         "离骚"
       ],
-      "note": ""
+      "note": "",
+      "group": "書名"
     },
     {
       "id": "cs-004",
@@ -3217,7 +3220,8 @@ window.CN_DATASET = {
       "accept": [
         "春秋"
       ],
-      "note": ""
+      "note": "",
+      "group": "書名"
     },
     {
       "id": "cs-005",
@@ -3234,7 +3238,8 @@ window.CN_DATASET = {
         "左傳",
         "左传"
       ],
-      "note": ""
+      "note": "",
+      "group": "書名"
     },
     {
       "id": "cs-006",
@@ -3251,7 +3256,8 @@ window.CN_DATASET = {
         "國語",
         "国语"
       ],
-      "note": ""
+      "note": "",
+      "group": "書名"
     },
     {
       "id": "cs-007",
@@ -3268,7 +3274,8 @@ window.CN_DATASET = {
         "孫子兵法",
         "孙子兵法"
       ],
-      "note": ""
+      "note": "",
+      "group": "書名"
     },
     {
       "id": "cs-008",
@@ -3285,7 +3292,8 @@ window.CN_DATASET = {
         "爾雅",
         "尔雅"
       ],
-      "note": ""
+      "note": "",
+      "group": "書名"
     },
     {
       "id": "cs-009",
@@ -3302,7 +3310,8 @@ window.CN_DATASET = {
         "論語",
         "论语"
       ],
-      "note": ""
+      "note": "",
+      "group": "書名"
     },
     {
       "id": "cs-010",
@@ -3319,7 +3328,8 @@ window.CN_DATASET = {
         "呂氏春秋",
         "吕氏春秋"
       ],
-      "note": ""
+      "note": "",
+      "group": "書名"
     },
     {
       "id": "cs-011",
@@ -3335,7 +3345,8 @@ window.CN_DATASET = {
       "accept": [
         "孟子"
       ],
-      "note": ""
+      "note": "",
+      "group": "書名"
     },
     {
       "id": "cs-012",
@@ -3351,7 +3362,8 @@ window.CN_DATASET = {
       "accept": [
         "孟子"
       ],
-      "note": ""
+      "note": "",
+      "group": "書名"
     },
     {
       "id": "cs-013",
@@ -3368,7 +3380,8 @@ window.CN_DATASET = {
         "莊子",
         "庄子"
       ],
-      "note": ""
+      "note": "",
+      "group": "書名"
     },
     {
       "id": "cs-014",
@@ -3385,7 +3398,8 @@ window.CN_DATASET = {
         "莊子",
         "庄子"
       ],
-      "note": ""
+      "note": "",
+      "group": "書名"
     },
     {
       "id": "cs-015",
@@ -3402,7 +3416,8 @@ window.CN_DATASET = {
         "莊子",
         "庄子"
       ],
-      "note": ""
+      "note": "",
+      "group": "書名"
     },
     {
       "id": "cs-016",
@@ -3419,7 +3434,8 @@ window.CN_DATASET = {
         "莊子",
         "庄子"
       ],
-      "note": ""
+      "note": "",
+      "group": "書名"
     },
     {
       "id": "cs-017",
@@ -3435,7 +3451,8 @@ window.CN_DATASET = {
       "accept": [
         "列子"
       ],
-      "note": ""
+      "note": "",
+      "group": "書名"
     },
     {
       "id": "cs-018",
@@ -3451,7 +3468,8 @@ window.CN_DATASET = {
       "accept": [
         "列子"
       ],
-      "note": ""
+      "note": "",
+      "group": "書名"
     },
     {
       "id": "cs-019",
@@ -3467,7 +3485,8 @@ window.CN_DATASET = {
       "accept": [
         "列子"
       ],
-      "note": ""
+      "note": "",
+      "group": "書名"
     },
     {
       "id": "cs-020",
@@ -3484,7 +3503,8 @@ window.CN_DATASET = {
         "戰國策",
         "战国策"
       ],
-      "note": ""
+      "note": "",
+      "group": "書名"
     },
     {
       "id": "cs-021",
@@ -3501,7 +3521,8 @@ window.CN_DATASET = {
         "戰國策",
         "战国策"
       ],
-      "note": ""
+      "note": "",
+      "group": "書名"
     },
     {
       "id": "cs-022",
@@ -3518,7 +3539,8 @@ window.CN_DATASET = {
         "戰國策",
         "战国策"
       ],
-      "note": ""
+      "note": "",
+      "group": "書名"
     },
     {
       "id": "cs-023",
@@ -3535,7 +3557,8 @@ window.CN_DATASET = {
         "戰國策",
         "战国策"
       ],
-      "note": ""
+      "note": "",
+      "group": "書名"
     },
     {
       "id": "cs-024",
@@ -3552,7 +3575,8 @@ window.CN_DATASET = {
         "呂氏春秋",
         "吕氏春秋"
       ],
-      "note": ""
+      "note": "",
+      "group": "書名"
     },
     {
       "id": "cs-025",
@@ -3569,7 +3593,8 @@ window.CN_DATASET = {
         "呂氏春秋",
         "吕氏春秋"
       ],
-      "note": ""
+      "note": "",
+      "group": "書名"
     },
     {
       "id": "cs-026",
@@ -3586,7 +3611,8 @@ window.CN_DATASET = {
         "呂氏春秋",
         "吕氏春秋"
       ],
-      "note": ""
+      "note": "",
+      "group": "書名"
     },
     {
       "id": "cs-027",
@@ -3602,7 +3628,8 @@ window.CN_DATASET = {
       "accept": [
         "三百零五首"
       ],
-      "note": ""
+      "note": "",
+      "group": "數量"
     },
     {
       "id": "cs-028",
@@ -3619,7 +3646,8 @@ window.CN_DATASET = {
         "風雅頌",
         "风雅颂"
       ],
-      "note": ""
+      "note": "",
+      "group": "其他"
     },
     {
       "id": "cs-029",
@@ -3636,7 +3664,8 @@ window.CN_DATASET = {
         "賦比興",
         "赋比兴"
       ],
-      "note": ""
+      "note": "",
+      "group": "其他"
     },
     {
       "id": "cs-030",
@@ -3653,7 +3682,8 @@ window.CN_DATASET = {
         "詩經六義",
         "诗经六义"
       ],
-      "note": ""
+      "note": "",
+      "group": "其他"
     },
     {
       "id": "cs-031",
@@ -3670,7 +3700,8 @@ window.CN_DATASET = {
         "五經",
         "五经"
       ],
-      "note": ""
+      "note": "",
+      "group": "書名"
     },
     {
       "id": "cs-032",
@@ -3687,7 +3718,8 @@ window.CN_DATASET = {
         "國風",
         "国风"
       ],
-      "note": ""
+      "note": "",
+      "group": "書名"
     },
     {
       "id": "cs-033",
@@ -3706,7 +3738,8 @@ window.CN_DATASET = {
         "騷體",
         "骚体"
       ],
-      "note": ""
+      "note": "",
+      "group": "文體"
     },
     {
       "id": "cs-034",
@@ -3723,7 +3756,8 @@ window.CN_DATASET = {
         "劉向",
         "刘向"
       ],
-      "note": ""
+      "note": "",
+      "group": "人名"
     },
     {
       "id": "cs-035",
@@ -3739,7 +3773,8 @@ window.CN_DATASET = {
       "accept": [
         "屈宋"
       ],
-      "note": ""
+      "note": "",
+      "group": "稱謂"
     },
     {
       "id": "cs-036",
@@ -3755,7 +3790,8 @@ window.CN_DATASET = {
       "accept": [
         "丘"
       ],
-      "note": ""
+      "note": "",
+      "group": "人名"
     },
     {
       "id": "cs-037",
@@ -3771,7 +3807,8 @@ window.CN_DATASET = {
       "accept": [
         "仲尼"
       ],
-      "note": ""
+      "note": "",
+      "group": "字號"
     },
     {
       "id": "cs-038",
@@ -3788,7 +3825,8 @@ window.CN_DATASET = {
         "萬世師表",
         "万世师表"
       ],
-      "note": ""
+      "note": "",
+      "group": "稱謂"
     },
     {
       "id": "cs-039",
@@ -3804,7 +3842,8 @@ window.CN_DATASET = {
       "accept": [
         "仁"
       ],
-      "note": ""
+      "note": "",
+      "group": "思想"
     },
     {
       "id": "cs-040",
@@ -3820,7 +3859,8 @@ window.CN_DATASET = {
       "accept": [
         "七十二人"
       ],
-      "note": ""
+      "note": "",
+      "group": "數量"
     },
     {
       "id": "cs-041",
@@ -3836,7 +3876,8 @@ window.CN_DATASET = {
       "accept": [
         "二十篇"
       ],
-      "note": ""
+      "note": "",
+      "group": "數量"
     },
     {
       "id": "cs-042",
@@ -3853,7 +3894,8 @@ window.CN_DATASET = {
         "四書",
         "四书"
       ],
-      "note": ""
+      "note": "",
+      "group": "書名"
     },
     {
       "id": "cs-043",
@@ -3872,7 +3914,8 @@ window.CN_DATASET = {
         "顏回",
         "颜回"
       ],
-      "note": ""
+      "note": "",
+      "group": "人名"
     },
     {
       "id": "cs-044",
@@ -3889,7 +3932,8 @@ window.CN_DATASET = {
         "亞聖",
         "亚圣"
       ],
-      "note": ""
+      "note": "",
+      "group": "稱謂"
     },
     {
       "id": "cs-045",
@@ -3906,7 +3950,8 @@ window.CN_DATASET = {
         "性善論",
         "性善论"
       ],
-      "note": ""
+      "note": "",
+      "group": "思想"
     },
     {
       "id": "cs-046",
@@ -3923,7 +3968,8 @@ window.CN_DATASET = {
         "性惡論",
         "性恶论"
       ],
-      "note": ""
+      "note": "",
+      "group": "思想"
     },
     {
       "id": "cs-047",
@@ -3939,7 +3985,8 @@ window.CN_DATASET = {
       "accept": [
         "荀子"
       ],
-      "note": ""
+      "note": "",
+      "group": "人名"
     },
     {
       "id": "cs-048",
@@ -3956,7 +4003,8 @@ window.CN_DATASET = {
         "無為而治",
         "无为而治"
       ],
-      "note": ""
+      "note": "",
+      "group": "思想"
     },
     {
       "id": "cs-049",
@@ -3972,7 +4020,8 @@ window.CN_DATASET = {
       "accept": [
         "八十一章"
       ],
-      "note": ""
+      "note": "",
+      "group": "數量"
     },
     {
       "id": "cs-050",
@@ -3988,7 +4037,8 @@ window.CN_DATASET = {
       "accept": [
         "周"
       ],
-      "note": ""
+      "note": "",
+      "group": "人名"
     },
     {
       "id": "cs-051",
@@ -4005,7 +4055,8 @@ window.CN_DATASET = {
         "南華經",
         "南华经"
       ],
-      "note": ""
+      "note": "",
+      "group": "書名"
     },
     {
       "id": "cs-052",
@@ -4022,7 +4073,8 @@ window.CN_DATASET = {
         "顯學",
         "显学"
       ],
-      "note": ""
+      "note": "",
+      "group": "學派"
     },
     {
       "id": "cs-053",
@@ -4038,7 +4090,8 @@ window.CN_DATASET = {
       "accept": [
         "法家"
       ],
-      "note": ""
+      "note": "",
+      "group": "學派"
     },
     {
       "id": "cs-054",
@@ -4055,7 +4108,8 @@ window.CN_DATASET = {
         "禦寇",
         "御寇"
       ],
-      "note": ""
+      "note": "",
+      "group": "人名"
     },
     {
       "id": "cs-055",
@@ -4072,7 +4126,8 @@ window.CN_DATASET = {
         "呂不韋",
         "吕不韦"
       ],
-      "note": ""
+      "note": "",
+      "group": "人名"
     },
     {
       "id": "cs-056",
@@ -4088,7 +4143,8 @@ window.CN_DATASET = {
       "accept": [
         "一百六十篇"
       ],
-      "note": ""
+      "note": "",
+      "group": "數量"
     },
     {
       "id": "cs-057",
@@ -4105,7 +4161,8 @@ window.CN_DATASET = {
         "莊子",
         "庄子"
       ],
-      "note": ""
+      "note": "",
+      "group": "書名"
     },
     {
       "id": "cs-058",
@@ -4121,7 +4178,8 @@ window.CN_DATASET = {
       "accept": [
         "列子"
       ],
-      "note": ""
+      "note": "",
+      "group": "書名"
     },
     {
       "id": "cs-059",
@@ -4137,7 +4195,8 @@ window.CN_DATASET = {
       "accept": [
         "左丘明"
       ],
-      "note": ""
+      "note": "",
+      "group": "人名"
     },
     {
       "id": "cs-060",
@@ -4154,7 +4213,8 @@ window.CN_DATASET = {
         "穀梁傳",
         "谷梁传"
       ],
-      "note": ""
+      "note": "",
+      "group": "書名"
     },
     {
       "id": "cs-061",
@@ -4171,7 +4231,8 @@ window.CN_DATASET = {
         "春秋筆法",
         "春秋笔法"
       ],
-      "note": ""
+      "note": "",
+      "group": "其他"
     },
     {
       "id": "cs-062",
@@ -4190,7 +4251,8 @@ window.CN_DATASET = {
         "詩",
         "诗"
       ],
-      "note": ""
+      "note": "",
+      "group": "書名"
     },
     {
       "id": "cs-063",
@@ -4206,7 +4268,8 @@ window.CN_DATASET = {
       "accept": [
         "四言"
       ],
-      "note": ""
+      "note": "",
+      "group": "文體"
     },
     {
       "id": "cs-064",
@@ -4223,7 +4286,8 @@ window.CN_DATASET = {
         "現實主義",
         "现实主义"
       ],
-      "note": ""
+      "note": "",
+      "group": "其他"
     },
     {
       "id": "cs-065",
@@ -4240,7 +4304,8 @@ window.CN_DATASET = {
         "浪漫主義詩人",
         "浪漫主义诗人"
       ],
-      "note": ""
+      "note": "",
+      "group": "其他"
     },
     {
       "id": "cs-066",
@@ -4256,7 +4321,8 @@ window.CN_DATASET = {
       "accept": [
         "原"
       ],
-      "note": ""
+      "note": "",
+      "group": "字號"
     },
     {
       "id": "cs-067",
@@ -4273,7 +4339,8 @@ window.CN_DATASET = {
         "騷體",
         "骚体"
       ],
-      "note": ""
+      "note": "",
+      "group": "文體"
     },
     {
       "id": "cs-068",
@@ -4289,7 +4356,8 @@ window.CN_DATASET = {
       "accept": [
         "九歌"
       ],
-      "note": ""
+      "note": "",
+      "group": "書名"
     },
     {
       "id": "cs-069",
@@ -4306,7 +4374,8 @@ window.CN_DATASET = {
         "辭賦家",
         "辞赋家"
       ],
-      "note": ""
+      "note": "",
+      "group": "文體"
     },
     {
       "id": "cs-070",
@@ -4322,7 +4391,8 @@ window.CN_DATASET = {
       "accept": [
         "屈原"
       ],
-      "note": ""
+      "note": "",
+      "group": "人名"
     },
     {
       "id": "cs-071",
@@ -4338,7 +4408,8 @@ window.CN_DATASET = {
       "accept": [
         "孔子"
       ],
-      "note": ""
+      "note": "",
+      "group": "人名"
     },
     {
       "id": "cs-072",
@@ -4356,7 +4427,8 @@ window.CN_DATASET = {
         "春秋左氏傳",
         "春秋左氏传"
       ],
-      "note": ""
+      "note": "",
+      "group": "書名"
     },
     {
       "id": "cs-073",
@@ -4375,7 +4447,8 @@ window.CN_DATASET = {
         "記言為主",
         "记言为主"
       ],
-      "note": ""
+      "note": "",
+      "group": "其他"
     },
     {
       "id": "cs-074",
@@ -4392,7 +4465,8 @@ window.CN_DATASET = {
         "春秋外傳",
         "春秋外传"
       ],
-      "note": ""
+      "note": "",
+      "group": "書名"
     },
     {
       "id": "cs-075",
@@ -4409,7 +4483,8 @@ window.CN_DATASET = {
         "國策",
         "国策"
       ],
-      "note": ""
+      "note": "",
+      "group": "書名"
     },
     {
       "id": "cs-076",
@@ -4426,7 +4501,8 @@ window.CN_DATASET = {
         "劉向",
         "刘向"
       ],
-      "note": ""
+      "note": "",
+      "group": "人名"
     },
     {
       "id": "cs-077",
@@ -4442,7 +4518,8 @@ window.CN_DATASET = {
       "accept": [
         "儒家"
       ],
-      "note": ""
+      "note": "",
+      "group": "學派"
     },
     {
       "id": "cs-078",
@@ -4459,7 +4536,8 @@ window.CN_DATASET = {
         "有教無類",
         "有教无类"
       ],
-      "note": ""
+      "note": "",
+      "group": "思想"
     },
     {
       "id": "cs-079",
@@ -4475,7 +4553,8 @@ window.CN_DATASET = {
       "accept": [
         "三千人"
       ],
-      "note": ""
+      "note": "",
+      "group": "數量"
     },
     {
       "id": "cs-080",
@@ -4492,7 +4571,8 @@ window.CN_DATASET = {
         "文學",
         "文学"
       ],
-      "note": ""
+      "note": "",
+      "group": "其他"
     },
     {
       "id": "cs-081",
@@ -4509,7 +4589,8 @@ window.CN_DATASET = {
         "軻",
         "轲"
       ],
-      "note": ""
+      "note": "",
+      "group": "人名"
     },
     {
       "id": "cs-082",
@@ -4526,7 +4607,8 @@ window.CN_DATASET = {
         "仁政",
         "行仁政"
       ],
-      "note": ""
+      "note": "",
+      "group": "思想"
     },
     {
       "id": "cs-083",
@@ -4543,7 +4625,8 @@ window.CN_DATASET = {
         "況",
         "况"
       ],
-      "note": ""
+      "note": "",
+      "group": "人名"
     },
     {
       "id": "cs-084",
@@ -4559,7 +4642,8 @@ window.CN_DATASET = {
       "accept": [
         "李耳"
       ],
-      "note": ""
+      "note": "",
+      "group": "人名"
     },
     {
       "id": "cs-085",
@@ -4575,7 +4659,8 @@ window.CN_DATASET = {
       "accept": [
         "老子五千文"
       ],
-      "note": ""
+      "note": "",
+      "group": "書名"
     },
     {
       "id": "cs-086",
@@ -4591,7 +4676,8 @@ window.CN_DATASET = {
       "accept": [
         "三十三篇"
       ],
-      "note": ""
+      "note": "",
+      "group": "數量"
     },
     {
       "id": "cs-087",
@@ -4607,7 +4693,8 @@ window.CN_DATASET = {
       "accept": [
         "翟"
       ],
-      "note": ""
+      "note": "",
+      "group": "人名"
     },
     {
       "id": "cs-088",
@@ -4623,7 +4710,8 @@ window.CN_DATASET = {
       "accept": [
         "非攻"
       ],
-      "note": ""
+      "note": "",
+      "group": "思想"
     },
     {
       "id": "cs-089",
@@ -4640,7 +4728,8 @@ window.CN_DATASET = {
         "韓國人",
         "韩国人"
       ],
-      "note": ""
+      "note": "",
+      "group": "籍貫"
     },
     {
       "id": "cs-090",
@@ -4657,7 +4746,8 @@ window.CN_DATASET = {
         "君主集權",
         "君主集权"
       ],
-      "note": ""
+      "note": "",
+      "group": "思想"
     },
     {
       "id": "cs-091",
@@ -4674,7 +4764,8 @@ window.CN_DATASET = {
         "呂覽",
         "吕览"
       ],
-      "note": ""
+      "note": "",
+      "group": "書名"
     },
     {
       "id": "cs-092",
@@ -4690,10 +4781,47 @@ window.CN_DATASET = {
       "accept": [
         "二十六卷"
       ],
-      "note": ""
+      "note": "",
+      "group": "數量"
     },
     {
       "id": "cs-093",
+      "type": "changshi",
+      "unit": "xianqin2",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "屈原是哪一國人？",
+      "q_s": "屈原是哪一国人？",
+      "a_t": "楚國人",
+      "a_s": "楚国人",
+      "accept": [
+        "楚國人",
+        "楚国人"
+      ],
+      "note": "",
+      "group": "籍貫"
+    },
+    {
+      "id": "cs-094",
+      "type": "changshi",
+      "unit": "xianqin2",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "荀子是戰國末期哪一國人？",
+      "q_s": "荀子是战国末期哪一国人？",
+      "a_t": "趙國人",
+      "a_s": "赵国人",
+      "accept": [
+        "趙國人",
+        "赵国人"
+      ],
+      "note": "",
+      "group": "籍貫"
+    },
+    {
+      "id": "cs-095",
       "type": "changshi",
       "unit": "keju",
       "seg": 1,
@@ -4707,10 +4835,11 @@ window.CN_DATASET = {
         "察舉制",
         "察举制"
       ],
-      "note": ""
+      "note": "",
+      "group": "制度"
     },
     {
-      "id": "cs-094",
+      "id": "cs-096",
       "type": "changshi",
       "unit": "keju",
       "seg": 1,
@@ -4723,10 +4852,11 @@ window.CN_DATASET = {
       "accept": [
         "孝廉"
       ],
-      "note": ""
+      "note": "",
+      "group": "制度"
     },
     {
-      "id": "cs-095",
+      "id": "cs-097",
       "type": "changshi",
       "unit": "keju",
       "seg": 1,
@@ -4739,10 +4869,11 @@ window.CN_DATASET = {
       "accept": [
         "秀才"
       ],
-      "note": ""
+      "note": "",
+      "group": "稱謂"
     },
     {
-      "id": "cs-096",
+      "id": "cs-098",
       "type": "changshi",
       "unit": "keju",
       "seg": 1,
@@ -4757,10 +4888,11 @@ window.CN_DATASET = {
         "劉秀",
         "刘秀"
       ],
-      "note": ""
+      "note": "",
+      "group": "人名"
     },
     {
-      "id": "cs-097",
+      "id": "cs-099",
       "type": "changshi",
       "unit": "keju",
       "seg": 1,
@@ -4773,10 +4905,11 @@ window.CN_DATASET = {
       "accept": [
         "射策"
       ],
-      "note": ""
+      "note": "",
+      "group": "考試"
     },
     {
-      "id": "cs-098",
+      "id": "cs-100",
       "type": "changshi",
       "unit": "keju",
       "seg": 1,
@@ -4790,10 +4923,11 @@ window.CN_DATASET = {
         "九品中正制（九品官人法）",
         "九品中正制"
       ],
-      "note": ""
+      "note": "",
+      "group": "制度"
     },
     {
-      "id": "cs-099",
+      "id": "cs-101",
       "type": "changshi",
       "unit": "keju",
       "seg": 1,
@@ -4807,10 +4941,11 @@ window.CN_DATASET = {
         "豪門",
         "豪门"
       ],
-      "note": ""
+      "note": "",
+      "group": "其他"
     },
     {
-      "id": "cs-100",
+      "id": "cs-102",
       "type": "changshi",
       "unit": "keju",
       "seg": 1,
@@ -4824,10 +4959,11 @@ window.CN_DATASET = {
         "下品無勢族",
         "下品无势族"
       ],
-      "note": ""
+      "note": "",
+      "group": "其他"
     },
     {
-      "id": "cs-101",
+      "id": "cs-103",
       "type": "changshi",
       "unit": "keju",
       "seg": 1,
@@ -4841,10 +4977,11 @@ window.CN_DATASET = {
         "隋代（隋朝）",
         "隋代"
       ],
-      "note": ""
+      "note": "",
+      "group": "朝代"
     },
     {
-      "id": "cs-102",
+      "id": "cs-104",
       "type": "changshi",
       "unit": "keju",
       "seg": 1,
@@ -4858,10 +4995,11 @@ window.CN_DATASET = {
         "明經",
         "明经"
       ],
-      "note": ""
+      "note": "",
+      "group": "考試"
     },
     {
-      "id": "cs-103",
+      "id": "cs-105",
       "type": "changshi",
       "unit": "keju",
       "seg": 1,
@@ -4875,10 +5013,11 @@ window.CN_DATASET = {
         "鄉貢",
         "乡贡"
       ],
-      "note": ""
+      "note": "",
+      "group": "考試"
     },
     {
-      "id": "cs-104",
+      "id": "cs-106",
       "type": "changshi",
       "unit": "keju",
       "seg": 1,
@@ -4892,10 +5031,11 @@ window.CN_DATASET = {
         "制舉",
         "制举"
       ],
-      "note": ""
+      "note": "",
+      "group": "考試"
     },
     {
-      "id": "cs-105",
+      "id": "cs-107",
       "type": "changshi",
       "unit": "keju",
       "seg": 1,
@@ -4911,10 +5051,11 @@ window.CN_DATASET = {
         "進士科",
         "进士科"
       ],
-      "note": ""
+      "note": "",
+      "group": "考試"
     },
     {
-      "id": "cs-106",
+      "id": "cs-108",
       "type": "changshi",
       "unit": "keju",
       "seg": 1,
@@ -4928,10 +5069,11 @@ window.CN_DATASET = {
         "殿試",
         "殿试"
       ],
-      "note": ""
+      "note": "",
+      "group": "考試"
     },
     {
-      "id": "cs-107",
+      "id": "cs-109",
       "type": "changshi",
       "unit": "keju",
       "seg": 1,
@@ -4945,10 +5087,11 @@ window.CN_DATASET = {
         "童試",
         "童试"
       ],
-      "note": ""
+      "note": "",
+      "group": "考試"
     },
     {
-      "id": "cs-108",
+      "id": "cs-110",
       "type": "changshi",
       "unit": "keju",
       "seg": 1,
@@ -4961,10 +5104,11 @@ window.CN_DATASET = {
       "accept": [
         "童生"
       ],
-      "note": ""
+      "note": "",
+      "group": "稱謂"
     },
     {
-      "id": "cs-109",
+      "id": "cs-111",
       "type": "changshi",
       "unit": "keju",
       "seg": 1,
@@ -4980,10 +5124,11 @@ window.CN_DATASET = {
         "生員",
         "生员"
       ],
-      "note": ""
+      "note": "",
+      "group": "稱謂"
     },
     {
-      "id": "cs-110",
+      "id": "cs-112",
       "type": "changshi",
       "unit": "keju",
       "seg": 1,
@@ -4997,10 +5142,11 @@ window.CN_DATASET = {
         "秋闈",
         "秋闱"
       ],
-      "note": ""
+      "note": "",
+      "group": "考試"
     },
     {
-      "id": "cs-111",
+      "id": "cs-113",
       "type": "changshi",
       "unit": "keju",
       "seg": 1,
@@ -5013,10 +5159,11 @@ window.CN_DATASET = {
       "accept": [
         "大比"
       ],
-      "note": ""
+      "note": "",
+      "group": "考試"
     },
     {
-      "id": "cs-112",
+      "id": "cs-114",
       "type": "changshi",
       "unit": "keju",
       "seg": 1,
@@ -5030,10 +5177,11 @@ window.CN_DATASET = {
         "舉人",
         "举人"
       ],
-      "note": ""
+      "note": "",
+      "group": "稱謂"
     },
     {
-      "id": "cs-113",
+      "id": "cs-115",
       "type": "changshi",
       "unit": "keju",
       "seg": 1,
@@ -5046,10 +5194,11 @@ window.CN_DATASET = {
       "accept": [
         "解元"
       ],
-      "note": ""
+      "note": "",
+      "group": "稱謂"
     },
     {
-      "id": "cs-114",
+      "id": "cs-116",
       "type": "changshi",
       "unit": "keju",
       "seg": 1,
@@ -5063,10 +5212,11 @@ window.CN_DATASET = {
         "禮部",
         "礼部"
       ],
-      "note": ""
+      "note": "",
+      "group": "官職"
     },
     {
-      "id": "cs-115",
+      "id": "cs-117",
       "type": "changshi",
       "unit": "keju",
       "seg": 1,
@@ -5082,10 +5232,11 @@ window.CN_DATASET = {
         "春闈",
         "春闱"
       ],
-      "note": ""
+      "note": "",
+      "group": "考試"
     },
     {
-      "id": "cs-116",
+      "id": "cs-118",
       "type": "changshi",
       "unit": "keju",
       "seg": 1,
@@ -5099,10 +5250,11 @@ window.CN_DATASET = {
         "貢士",
         "贡士"
       ],
-      "note": ""
+      "note": "",
+      "group": "稱謂"
     },
     {
-      "id": "cs-117",
+      "id": "cs-119",
       "type": "changshi",
       "unit": "keju",
       "seg": 1,
@@ -5116,10 +5268,11 @@ window.CN_DATASET = {
         "會元",
         "会元"
       ],
-      "note": ""
+      "note": "",
+      "group": "稱謂"
     },
     {
-      "id": "cs-118",
+      "id": "cs-120",
       "type": "changshi",
       "unit": "keju",
       "seg": 1,
@@ -5133,10 +5286,11 @@ window.CN_DATASET = {
         "狀元",
         "状元"
       ],
-      "note": ""
+      "note": "",
+      "group": "稱謂"
     },
     {
-      "id": "cs-119",
+      "id": "cs-121",
       "type": "changshi",
       "unit": "keju",
       "seg": 1,
@@ -5149,10 +5303,11 @@ window.CN_DATASET = {
       "accept": [
         "榜眼"
       ],
-      "note": ""
+      "note": "",
+      "group": "稱謂"
     },
     {
-      "id": "cs-120",
+      "id": "cs-122",
       "type": "changshi",
       "unit": "keju",
       "seg": 1,
@@ -5166,10 +5321,11 @@ window.CN_DATASET = {
         "傳臚",
         "传胪"
       ],
-      "note": ""
+      "note": "",
+      "group": "稱謂"
     },
     {
-      "id": "cs-121",
+      "id": "cs-123",
       "type": "changshi",
       "unit": "keju",
       "seg": 1,
@@ -5182,10 +5338,11 @@ window.CN_DATASET = {
       "accept": [
         "三鼎甲"
       ],
-      "note": ""
+      "note": "",
+      "group": "稱謂"
     },
     {
-      "id": "cs-122",
+      "id": "cs-124",
       "type": "changshi",
       "unit": "keju",
       "seg": 1,
@@ -5199,10 +5356,11 @@ window.CN_DATASET = {
         "翰林院修撰",
         "修撰"
       ],
-      "note": ""
+      "note": "",
+      "group": "官職"
     },
     {
-      "id": "cs-123",
+      "id": "cs-125",
       "type": "changshi",
       "unit": "keju",
       "seg": 1,
@@ -5218,10 +5376,11 @@ window.CN_DATASET = {
         "編修",
         "编修"
       ],
-      "note": ""
+      "note": "",
+      "group": "官職"
     },
     {
-      "id": "cs-124",
+      "id": "cs-126",
       "type": "changshi",
       "unit": "keju",
       "seg": 1,
@@ -5234,10 +5393,11 @@ window.CN_DATASET = {
       "accept": [
         "八股文"
       ],
-      "note": ""
+      "note": "",
+      "group": "制度"
     },
     {
-      "id": "cs-125",
+      "id": "cs-127",
       "type": "changshi",
       "unit": "keju",
       "seg": 1,
@@ -5251,10 +5411,11 @@ window.CN_DATASET = {
         "連中三元",
         "连中三元"
       ],
-      "note": ""
+      "note": "",
+      "group": "制度"
     },
     {
-      "id": "cs-126",
+      "id": "cs-128",
       "type": "changshi",
       "unit": "keju",
       "seg": 1,
@@ -5268,10 +5429,11 @@ window.CN_DATASET = {
         "武則天",
         "武则天"
       ],
-      "note": ""
+      "note": "",
+      "group": "人名"
     },
     {
-      "id": "cs-127",
+      "id": "cs-129",
       "type": "changshi",
       "unit": "keju",
       "seg": 1,
@@ -5285,10 +5447,11 @@ window.CN_DATASET = {
         "進士明經",
         "进士明经"
       ],
-      "note": ""
+      "note": "",
+      "group": "考試"
     },
     {
-      "id": "cs-128",
+      "id": "cs-130",
       "type": "changshi",
       "unit": "keju",
       "seg": 1,
@@ -5301,10 +5464,11 @@ window.CN_DATASET = {
       "accept": [
         "五甲"
       ],
-      "note": ""
+      "note": "",
+      "group": "數量"
     },
     {
-      "id": "cs-129",
+      "id": "cs-131",
       "type": "changshi",
       "unit": "keju",
       "seg": 1,
@@ -5318,10 +5482,11 @@ window.CN_DATASET = {
         "鄉試、會試、殿試",
         "乡试、会试、殿试"
       ],
-      "note": ""
+      "note": "",
+      "group": "考試"
     },
     {
-      "id": "cs-130",
+      "id": "cs-132",
       "type": "changshi",
       "unit": "keju",
       "seg": 1,
@@ -5335,10 +5500,11 @@ window.CN_DATASET = {
         "策問",
         "策问"
       ],
-      "note": ""
+      "note": "",
+      "group": "考試"
     },
     {
-      "id": "cs-131",
+      "id": "cs-133",
       "type": "changshi",
       "unit": "keju",
       "seg": 1,
@@ -5352,10 +5518,11 @@ window.CN_DATASET = {
         "進士及第",
         "进士及第"
       ],
-      "note": ""
+      "note": "",
+      "group": "稱謂"
     },
     {
-      "id": "cs-132",
+      "id": "cs-134",
       "type": "changshi",
       "unit": "keju",
       "seg": 1,
@@ -5369,10 +5536,11 @@ window.CN_DATASET = {
         "進士出身",
         "进士出身"
       ],
-      "note": ""
+      "note": "",
+      "group": "稱謂"
     },
     {
-      "id": "cs-133",
+      "id": "cs-135",
       "type": "changshi",
       "unit": "keju",
       "seg": 1,
@@ -5386,10 +5554,11 @@ window.CN_DATASET = {
         "同進士出身",
         "同进士出身"
       ],
-      "note": ""
+      "note": "",
+      "group": "稱謂"
     },
     {
-      "id": "cs-134",
+      "id": "cs-136",
       "type": "changshi",
       "unit": "keju",
       "seg": 1,
@@ -5403,10 +5572,11 @@ window.CN_DATASET = {
         "次年",
         "第二年"
       ],
-      "note": ""
+      "note": "",
+      "group": "數量"
     },
     {
-      "id": "cs-135",
+      "id": "cs-137",
       "type": "changshi",
       "unit": "keju",
       "seg": 1,
@@ -5421,10 +5591,11 @@ window.CN_DATASET = {
         "省會",
         "省会"
       ],
-      "note": ""
+      "note": "",
+      "group": "其他"
     },
     {
-      "id": "cs-136",
+      "id": "cs-138",
       "type": "changshi",
       "unit": "keju",
       "seg": 1,
@@ -5437,10 +5608,11 @@ window.CN_DATASET = {
       "accept": [
         "三年"
       ],
-      "note": ""
+      "note": "",
+      "group": "數量"
     },
     {
-      "id": "cs-137",
+      "id": "cs-139",
       "type": "changshi",
       "unit": "keju",
       "seg": 1,
@@ -5454,10 +5626,11 @@ window.CN_DATASET = {
         "對策",
         "对策"
       ],
-      "note": ""
+      "note": "",
+      "group": "考試"
     },
     {
-      "id": "cs-138",
+      "id": "cs-140",
       "type": "changshi",
       "unit": "keju",
       "seg": 1,
@@ -5471,10 +5644,11 @@ window.CN_DATASET = {
         "清代",
         "清朝"
       ],
-      "note": ""
+      "note": "",
+      "group": "朝代"
     },
     {
-      "id": "cs-139",
+      "id": "cs-141",
       "type": "changshi",
       "unit": "keju",
       "seg": 1,
@@ -5487,10 +5661,45 @@ window.CN_DATASET = {
       "accept": [
         "三元及第"
       ],
-      "note": ""
+      "note": "",
+      "group": "制度"
     },
     {
-      "id": "cs-140",
+      "id": "cs-142",
+      "type": "changshi",
+      "unit": "keju",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "禮部考試合格後由皇帝殿試覆審、分五甲發榜，是哪個朝代的制度？",
+      "q_s": "礼部考试合格后由皇帝殿试覆审、分五甲发榜，是哪个朝代的制度？",
+      "a_t": "宋代",
+      "a_s": "宋代",
+      "accept": [
+        "宋代"
+      ],
+      "note": "",
+      "group": "朝代"
+    },
+    {
+      "id": "cs-143",
+      "type": "changshi",
+      "unit": "keju",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "地方舉送中央考試稱鄉貢，另有皇帝特詔的制舉，是哪個朝代的制度？",
+      "q_s": "地方举送中央考试称乡贡，另有皇帝特诏的制举，是哪个朝代的制度？",
+      "a_t": "唐代",
+      "a_s": "唐代",
+      "accept": [
+        "唐代"
+      ],
+      "note": "",
+      "group": "朝代"
+    },
+    {
+      "id": "cs-144",
       "type": "changshi",
       "unit": "hanwei",
       "seg": 1,
@@ -5504,10 +5713,11 @@ window.CN_DATASET = {
         "長篇敘事詩",
         "长篇叙事诗"
       ],
-      "note": ""
+      "note": "",
+      "group": "文體"
     },
     {
-      "id": "cs-141",
+      "id": "cs-145",
       "type": "changshi",
       "unit": "hanwei",
       "seg": 1,
@@ -5521,10 +5731,11 @@ window.CN_DATASET = {
         "玉台新詠",
         "玉台新咏"
       ],
-      "note": ""
+      "note": "",
+      "group": "書名"
     },
     {
-      "id": "cs-142",
+      "id": "cs-146",
       "type": "changshi",
       "unit": "hanwei",
       "seg": 1,
@@ -5537,10 +5748,11 @@ window.CN_DATASET = {
       "accept": [
         "郭茂倩"
       ],
-      "note": ""
+      "note": "",
+      "group": "人名"
     },
     {
-      "id": "cs-143",
+      "id": "cs-147",
       "type": "changshi",
       "unit": "hanwei",
       "seg": 1,
@@ -5553,10 +5765,11 @@ window.CN_DATASET = {
       "accept": [
         "徐陵"
       ],
-      "note": ""
+      "note": "",
+      "group": "人名"
     },
     {
-      "id": "cs-144",
+      "id": "cs-148",
       "type": "changshi",
       "unit": "hanwei",
       "seg": 1,
@@ -5569,10 +5782,11 @@ window.CN_DATASET = {
       "accept": [
         "焦仲卿"
       ],
-      "note": ""
+      "note": "",
+      "group": "人名"
     },
     {
-      "id": "cs-145",
+      "id": "cs-149",
       "type": "changshi",
       "unit": "hanwei",
       "seg": 1,
@@ -5586,10 +5800,11 @@ window.CN_DATASET = {
         "劉蘭芝",
         "刘兰芝"
       ],
-      "note": ""
+      "note": "",
+      "group": "人名"
     },
     {
-      "id": "cs-146",
+      "id": "cs-150",
       "type": "changshi",
       "unit": "hanwei",
       "seg": 1,
@@ -5605,10 +5820,11 @@ window.CN_DATASET = {
         "木蘭詩",
         "木兰诗"
       ],
-      "note": ""
+      "note": "",
+      "group": "書名"
     },
     {
-      "id": "cs-147",
+      "id": "cs-151",
       "type": "changshi",
       "unit": "hanwei",
       "seg": 1,
@@ -5621,10 +5837,11 @@ window.CN_DATASET = {
       "accept": [
         "陌上桑"
       ],
-      "note": ""
+      "note": "",
+      "group": "書名"
     },
     {
-      "id": "cs-148",
+      "id": "cs-152",
       "type": "changshi",
       "unit": "hanwei",
       "seg": 1,
@@ -5640,10 +5857,11 @@ window.CN_DATASET = {
         "採集詩歌制譜的官署",
         "采集诗歌制谱的官署"
       ],
-      "note": ""
+      "note": "",
+      "group": "其他"
     },
     {
-      "id": "cs-149",
+      "id": "cs-153",
       "type": "changshi",
       "unit": "hanwei",
       "seg": 1,
@@ -5656,10 +5874,11 @@ window.CN_DATASET = {
       "accept": [
         "曹操"
       ],
-      "note": ""
+      "note": "",
+      "group": "人名"
     },
     {
-      "id": "cs-150",
+      "id": "cs-154",
       "type": "changshi",
       "unit": "hanwei",
       "seg": 1,
@@ -5672,10 +5891,11 @@ window.CN_DATASET = {
       "accept": [
         "燕歌行"
       ],
-      "note": ""
+      "note": "",
+      "group": "書名"
     },
     {
-      "id": "cs-151",
+      "id": "cs-155",
       "type": "changshi",
       "unit": "hanwei",
       "seg": 1,
@@ -5688,10 +5908,11 @@ window.CN_DATASET = {
       "accept": [
         "曹丕"
       ],
-      "note": ""
+      "note": "",
+      "group": "人名"
     },
     {
-      "id": "cs-152",
+      "id": "cs-156",
       "type": "changshi",
       "unit": "hanwei",
       "seg": 1,
@@ -5705,10 +5926,11 @@ window.CN_DATASET = {
         "典論論文",
         "典论论文"
       ],
-      "note": ""
+      "note": "",
+      "group": "書名"
     },
     {
-      "id": "cs-153",
+      "id": "cs-157",
       "type": "changshi",
       "unit": "hanwei",
       "seg": 1,
@@ -5721,10 +5943,11 @@ window.CN_DATASET = {
       "accept": [
         "子建"
       ],
-      "note": ""
+      "note": "",
+      "group": "字號"
     },
     {
-      "id": "cs-154",
+      "id": "cs-158",
       "type": "changshi",
       "unit": "hanwei",
       "seg": 1,
@@ -5738,10 +5961,11 @@ window.CN_DATASET = {
         "陳思王",
         "陈思王"
       ],
-      "note": ""
+      "note": "",
+      "group": "稱謂"
     },
     {
-      "id": "cs-155",
+      "id": "cs-159",
       "type": "changshi",
       "unit": "hanwei",
       "seg": 1,
@@ -5754,10 +5978,11 @@ window.CN_DATASET = {
       "accept": [
         "曹植"
       ],
-      "note": ""
+      "note": "",
+      "group": "人名"
     },
     {
-      "id": "cs-156",
+      "id": "cs-160",
       "type": "changshi",
       "unit": "hanwei",
       "seg": 1,
@@ -5770,10 +5995,11 @@ window.CN_DATASET = {
       "accept": [
         "三曹"
       ],
-      "note": ""
+      "note": "",
+      "group": "稱謂"
     },
     {
-      "id": "cs-157",
+      "id": "cs-161",
       "type": "changshi",
       "unit": "hanwei",
       "seg": 1,
@@ -5787,10 +6013,11 @@ window.CN_DATASET = {
         "蕭統",
         "萧统"
       ],
-      "note": ""
+      "note": "",
+      "group": "人名"
     },
     {
-      "id": "cs-158",
+      "id": "cs-162",
       "type": "changshi",
       "unit": "hanwei",
       "seg": 1,
@@ -5804,10 +6031,11 @@ window.CN_DATASET = {
         "五言詩",
         "五言诗"
       ],
-      "note": ""
+      "note": "",
+      "group": "文體"
     },
     {
-      "id": "cs-159",
+      "id": "cs-163",
       "type": "changshi",
       "unit": "hanwei",
       "seg": 1,
@@ -5821,10 +6049,11 @@ window.CN_DATASET = {
         "古詩十九首",
         "古诗十九首"
       ],
-      "note": ""
+      "note": "",
+      "group": "書名"
     },
     {
-      "id": "cs-160",
+      "id": "cs-164",
       "type": "changshi",
       "unit": "hanwei",
       "seg": 1,
@@ -5838,10 +6067,11 @@ window.CN_DATASET = {
         "五言之冠冕",
         "五言冠冕"
       ],
-      "note": ""
+      "note": "",
+      "group": "其他"
     },
     {
-      "id": "cs-161",
+      "id": "cs-165",
       "type": "changshi",
       "unit": "hanwei",
       "seg": 1,
@@ -5855,10 +6085,11 @@ window.CN_DATASET = {
         "詩品",
         "诗品"
       ],
-      "note": ""
+      "note": "",
+      "group": "書名"
     },
     {
-      "id": "cs-162",
+      "id": "cs-166",
       "type": "changshi",
       "unit": "hanwei",
       "seg": 1,
@@ -5872,10 +6103,11 @@ window.CN_DATASET = {
         "潛",
         "潜"
       ],
-      "note": ""
+      "note": "",
+      "group": "人名"
     },
     {
-      "id": "cs-163",
+      "id": "cs-167",
       "type": "changshi",
       "unit": "hanwei",
       "seg": 1,
@@ -5888,10 +6120,11 @@ window.CN_DATASET = {
       "accept": [
         "元亮"
       ],
-      "note": ""
+      "note": "",
+      "group": "字號"
     },
     {
-      "id": "cs-164",
+      "id": "cs-168",
       "type": "changshi",
       "unit": "hanwei",
       "seg": 1,
@@ -5907,10 +6140,11 @@ window.CN_DATASET = {
         "靖節",
         "靖节"
       ],
-      "note": ""
+      "note": "",
+      "group": "稱謂"
     },
     {
-      "id": "cs-165",
+      "id": "cs-169",
       "type": "changshi",
       "unit": "hanwei",
       "seg": 1,
@@ -5924,10 +6158,11 @@ window.CN_DATASET = {
         "陶彭澤",
         "陶彭泽"
       ],
-      "note": ""
+      "note": "",
+      "group": "稱謂"
     },
     {
-      "id": "cs-166",
+      "id": "cs-170",
       "type": "changshi",
       "unit": "hanwei",
       "seg": 1,
@@ -5941,10 +6176,11 @@ window.CN_DATASET = {
         "陶淵明",
         "陶渊明"
       ],
-      "note": ""
+      "note": "",
+      "group": "人名"
     },
     {
-      "id": "cs-167",
+      "id": "cs-171",
       "type": "changshi",
       "unit": "hanwei",
       "seg": 1,
@@ -5960,10 +6196,11 @@ window.CN_DATASET = {
         "歸去來辭",
         "归去来辞"
       ],
-      "note": ""
+      "note": "",
+      "group": "書名"
     },
     {
-      "id": "cs-168",
+      "id": "cs-172",
       "type": "changshi",
       "unit": "hanwei",
       "seg": 1,
@@ -5979,10 +6216,11 @@ window.CN_DATASET = {
         "謝康樂",
         "谢康乐"
       ],
-      "note": ""
+      "note": "",
+      "group": "稱謂"
     },
     {
-      "id": "cs-169",
+      "id": "cs-173",
       "type": "changshi",
       "unit": "hanwei",
       "seg": 1,
@@ -5996,10 +6234,11 @@ window.CN_DATASET = {
         "謝靈運",
         "谢灵运"
       ],
-      "note": ""
+      "note": "",
+      "group": "人名"
     },
     {
-      "id": "cs-170",
+      "id": "cs-174",
       "type": "changshi",
       "unit": "hanwei",
       "seg": 1,
@@ -6013,10 +6252,11 @@ window.CN_DATASET = {
         "山居賦",
         "山居赋"
       ],
-      "note": ""
+      "note": "",
+      "group": "書名"
     },
     {
-      "id": "cs-171",
+      "id": "cs-175",
       "type": "changshi",
       "unit": "hanwei",
       "seg": 1,
@@ -6030,10 +6270,11 @@ window.CN_DATASET = {
         "大小謝",
         "大小谢"
       ],
-      "note": ""
+      "note": "",
+      "group": "稱謂"
     },
     {
-      "id": "cs-172",
+      "id": "cs-176",
       "type": "changshi",
       "unit": "hanwei",
       "seg": 1,
@@ -6047,10 +6288,11 @@ window.CN_DATASET = {
         "謝朓",
         "谢朓"
       ],
-      "note": ""
+      "note": "",
+      "group": "人名"
     },
     {
-      "id": "cs-173",
+      "id": "cs-177",
       "type": "changshi",
       "unit": "hanwei",
       "seg": 1,
@@ -6063,10 +6305,11 @@ window.CN_DATASET = {
       "accept": [
         "次子"
       ],
-      "note": ""
+      "note": "",
+      "group": "其他"
     },
     {
-      "id": "cs-174",
+      "id": "cs-178",
       "type": "changshi",
       "unit": "hanwei",
       "seg": 1,
@@ -6080,10 +6323,11 @@ window.CN_DATASET = {
         "洛神賦",
         "洛神赋"
       ],
-      "note": ""
+      "note": "",
+      "group": "書名"
     },
     {
-      "id": "cs-175",
+      "id": "cs-179",
       "type": "changshi",
       "unit": "hanwei",
       "seg": 1,
@@ -6097,10 +6341,11 @@ window.CN_DATASET = {
         "離愁別恨",
         "离愁别恨"
       ],
-      "note": ""
+      "note": "",
+      "group": "其他"
     },
     {
-      "id": "cs-176",
+      "id": "cs-180",
       "type": "changshi",
       "unit": "hanwei",
       "seg": 1,
@@ -6114,10 +6359,11 @@ window.CN_DATASET = {
         "首句",
         "第一句"
       ],
-      "note": ""
+      "note": "",
+      "group": "其他"
     },
     {
-      "id": "cs-177",
+      "id": "cs-181",
       "type": "changshi",
       "unit": "hanwei",
       "seg": 1,
@@ -6131,10 +6377,11 @@ window.CN_DATASET = {
         "詩歌總集",
         "诗歌总集"
       ],
-      "note": ""
+      "note": "",
+      "group": "其他"
     },
     {
-      "id": "cs-178",
+      "id": "cs-182",
       "type": "changshi",
       "unit": "hanwei",
       "seg": 1,
@@ -6148,10 +6395,11 @@ window.CN_DATASET = {
         "詩體名",
         "诗体名"
       ],
-      "note": ""
+      "note": "",
+      "group": "文體"
     },
     {
-      "id": "cs-179",
+      "id": "cs-183",
       "type": "changshi",
       "unit": "hanwei",
       "seg": 1,
@@ -6165,10 +6413,11 @@ window.CN_DATASET = {
         "桃花源記",
         "桃花源记"
       ],
-      "note": ""
+      "note": "",
+      "group": "書名"
     },
     {
-      "id": "cs-180",
+      "id": "cs-184",
       "type": "changshi",
       "unit": "hanwei",
       "seg": 1,
@@ -6182,10 +6431,11 @@ window.CN_DATASET = {
         "歸園田居",
         "归园田居"
       ],
-      "note": ""
+      "note": "",
+      "group": "書名"
     },
     {
-      "id": "cs-181",
+      "id": "cs-185",
       "type": "changshi",
       "unit": "hanwei",
       "seg": 1,
@@ -6198,10 +6448,11 @@ window.CN_DATASET = {
       "accept": [
         "蒿里行"
       ],
-      "note": ""
+      "note": "",
+      "group": "書名"
     },
     {
-      "id": "cs-182",
+      "id": "cs-186",
       "type": "changshi",
       "unit": "hanwei",
       "seg": 1,
@@ -6215,10 +6466,11 @@ window.CN_DATASET = {
         "文學理論專著",
         "文学理论专著"
       ],
-      "note": ""
+      "note": "",
+      "group": "文體"
     },
     {
-      "id": "cs-183",
+      "id": "cs-187",
       "type": "changshi",
       "unit": "wenhua",
       "seg": 1,
@@ -6232,10 +6484,11 @@ window.CN_DATASET = {
         "七政（七曜）",
         "七政"
       ],
-      "note": ""
+      "note": "",
+      "group": "星宿"
     },
     {
-      "id": "cs-184",
+      "id": "cs-188",
       "type": "changshi",
       "unit": "wenhua",
       "seg": 1,
@@ -6248,10 +6501,11 @@ window.CN_DATASET = {
       "accept": [
         "太白"
       ],
-      "note": ""
+      "note": "",
+      "group": "星宿"
     },
     {
-      "id": "cs-185",
+      "id": "cs-189",
       "type": "changshi",
       "unit": "wenhua",
       "seg": 1,
@@ -6265,10 +6519,11 @@ window.CN_DATASET = {
         "啟明",
         "启明"
       ],
-      "note": ""
+      "note": "",
+      "group": "星宿"
     },
     {
-      "id": "cs-186",
+      "id": "cs-190",
       "type": "changshi",
       "unit": "wenhua",
       "seg": 1,
@@ -6282,10 +6537,11 @@ window.CN_DATASET = {
         "歲星",
         "岁星"
       ],
-      "note": ""
+      "note": "",
+      "group": "星宿"
     },
     {
-      "id": "cs-187",
+      "id": "cs-191",
       "type": "changshi",
       "unit": "wenhua",
       "seg": 1,
@@ -6298,10 +6554,11 @@ window.CN_DATASET = {
       "accept": [
         "辰星"
       ],
-      "note": ""
+      "note": "",
+      "group": "星宿"
     },
     {
-      "id": "cs-188",
+      "id": "cs-192",
       "type": "changshi",
       "unit": "wenhua",
       "seg": 1,
@@ -6315,10 +6572,11 @@ window.CN_DATASET = {
         "熒惑",
         "荧惑"
       ],
-      "note": ""
+      "note": "",
+      "group": "星宿"
     },
     {
-      "id": "cs-189",
+      "id": "cs-193",
       "type": "changshi",
       "unit": "wenhua",
       "seg": 1,
@@ -6332,10 +6590,11 @@ window.CN_DATASET = {
         "鎮星",
         "镇星"
       ],
-      "note": ""
+      "note": "",
+      "group": "星宿"
     },
     {
-      "id": "cs-190",
+      "id": "cs-194",
       "type": "changshi",
       "unit": "wenhua",
       "seg": 1,
@@ -6348,10 +6607,11 @@ window.CN_DATASET = {
       "accept": [
         "二十八宿"
       ],
-      "note": ""
+      "note": "",
+      "group": "星宿"
     },
     {
-      "id": "cs-191",
+      "id": "cs-195",
       "type": "changshi",
       "unit": "wenhua",
       "seg": 1,
@@ -6367,10 +6627,11 @@ window.CN_DATASET = {
         "青龍",
         "青龙"
       ],
-      "note": ""
+      "note": "",
+      "group": "星宿"
     },
     {
-      "id": "cs-192",
+      "id": "cs-196",
       "type": "changshi",
       "unit": "wenhua",
       "seg": 1,
@@ -6385,10 +6646,11 @@ window.CN_DATASET = {
         "龜蛇",
         "龟蛇"
       ],
-      "note": ""
+      "note": "",
+      "group": "星宿"
     },
     {
-      "id": "cs-193",
+      "id": "cs-197",
       "type": "changshi",
       "unit": "wenhua",
       "seg": 1,
@@ -6401,10 +6663,11 @@ window.CN_DATASET = {
       "accept": [
         "白虎"
       ],
-      "note": ""
+      "note": "",
+      "group": "星宿"
     },
     {
-      "id": "cs-194",
+      "id": "cs-198",
       "type": "changshi",
       "unit": "wenhua",
       "seg": 1,
@@ -6417,10 +6680,11 @@ window.CN_DATASET = {
       "accept": [
         "朱雀"
       ],
-      "note": ""
+      "note": "",
+      "group": "星宿"
     },
     {
-      "id": "cs-195",
+      "id": "cs-199",
       "type": "changshi",
       "unit": "wenhua",
       "seg": 1,
@@ -6433,10 +6697,11 @@ window.CN_DATASET = {
       "accept": [
         "角"
       ],
-      "note": ""
+      "note": "",
+      "group": "星宿"
     },
     {
-      "id": "cs-196",
+      "id": "cs-200",
       "type": "changshi",
       "unit": "wenhua",
       "seg": 1,
@@ -6450,10 +6715,11 @@ window.CN_DATASET = {
         "陰曆",
         "阴历"
       ],
-      "note": ""
+      "note": "",
+      "group": "曆法"
     },
     {
-      "id": "cs-197",
+      "id": "cs-201",
       "type": "changshi",
       "unit": "wenhua",
       "seg": 1,
@@ -6467,10 +6733,11 @@ window.CN_DATASET = {
         "陰陽合曆",
         "阴阳合历"
       ],
-      "note": ""
+      "note": "",
+      "group": "曆法"
     },
     {
-      "id": "cs-198",
+      "id": "cs-202",
       "type": "changshi",
       "unit": "wenhua",
       "seg": 1,
@@ -6483,10 +6750,11 @@ window.CN_DATASET = {
       "accept": [
         "三百五十四天"
       ],
-      "note": ""
+      "note": "",
+      "group": "曆法"
     },
     {
-      "id": "cs-199",
+      "id": "cs-203",
       "type": "changshi",
       "unit": "wenhua",
       "seg": 1,
@@ -6499,10 +6767,11 @@ window.CN_DATASET = {
       "accept": [
         "季春"
       ],
-      "note": ""
+      "note": "",
+      "group": "曆法"
     },
     {
-      "id": "cs-200",
+      "id": "cs-204",
       "type": "changshi",
       "unit": "wenhua",
       "seg": 1,
@@ -6515,10 +6784,11 @@ window.CN_DATASET = {
       "accept": [
         "雨水"
       ],
-      "note": ""
+      "note": "",
+      "group": "節氣"
     },
     {
-      "id": "cs-201",
+      "id": "cs-205",
       "type": "changshi",
       "unit": "wenhua",
       "seg": 1,
@@ -6531,10 +6801,11 @@ window.CN_DATASET = {
       "accept": [
         "春分"
       ],
-      "note": ""
+      "note": "",
+      "group": "節氣"
     },
     {
-      "id": "cs-202",
+      "id": "cs-206",
       "type": "changshi",
       "unit": "wenhua",
       "seg": 1,
@@ -6548,10 +6819,11 @@ window.CN_DATASET = {
         "冬",
         "冬季"
       ],
-      "note": ""
+      "note": "",
+      "group": "節氣"
     },
     {
-      "id": "cs-203",
+      "id": "cs-207",
       "type": "changshi",
       "unit": "wenhua",
       "seg": 1,
@@ -6564,10 +6836,11 @@ window.CN_DATASET = {
       "accept": [
         "甲"
       ],
-      "note": ""
+      "note": "",
+      "group": "干支"
     },
     {
-      "id": "cs-204",
+      "id": "cs-208",
       "type": "changshi",
       "unit": "wenhua",
       "seg": 1,
@@ -6580,10 +6853,11 @@ window.CN_DATASET = {
       "accept": [
         "六十甲子"
       ],
-      "note": ""
+      "note": "",
+      "group": "干支"
     },
     {
-      "id": "cs-205",
+      "id": "cs-209",
       "type": "changshi",
       "unit": "wenhua",
       "seg": 1,
@@ -6596,10 +6870,11 @@ window.CN_DATASET = {
       "accept": [
         "夏正"
       ],
-      "note": ""
+      "note": "",
+      "group": "曆法"
     },
     {
-      "id": "cs-206",
+      "id": "cs-210",
       "type": "changshi",
       "unit": "wenhua",
       "seg": 1,
@@ -6612,10 +6887,11 @@ window.CN_DATASET = {
       "accept": [
         "殷正"
       ],
-      "note": ""
+      "note": "",
+      "group": "曆法"
     },
     {
-      "id": "cs-207",
+      "id": "cs-211",
       "type": "changshi",
       "unit": "wenhua",
       "seg": 1,
@@ -6628,10 +6904,11 @@ window.CN_DATASET = {
       "accept": [
         "周正"
       ],
-      "note": ""
+      "note": "",
+      "group": "曆法"
     },
     {
-      "id": "cs-208",
+      "id": "cs-212",
       "type": "changshi",
       "unit": "wenhua",
       "seg": 1,
@@ -6645,10 +6922,11 @@ window.CN_DATASET = {
         "春節",
         "春节"
       ],
-      "note": ""
+      "note": "",
+      "group": "節日"
     },
     {
-      "id": "cs-209",
+      "id": "cs-213",
       "type": "changshi",
       "unit": "wenhua",
       "seg": 1,
@@ -6663,10 +6941,11 @@ window.CN_DATASET = {
         "中秋節",
         "中秋节"
       ],
-      "note": ""
+      "note": "",
+      "group": "節日"
     },
     {
-      "id": "cs-210",
+      "id": "cs-214",
       "type": "changshi",
       "unit": "wenhua",
       "seg": 1,
@@ -6682,10 +6961,11 @@ window.CN_DATASET = {
         "重陽節",
         "重阳节"
       ],
-      "note": ""
+      "note": "",
+      "group": "節日"
     },
     {
-      "id": "cs-211",
+      "id": "cs-215",
       "type": "changshi",
       "unit": "wenhua",
       "seg": 1,
@@ -6698,10 +6978,11 @@ window.CN_DATASET = {
       "accept": [
         "除夕"
       ],
-      "note": ""
+      "note": "",
+      "group": "節日"
     },
     {
-      "id": "cs-212",
+      "id": "cs-216",
       "type": "changshi",
       "unit": "wenhua",
       "seg": 1,
@@ -6714,10 +6995,11 @@ window.CN_DATASET = {
       "accept": [
         "羽"
       ],
-      "note": ""
+      "note": "",
+      "group": "樂律"
     },
     {
-      "id": "cs-213",
+      "id": "cs-217",
       "type": "changshi",
       "unit": "wenhua",
       "seg": 1,
@@ -6731,10 +7013,11 @@ window.CN_DATASET = {
         "黃鐘",
         "黄钟"
       ],
-      "note": ""
+      "note": "",
+      "group": "樂律"
     },
     {
-      "id": "cs-214",
+      "id": "cs-218",
       "type": "changshi",
       "unit": "wenhua",
       "seg": 1,
@@ -6750,10 +7033,11 @@ window.CN_DATASET = {
         "六陰律",
         "六阴律"
       ],
-      "note": ""
+      "note": "",
+      "group": "樂律"
     },
     {
-      "id": "cs-215",
+      "id": "cs-219",
       "type": "changshi",
       "unit": "wenhua",
       "seg": 1,
@@ -6766,10 +7050,11 @@ window.CN_DATASET = {
       "accept": [
         "八音"
       ],
-      "note": ""
+      "note": "",
+      "group": "樂律"
     },
     {
-      "id": "cs-216",
+      "id": "cs-220",
       "type": "changshi",
       "unit": "wenhua",
       "seg": 1,
@@ -6783,10 +7068,11 @@ window.CN_DATASET = {
         "鐘鎛",
         "钟镈"
       ],
-      "note": ""
+      "note": "",
+      "group": "樂器"
     },
     {
-      "id": "cs-217",
+      "id": "cs-221",
       "type": "changshi",
       "unit": "wenhua",
       "seg": 1,
@@ -6800,10 +7086,11 @@ window.CN_DATASET = {
         "管簫",
         "管箫"
       ],
-      "note": ""
+      "note": "",
+      "group": "樂器"
     },
     {
-      "id": "cs-218",
+      "id": "cs-222",
       "type": "changshi",
       "unit": "wenhua",
       "seg": 1,
@@ -6817,10 +7104,11 @@ window.CN_DATASET = {
         "長庚",
         "长庚"
       ],
-      "note": ""
+      "note": "",
+      "group": "星宿"
     },
     {
-      "id": "cs-219",
+      "id": "cs-223",
       "type": "changshi",
       "unit": "wenhua",
       "seg": 1,
@@ -6833,10 +7121,11 @@ window.CN_DATASET = {
       "accept": [
         "分野"
       ],
-      "note": ""
+      "note": "",
+      "group": "星宿"
     },
     {
-      "id": "cs-220",
+      "id": "cs-224",
       "type": "changshi",
       "unit": "wenhua",
       "seg": 1,
@@ -6849,10 +7138,11 @@ window.CN_DATASET = {
       "accept": [
         "孟春"
       ],
-      "note": ""
+      "note": "",
+      "group": "曆法"
     },
     {
-      "id": "cs-221",
+      "id": "cs-225",
       "type": "changshi",
       "unit": "wenhua",
       "seg": 1,
@@ -6865,10 +7155,11 @@ window.CN_DATASET = {
       "accept": [
         "仲夏"
       ],
-      "note": ""
+      "note": "",
+      "group": "曆法"
     },
     {
-      "id": "cs-222",
+      "id": "cs-226",
       "type": "changshi",
       "unit": "wenhua",
       "seg": 1,
@@ -6882,10 +7173,11 @@ window.CN_DATASET = {
         "穀雨",
         "谷雨"
       ],
-      "note": ""
+      "note": "",
+      "group": "節氣"
     },
     {
-      "id": "cs-223",
+      "id": "cs-227",
       "type": "changshi",
       "unit": "wenhua",
       "seg": 1,
@@ -6898,10 +7190,11 @@ window.CN_DATASET = {
       "accept": [
         "小暑"
       ],
-      "note": ""
+      "note": "",
+      "group": "節氣"
     },
     {
-      "id": "cs-224",
+      "id": "cs-228",
       "type": "changshi",
       "unit": "wenhua",
       "seg": 1,
@@ -6915,10 +7208,11 @@ window.CN_DATASET = {
         "大呂",
         "大吕"
       ],
-      "note": ""
+      "note": "",
+      "group": "樂律"
     },
     {
-      "id": "cs-225",
+      "id": "cs-229",
       "type": "changshi",
       "unit": "wenhua",
       "seg": 1,
@@ -6933,10 +7227,11 @@ window.CN_DATASET = {
         "六陽律",
         "六阳律"
       ],
-      "note": ""
+      "note": "",
+      "group": "樂律"
     },
     {
-      "id": "cs-226",
+      "id": "cs-230",
       "type": "changshi",
       "unit": "wenhua",
       "seg": 1,
@@ -6949,10 +7244,11 @@ window.CN_DATASET = {
       "accept": [
         "磬"
       ],
-      "note": ""
+      "note": "",
+      "group": "樂器"
     },
     {
-      "id": "cs-227",
+      "id": "cs-231",
       "type": "changshi",
       "unit": "wenhua",
       "seg": 1,
@@ -6966,10 +7262,11 @@ window.CN_DATASET = {
         "塤",
         "埙"
       ],
-      "note": ""
+      "note": "",
+      "group": "樂器"
     },
     {
-      "id": "cs-228",
+      "id": "cs-232",
       "type": "changshi",
       "unit": "wenhua",
       "seg": 1,
@@ -6982,10 +7279,11 @@ window.CN_DATASET = {
       "accept": [
         "琴瑟"
       ],
-      "note": ""
+      "note": "",
+      "group": "樂器"
     },
     {
-      "id": "cs-229",
+      "id": "cs-233",
       "type": "changshi",
       "unit": "wenhua",
       "seg": 1,
@@ -6998,10 +7296,11 @@ window.CN_DATASET = {
       "accept": [
         "笙"
       ],
-      "note": ""
+      "note": "",
+      "group": "樂器"
     },
     {
-      "id": "cs-230",
+      "id": "cs-234",
       "type": "changshi",
       "unit": "wenhua",
       "seg": 1,
@@ -7016,10 +7315,11 @@ window.CN_DATASET = {
         "人日節",
         "人日节"
       ],
-      "note": ""
+      "note": "",
+      "group": "節日"
     },
     {
-      "id": "cs-231",
+      "id": "cs-235",
       "type": "changshi",
       "unit": "wenhua",
       "seg": 1,
@@ -7032,10 +7332,11 @@ window.CN_DATASET = {
       "accept": [
         "小至"
       ],
-      "note": ""
+      "note": "",
+      "group": "節日"
     },
     {
-      "id": "cs-232",
+      "id": "cs-236",
       "type": "changshi",
       "unit": "wenhua",
       "seg": 1,
@@ -7051,10 +7352,11 @@ window.CN_DATASET = {
         "臘八節",
         "腊八节"
       ],
-      "note": ""
+      "note": "",
+      "group": "節日"
     },
     {
-      "id": "cs-233",
+      "id": "cs-237",
       "type": "changshi",
       "unit": "wenhua",
       "seg": 1,
@@ -7067,10 +7369,11 @@ window.CN_DATASET = {
       "accept": [
         "子"
       ],
-      "note": ""
+      "note": "",
+      "group": "干支"
     },
     {
-      "id": "cs-234",
+      "id": "cs-238",
       "type": "changshi",
       "unit": "wenhua",
       "seg": 1,
@@ -7083,10 +7386,11 @@ window.CN_DATASET = {
       "accept": [
         "朔望月"
       ],
-      "note": ""
+      "note": "",
+      "group": "曆法"
     },
     {
-      "id": "cs-235",
+      "id": "cs-239",
       "type": "changshi",
       "unit": "wenhua",
       "seg": 1,
@@ -7100,10 +7404,11 @@ window.CN_DATASET = {
         "太初曆",
         "太初历"
       ],
-      "note": ""
+      "note": "",
+      "group": "曆法"
     },
     {
-      "id": "cs-236",
+      "id": "cs-240",
       "type": "changshi",
       "unit": "wenhua",
       "seg": 1,
@@ -7117,10 +7422,11 @@ window.CN_DATASET = {
         "變徵",
         "变徵"
       ],
-      "note": ""
+      "note": "",
+      "group": "樂律"
     },
     {
-      "id": "cs-237",
+      "id": "cs-241",
       "type": "changshi",
       "unit": "wenhua",
       "seg": 1,
@@ -7133,7 +7439,8 @@ window.CN_DATASET = {
       "accept": [
         "井"
       ],
-      "note": ""
+      "note": "",
+      "group": "星宿"
     },
     {
       "id": "mj-051",
