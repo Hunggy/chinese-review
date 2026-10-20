@@ -31,6 +31,8 @@
 - 選填（僅 changshi）：group=干擾項的「同類」群組名（如 `數量`、`稱謂`、`書名`）；
   選擇題會優先取同 unit 同 group 的答案作干擾項。留空則只按 unit／題型抽，
   空值時該欄完全不輸出（資料檔與未填時一致）。
+- 選填（僅 changshi）：note=答後顯示的「補充說明」（背景／來由／關聯知識，繁體）；
+  非空時另產生 note_s（t2s 逐字轉換），留空則 note 為空字串、不輸出 note_s。
 
 規則摘要
 --------
@@ -640,6 +642,11 @@ def build_changshi(rec: dict, unit: str):
     group = (rec.get("group") or "").strip()
     if group:
         item["group"] = group
+    # 選填：答後補充說明（背景／來由／關聯知識）；非空才輸出簡體版 note_s
+    note = (rec.get("note") or "").strip()
+    if note:
+        item["note"] = note
+        item["note_s"] = t2s(note)
     return item, None
 
 

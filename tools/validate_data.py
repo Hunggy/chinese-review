@@ -29,6 +29,8 @@
     找不到切點或切完下半句沒有漢字 → error（題庫會出現空答案）。
 14. 每個 unit 至少 1 題（表頭寫壞時會整份 0 題卻靜默通過）。
 15. 另印出來源統計（tools/build_report.json）：每 unit 題數、skip 原因、待人工處理的非 CSV 檔。
+16. 選填 note（答後補充說明）：若有必須是字串、note 與 note_s 漢字長度必須一致（逐字轉換），
+    常識題有 note 就必須有 note_s；note 含數字／英文字母只印 warning（顯示用，不影響判分）。
 """
 
 from __future__ import annotations
@@ -218,6 +220,28 @@ def validate(data: dict, js_data, report):
                 err("%s %s 必須 >= 1：%r" % (label, key, val))
         seg_counts[(it.get("seg"), it.get("exam"))] = \
             seg_counts.get((it.get("seg"), it.get("exam")), 0) + 1
+
+        # 選填 note（答後補充說明）：須為字串；note 與 note_s 漢字長度必須一致（逐字轉換）
+        note_t = it.get("note")
+        if note_t is not None:
+            if not isinstance(note_t, str):
+                err("%s note 必須是字串：%r" % (label, note_t))
+            else:
+                bad = sorted(set(ASCII_ALNUM_RE.findall(note_t)))
+                if bad:
+                    warn("%s note 含數字／英文字母「%s」（僅顯示、不影響判分，建議改用中文數字）：%s"
+                         % (label, "".join(bad), note_t))
+                note_s = it.get("note_s")
+                has_s = isinstance(note_s, str) and bool(note_s.strip())
+                if note_t.strip():
+                    if itype == "changshi" and not has_s:
+                        err("%s 有 note 但缺 note_s（簡體補充說明）" % label)
+                    if has_s and len(only_han(note_t)) != len(only_han(note_s)):
+                        err("%s note 與 note_s 漢字長度不一致（%d/%d）：%s / %s"
+                            % (label, len(only_han(note_t)), len(only_han(note_s)),
+                               note_t, note_s))
+                elif has_s:
+                    warn("%s note 為空但有 note_s（多餘欄位）" % label)
 
         if itype == "mingju":
             for key in ("t", "s", "src_t", "src_s"):

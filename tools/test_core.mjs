@@ -837,6 +837,50 @@ with_dataset({
   eq(sess.total, 1, 'create_session 套用段／次 → 1 題');
 });
 
+/* ============================================================
+ * 19. 常識補充說明（note／note_s）
+ * ============================================================ */
+section('19. 常識補充說明 note／note_s');
+
+const ds_note = {
+  meta: { title: 't' },
+  units: [{ id: 'A', name: 'A', module: 'changshi' }],
+  items: [
+    {
+      id: 'cs-note-1', type: 'changshi', unit: 'A', seg: 1, exam: 1,
+      q_t: '《論語》共多少篇？', q_s: '《论语》共多少篇？',
+      a_t: '二十篇', a_s: '二十篇', accept: ['二十篇'],
+      note: '《論語》為語錄體，今本共二十篇。', note_s: '《论语》为语录体，今本共二十篇。'
+    },
+    {
+      id: 'cs-note-2', type: 'changshi', unit: 'A', seg: 1, exam: 1,
+      q_t: '「六經」指甚麼？', q_s: '「六经」指甚么？',
+      a_t: '六部儒家經典', a_s: '六部儒家经典', accept: ['六部儒家經典'],
+      note: '「六經」之名始見於《莊子》。', note_s: ''
+    }
+  ],
+  t2s: {}
+};
+
+with_dataset(ds_note, () => {
+  const it1 = C.item('cs-note-1');
+  ok(!!(it1 && it1.note), '有 note 的常識題：C.item(id).note 有值（' + (it1 && it1.note) + '）');
+  ok(!!(it1 && it1.note_s), 'note_s 同時可讀');
+  eq(C.answer_variants(it1).t, '二十篇', 'note 不影響 answer_variants（繁）');
+  eq(C.answer_variants(it1).s, '二十篇', 'note 不影響 answer_variants（簡）');
+  eq(C.detail(it1).note, it1.note, 'detail 可讀 note（不影響答案）');
+  eq(C.grade_text(it1, '二十篇', {}).ok, true, 'note 不影響判分');
+
+  let threw2 = null, it2 = null;
+  try { it2 = C.item('cs-note-2'); } catch (e) { threw2 = e; }
+  ok(!threw2, 'note 有值、note_s 空：不拋錯' + (threw2 ? '：' + threw2.message : ''));
+  ok(!!(it2 && it2.note), 'note 有值、note_s 空：C.item 仍可讀 note');
+  eq(C.answer_variants(it2).t, '六部儒家經典', 'note_s 空時 answer_variants 不受影響');
+  let detail2 = null;
+  try { detail2 = C.detail(it2); } catch (e) { detail2 = null; }
+  ok(!!(detail2 && detail2.note), 'note_s 空時 detail 仍可讀 note');
+});
+
 /* ============================================================ */
 console.log('\n' + '='.repeat(52));
 if (failures.length) {

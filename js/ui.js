@@ -491,7 +491,8 @@
       var sc3 = C.pair(item, 'src');
       src = sm ? sc3.s : sc3.t;
     }
-    note = item.note ? String(item.note) : '';
+    var nt = sm && item.note_s ? item.note_s : item.note;
+    note = nt ? String(nt) : '';
 
     var verdict = '';
     if (rec) {
@@ -768,6 +769,8 @@
       var w = C.pair(it, 'w');
       return h(sm ? w.s : w.t) + '　' + C.dot_html(it, sm);
     }
+    /* 常識題沒有 s/t 欄位（題面在 q_*、答案在 a_*），否則列表會整行空白 */
+    if (it.type === 'changshi') return h(sm ? C.str_field(it, 'q_s') : C.str_field(it, 'q_t'));
     return h(sm ? C.str_field(it, 's') : C.str_field(it, 't'));
   }
 
@@ -777,6 +780,7 @@
       var a = C.list_pair(it, 'a');
       return (sm ? a.s : a.t).join('／');
     }
+    if (it.type === 'changshi') return h(sm ? C.str_field(it, 'a_s') : C.str_field(it, 'a_t'));
     var src = C.pair(it, 'src');
     return sm ? src.s : src.t;
   }
@@ -802,7 +806,8 @@
       rows.push('<div class="browse-full" data-raw>' + h(det.lines.join('／')) + '</div>');
       if (src) rows.push('<div class="browse-src" data-raw>' + h(src) + '</div>');
     }
-    if (it.note) rows.push('<div class="browse-note">' + h(it.note) + '</div>');
+    var bnote = sm && it.note_s ? it.note_s : it.note;
+    if (bnote) rows.push('<div class="browse-note">' + h(bnote) + '</div>');
     var sl = C.scope_label(it);
     rows.push('<div class="browse-tag">' + h(type_label(it.type)) + ' · ' + h(it.unit) + (sl ? ' · ' + h(sl) : '') + '</div>');
     return rows.join('');
