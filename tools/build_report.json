@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-18T21:53:56+08:00",
+  "generated_at": "2026-10-21T00:30:09+08:00",
   "source_dirs": [
     "source",
     "data/source"
@@ -98,6 +98,58 @@
       "skipped": 0
     },
     {
+      "file": "第1段_第2次_先秦文學.csv",
+      "source": "source/第1段_第2次_先秦文學.csv",
+      "unit": "xianqin2",
+      "name": "先秦文學常識・續",
+      "module": "changshi",
+      "known": true,
+      "detected_by": "已知來源",
+      "seg": 1,
+      "exam": 2,
+      "count": 66,
+      "skipped": 0
+    },
+    {
+      "file": "第1段_第2次_科舉制度.csv",
+      "source": "source/第1段_第2次_科舉制度.csv",
+      "unit": "keju",
+      "name": "科舉制度",
+      "module": "changshi",
+      "known": true,
+      "detected_by": "已知來源",
+      "seg": 1,
+      "exam": 2,
+      "count": 47,
+      "skipped": 0
+    },
+    {
+      "file": "第1段_第2次_漢魏文學.csv",
+      "source": "source/第1段_第2次_漢魏文學.csv",
+      "unit": "hanwei",
+      "name": "漢魏晉南北朝文學",
+      "module": "changshi",
+      "known": true,
+      "detected_by": "已知來源",
+      "seg": 1,
+      "exam": 2,
+      "count": 43,
+      "skipped": 0
+    },
+    {
+      "file": "第1段_第2次_文化常識.csv",
+      "source": "source/第1段_第2次_文化常識.csv",
+      "unit": "wenhua",
+      "name": "中國古代文化常識",
+      "module": "changshi",
+      "known": true,
+      "detected_by": "已知來源",
+      "seg": 1,
+      "exam": 2,
+      "count": 55,
+      "skipped": 0
+    },
+    {
       "file": "第1段_第2次_名句.csv",
       "source": "source/第1段_第2次_名句.csv",
       "unit": "mingju_jingshi",
@@ -114,15 +166,15 @@
   "module_counts": {
     "mingju": 100,
     "cijie": 91,
-    "changshi": 26
+    "changshi": 237
   },
-  "total": 217,
+  "total": 428,
   "segments": {
-    "1": 217
+    "1": 428
   },
   "exams": {
     "1": 167,
-    "2": 50
+    "2": 261
   },
   "author_review": [
     {
@@ -295,7 +347,7 @@
       "q_t": "解釋「鞫」"
     }
   ],
-  "t2s_count": 329,
+  "t2s_count": 436,
   "s2t_fixes": [
     {
       "from": "为",
@@ -329,7 +381,13 @@
     }
   ],
   "stray_simplified_chars": [
+    "丑",
     "余",
-    "干"
+    "占",
+    "台",
+    "吃",
+    "干",
+    "斗",
+    "里"
   ]
 }

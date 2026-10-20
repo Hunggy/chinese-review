@@ -86,6 +86,10 @@ UNITS_CONFIG = [
     {"file": "liao_e_cijie.csv", "id": "liao_e", "name": "《蓼莪》", "module": "cijie"},
     {"file": "xianqin_wenxue.csv", "id": "xianqin", "name": "先秦文學常識", "module": "changshi"},
     {"file": "zhuzi_yuyan.csv", "id": "zhuzi", "name": "諸子寓言出處", "module": "changshi"},
+    {"file": "第1段_第2次_先秦文學.csv", "id": "xianqin2", "name": "先秦文學常識・續", "module": "changshi", "seg": 1, "exam": 2},
+    {"file": "第1段_第2次_科舉制度.csv", "id": "keju", "name": "科舉制度", "module": "changshi", "seg": 1, "exam": 2},
+    {"file": "第1段_第2次_漢魏文學.csv", "id": "hanwei", "name": "漢魏晉南北朝文學", "module": "changshi", "seg": 1, "exam": 2},
+    {"file": "第1段_第2次_文化常識.csv", "id": "wenhua", "name": "中國古代文化常識", "module": "changshi", "seg": 1, "exam": 2},
     {"file": "第1段_第2次_名句.csv", "id": "mingju_jingshi", "name": "名句・經史詩詞", "module": "mingju", "seg": 1, "exam": 2},
 ]
 

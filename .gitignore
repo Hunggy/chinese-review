@@ -6,6 +6,7 @@ desktop.ini
 *.log
 .serve/
 temp/
+RustDesk.lnk
 
 # playwright cli scratch
 .playwright-cli/

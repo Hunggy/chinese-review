@@ -2,8 +2,8 @@
 window.CN_DATASET = {
   "meta": {
     "title": "中文溫習",
-    "version": "2026-10-18",
-    "generated_at": "2026-10-18T21:53:56+08:00"
+    "version": "2026-10-21",
+    "generated_at": "2026-10-21T00:30:09+08:00"
   },
   "units": [
     {
@@ -39,6 +39,26 @@ window.CN_DATASET = {
     {
       "id": "zhuzi",
       "name": "諸子寓言出處",
+      "module": "changshi"
+    },
+    {
+      "id": "xianqin2",
+      "name": "先秦文學常識・續",
+      "module": "changshi"
+    },
+    {
+      "id": "keju",
+      "name": "科舉制度",
+      "module": "changshi"
+    },
+    {
+      "id": "hanwei",
+      "name": "漢魏晉南北朝文學",
+      "module": "changshi"
+    },
+    {
+      "id": "wenhua",
+      "name": "中國古代文化常識",
       "module": "changshi"
     },
     {
@@ -3594,6 +3614,3507 @@ window.CN_DATASET = {
       "note": ""
     },
     {
+      "id": "cs-027",
+      "type": "changshi",
+      "unit": "xianqin2",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "《詩經》共收錄多少首詩？",
+      "q_s": "《诗经》共收录多少首诗？",
+      "a_t": "三百零五首",
+      "a_s": "三百零五首",
+      "accept": [
+        "三百零五首"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-028",
+      "type": "changshi",
+      "unit": "xianqin2",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "《詩經》的內容分為哪三部分？",
+      "q_s": "《诗经》的内容分为哪三部分？",
+      "a_t": "風雅頌",
+      "a_s": "风雅颂",
+      "accept": [
+        "風雅頌",
+        "风雅颂"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-029",
+      "type": "changshi",
+      "unit": "xianqin2",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "《詩經》的表現手法是哪三種？",
+      "q_s": "《诗经》的表现手法是哪三种？",
+      "a_t": "賦比興",
+      "a_s": "赋比兴",
+      "accept": [
+        "賦比興",
+        "赋比兴"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-030",
+      "type": "changshi",
+      "unit": "xianqin2",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "「風雅頌」與「賦比興」合稱甚麼？",
+      "q_s": "「风雅颂」与「赋比兴」合称甚么？",
+      "a_t": "詩經六義",
+      "a_s": "诗经六义",
+      "accept": [
+        "詩經六義",
+        "诗经六义"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-031",
+      "type": "changshi",
+      "unit": "xianqin2",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "《詩》《書》《禮》《易》《春秋》合稱甚麼？",
+      "q_s": "《诗》《书》《礼》《易》《春秋》合称甚么？",
+      "a_t": "五經",
+      "a_s": "五经",
+      "accept": [
+        "五經",
+        "五经"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-032",
+      "type": "changshi",
+      "unit": "xianqin2",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "《關雎》屬於《詩經》的哪一部分？",
+      "q_s": "《关雎》属于《诗经》的哪一部分？",
+      "a_t": "國風",
+      "a_s": "国风",
+      "accept": [
+        "國風",
+        "国风"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-033",
+      "type": "changshi",
+      "unit": "xianqin2",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "屈原開創的新詩體叫甚麼？",
+      "q_s": "屈原开创的新诗体叫甚么？",
+      "a_t": "楚辭體",
+      "a_s": "楚辞体",
+      "accept": [
+        "楚辭體",
+        "楚辞体"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-034",
+      "type": "changshi",
+      "unit": "xianqin2",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "西漢時編訂《楚辭》的人是誰？",
+      "q_s": "西汉时编订《楚辞》的人是谁？",
+      "a_t": "劉向",
+      "a_s": "刘向",
+      "accept": [
+        "劉向",
+        "刘向"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-035",
+      "type": "changshi",
+      "unit": "xianqin2",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "宋玉與屈原並稱甚麼？",
+      "q_s": "宋玉与屈原并称甚么？",
+      "a_t": "屈宋",
+      "a_s": "屈宋",
+      "accept": [
+        "屈宋"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-036",
+      "type": "changshi",
+      "unit": "xianqin2",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "孔子名甚麼？",
+      "q_s": "孔子名甚么？",
+      "a_t": "丘",
+      "a_s": "丘",
+      "accept": [
+        "丘"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-037",
+      "type": "changshi",
+      "unit": "xianqin2",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "孔子字甚麼？",
+      "q_s": "孔子字甚么？",
+      "a_t": "仲尼",
+      "a_s": "仲尼",
+      "accept": [
+        "仲尼"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-038",
+      "type": "changshi",
+      "unit": "xianqin2",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "孔子除被尊為「聖人」，還被尊為甚麼？",
+      "q_s": "孔子除被尊为「圣人」，还被尊为甚么？",
+      "a_t": "萬世師表",
+      "a_s": "万世师表",
+      "accept": [
+        "萬世師表",
+        "万世师表"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-039",
+      "type": "changshi",
+      "unit": "xianqin2",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "孔子思想的核心是甚麼？",
+      "q_s": "孔子思想的核心是甚么？",
+      "a_t": "仁",
+      "a_s": "仁",
+      "accept": [
+        "仁"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-040",
+      "type": "changshi",
+      "unit": "xianqin2",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "相傳孔子有多少優秀弟子？",
+      "q_s": "相传孔子有多少优秀弟子？",
+      "a_t": "七十二人",
+      "a_s": "七十二人",
+      "accept": [
+        "七十二人"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-041",
+      "type": "changshi",
+      "unit": "xianqin2",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "《論語》共多少篇？",
+      "q_s": "《论语》共多少篇？",
+      "a_t": "二十篇",
+      "a_s": "二十篇",
+      "accept": [
+        "二十篇"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-042",
+      "type": "changshi",
+      "unit": "xianqin2",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "《論語》《大學》《中庸》《孟子》合稱甚麼？",
+      "q_s": "《论语》《大学》《中庸》《孟子》合称甚么？",
+      "a_t": "四書",
+      "a_s": "四书",
+      "accept": [
+        "四書",
+        "四书"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-043",
+      "type": "changshi",
+      "unit": "xianqin2",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "孔子最得意的弟子是誰？",
+      "q_s": "孔子最得意的弟子是谁？",
+      "a_t": "顏淵",
+      "a_s": "颜渊",
+      "accept": [
+        "顏淵",
+        "颜渊"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-044",
+      "type": "changshi",
+      "unit": "xianqin2",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "孟子被尊為甚麼？",
+      "q_s": "孟子被尊为甚么？",
+      "a_t": "亞聖",
+      "a_s": "亚圣",
+      "accept": [
+        "亞聖",
+        "亚圣"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-045",
+      "type": "changshi",
+      "unit": "xianqin2",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "孟子提出的人性論是甚麼？",
+      "q_s": "孟子提出的人性论是甚么？",
+      "a_t": "性善論",
+      "a_s": "性善论",
+      "accept": [
+        "性善論",
+        "性善论"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-046",
+      "type": "changshi",
+      "unit": "xianqin2",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "荀子主張的人性論是甚麼？",
+      "q_s": "荀子主张的人性论是甚么？",
+      "a_t": "性惡論",
+      "a_s": "性恶论",
+      "accept": [
+        "性惡論",
+        "性恶论"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-047",
+      "type": "changshi",
+      "unit": "xianqin2",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "韓非和李斯是誰的學生？",
+      "q_s": "韩非和李斯是谁的学生？",
+      "a_t": "荀子",
+      "a_s": "荀子",
+      "accept": [
+        "荀子"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-048",
+      "type": "changshi",
+      "unit": "xianqin2",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "老子主張的治國思想是甚麼？",
+      "q_s": "老子主张的治国思想是甚么？",
+      "a_t": "無為而治",
+      "a_s": "无为而治",
+      "accept": [
+        "無為而治",
+        "无为而治"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-049",
+      "type": "changshi",
+      "unit": "xianqin2",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "《道德經》共多少章？",
+      "q_s": "《道德经》共多少章？",
+      "a_t": "八十一章",
+      "a_s": "八十一章",
+      "accept": [
+        "八十一章"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-050",
+      "type": "changshi",
+      "unit": "xianqin2",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "莊子名甚麼？",
+      "q_s": "庄子名甚么？",
+      "a_t": "周",
+      "a_s": "周",
+      "accept": [
+        "周"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-051",
+      "type": "changshi",
+      "unit": "xianqin2",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "《莊子》又稱甚麼？",
+      "q_s": "《庄子》又称甚么？",
+      "a_t": "南華經",
+      "a_s": "南华经",
+      "accept": [
+        "南華經",
+        "南华经"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-052",
+      "type": "changshi",
+      "unit": "xianqin2",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "墨家與儒家並稱甚麼？",
+      "q_s": "墨家与儒家并称甚么？",
+      "a_t": "顯學",
+      "a_s": "显学",
+      "accept": [
+        "顯學",
+        "显学"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-053",
+      "type": "changshi",
+      "unit": "xianqin2",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "韓非是先秦哪一學派的集大成者？",
+      "q_s": "韩非是先秦哪一学派的集大成者？",
+      "a_t": "法家",
+      "a_s": "法家",
+      "accept": [
+        "法家"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-054",
+      "type": "changshi",
+      "unit": "xianqin2",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "列子名甚麼？",
+      "q_s": "列子名甚么？",
+      "a_t": "禦寇",
+      "a_s": "御寇",
+      "accept": [
+        "禦寇",
+        "御寇"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-055",
+      "type": "changshi",
+      "unit": "xianqin2",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "《呂氏春秋》是誰集合門客編寫的？",
+      "q_s": "《吕氏春秋》是谁集合门客编写的？",
+      "a_t": "呂不韋",
+      "a_s": "吕不韦",
+      "accept": [
+        "呂不韋",
+        "吕不韦"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-056",
+      "type": "changshi",
+      "unit": "xianqin2",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "《呂氏春秋》分十二紀、八覽、六論，共多少篇？",
+      "q_s": "《吕氏春秋》分十二纪、八览、六论，共多少篇？",
+      "a_t": "一百六十篇",
+      "a_s": "一百六十篇",
+      "accept": [
+        "一百六十篇"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-057",
+      "type": "changshi",
+      "unit": "xianqin2",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "「匠石運斤」出自哪部書？",
+      "q_s": "「匠石运斤」出自哪部书？",
+      "a_t": "《莊子》",
+      "a_s": "《庄子》",
+      "accept": [
+        "莊子",
+        "庄子"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-058",
+      "type": "changshi",
+      "unit": "xianqin2",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "「紀昌學射」出自哪部書？",
+      "q_s": "「纪昌学射」出自哪部书？",
+      "a_t": "《列子》",
+      "a_s": "《列子》",
+      "accept": [
+        "列子"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-059",
+      "type": "changshi",
+      "unit": "xianqin2",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "《左傳》相傳是誰所作？",
+      "q_s": "《左传》相传是谁所作？",
+      "a_t": "左丘明",
+      "a_s": "左丘明",
+      "accept": [
+        "左丘明"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-060",
+      "type": "changshi",
+      "unit": "xianqin2",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "「春秋三傳」除《左傳》《公羊傳》外，還有哪一部？",
+      "q_s": "「春秋三传」除《左传》《公羊传》外，还有哪一部？",
+      "a_t": "穀梁傳",
+      "a_s": "谷梁传",
+      "accept": [
+        "穀梁傳",
+        "谷梁传"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-061",
+      "type": "changshi",
+      "unit": "xianqin2",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "後世稱《春秋》寓有褒貶的寫法為甚麼？",
+      "q_s": "后世称《春秋》寓有褒贬的写法为甚么？",
+      "a_t": "春秋筆法",
+      "a_s": "春秋笔法",
+      "accept": [
+        "春秋筆法",
+        "春秋笔法"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-062",
+      "type": "changshi",
+      "unit": "xianqin2",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "《詩經》原稱甚麼？",
+      "q_s": "《诗经》原称甚么？",
+      "a_t": "詩三百",
+      "a_s": "诗三百",
+      "accept": [
+        "詩三百",
+        "诗三百"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-063",
+      "type": "changshi",
+      "unit": "xianqin2",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "《詩經》以多少言為主？",
+      "q_s": "《诗经》以多少言为主？",
+      "a_t": "四言",
+      "a_s": "四言",
+      "accept": [
+        "四言"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-064",
+      "type": "changshi",
+      "unit": "xianqin2",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "《詩經》是我國哪一種創作方法的詩歌源頭？",
+      "q_s": "《诗经》是我国哪一种创作方法的诗歌源头？",
+      "a_t": "現實主義",
+      "a_s": "现实主义",
+      "accept": [
+        "現實主義",
+        "现实主义"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-065",
+      "type": "changshi",
+      "unit": "xianqin2",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "屈原是我國文學史上第一位愛國主義詩人，也是第一位甚麼詩人？",
+      "q_s": "屈原是我国文学史上第一位爱国主义诗人，也是第一位甚么诗人？",
+      "a_t": "浪漫主義詩人",
+      "a_s": "浪漫主义诗人",
+      "accept": [
+        "浪漫主義詩人",
+        "浪漫主义诗人"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-066",
+      "type": "changshi",
+      "unit": "xianqin2",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "屈原的字是甚麼？",
+      "q_s": "屈原的字是甚么？",
+      "a_t": "原",
+      "a_s": "原",
+      "accept": [
+        "原"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-067",
+      "type": "changshi",
+      "unit": "xianqin2",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "楚辭體又稱甚麼？",
+      "q_s": "楚辞体又称甚么？",
+      "a_t": "騷體",
+      "a_s": "骚体",
+      "accept": [
+        "騷體",
+        "骚体"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-068",
+      "type": "changshi",
+      "unit": "xianqin2",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "《國殤》是屈原哪一部作品的其中一篇？",
+      "q_s": "《国殇》是屈原哪一部作品的其中一篇？",
+      "a_t": "九歌",
+      "a_s": "九歌",
+      "accept": [
+        "九歌"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-069",
+      "type": "changshi",
+      "unit": "xianqin2",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "宋玉是戰國末期楚國的甚麼家？",
+      "q_s": "宋玉是战国末期楚国的甚么家？",
+      "a_t": "辭賦家",
+      "a_s": "辞赋家",
+      "accept": [
+        "辭賦家",
+        "辞赋家"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-070",
+      "type": "changshi",
+      "unit": "xianqin2",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "宋玉相傳是誰的弟子？",
+      "q_s": "宋玉相传是谁的弟子？",
+      "a_t": "屈原",
+      "a_s": "屈原",
+      "accept": [
+        "屈原"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-071",
+      "type": "changshi",
+      "unit": "xianqin2",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "《春秋》相傳由誰依據魯國史修訂？",
+      "q_s": "《春秋》相传由谁依据鲁国史修订？",
+      "a_t": "孔子",
+      "a_s": "孔子",
+      "accept": [
+        "孔子"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-072",
+      "type": "changshi",
+      "unit": "xianqin2",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "《左傳》又稱甚麼？",
+      "q_s": "《左传》又称甚么？",
+      "a_t": "左氏春秋",
+      "a_s": "左氏春秋",
+      "accept": [
+        "左氏春秋"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-073",
+      "type": "changshi",
+      "unit": "xianqin2",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "《國語》以甚麼為主？",
+      "q_s": "《国语》以甚么为主？",
+      "a_t": "記言",
+      "a_s": "记言",
+      "accept": [
+        "記言",
+        "记言"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-074",
+      "type": "changshi",
+      "unit": "xianqin2",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "《國語》又有甚麼別稱？",
+      "q_s": "《国语》又有甚么别称？",
+      "a_t": "春秋外傳",
+      "a_s": "春秋外传",
+      "accept": [
+        "春秋外傳",
+        "春秋外传"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-075",
+      "type": "changshi",
+      "unit": "xianqin2",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "《戰國策》又稱甚麼？",
+      "q_s": "《战国策》又称甚么？",
+      "a_t": "國策",
+      "a_s": "国策",
+      "accept": [
+        "國策",
+        "国策"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-076",
+      "type": "changshi",
+      "unit": "xianqin2",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "《戰國策》由西漢哪位學者編訂？",
+      "q_s": "《战国策》由西汉哪位学者编订？",
+      "a_t": "劉向",
+      "a_s": "刘向",
+      "accept": [
+        "劉向",
+        "刘向"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-077",
+      "type": "changshi",
+      "unit": "xianqin2",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "孔子是哪一學派的創始人？",
+      "q_s": "孔子是哪一学派的创始人？",
+      "a_t": "儒家",
+      "a_s": "儒家",
+      "accept": [
+        "儒家"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-078",
+      "type": "changshi",
+      "unit": "xianqin2",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "孔子主張不分貧富貴賤都收為弟子，這主張叫甚麼？",
+      "q_s": "孔子主张不分贫富贵贱都收为弟子，这主张叫甚么？",
+      "a_t": "有教無類",
+      "a_s": "有教无类",
+      "accept": [
+        "有教無類",
+        "有教无类"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-079",
+      "type": "changshi",
+      "unit": "xianqin2",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "相傳孔子有多少弟子？",
+      "q_s": "相传孔子有多少弟子？",
+      "a_t": "三千人",
+      "a_s": "三千人",
+      "accept": [
+        "三千人"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-080",
+      "type": "changshi",
+      "unit": "xianqin2",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "孔門四科是德行、言語、政事和甚麼？",
+      "q_s": "孔门四科是德行、言语、政事和甚么？",
+      "a_t": "文學",
+      "a_s": "文学",
+      "accept": [
+        "文學",
+        "文学"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-081",
+      "type": "changshi",
+      "unit": "xianqin2",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "孟子的名是甚麼？",
+      "q_s": "孟子的名是甚么？",
+      "a_t": "軻",
+      "a_s": "轲",
+      "accept": [
+        "軻",
+        "轲"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-082",
+      "type": "changshi",
+      "unit": "xianqin2",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "孟子主張君主應實行甚麼政治？",
+      "q_s": "孟子主张君主应实行甚么政治？",
+      "a_t": "仁政",
+      "a_s": "仁政",
+      "accept": [
+        "仁政"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-083",
+      "type": "changshi",
+      "unit": "xianqin2",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "荀子的名是甚麼？",
+      "q_s": "荀子的名是甚么？",
+      "a_t": "況",
+      "a_s": "况",
+      "accept": [
+        "況",
+        "况"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-084",
+      "type": "changshi",
+      "unit": "xianqin2",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "老子的姓名是甚麼？",
+      "q_s": "老子的姓名是甚么？",
+      "a_t": "李耳",
+      "a_s": "李耳",
+      "accept": [
+        "李耳"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-085",
+      "type": "changshi",
+      "unit": "xianqin2",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "《道德經》又稱甚麼？",
+      "q_s": "《道德经》又称甚么？",
+      "a_t": "老子五千文",
+      "a_s": "老子五千文",
+      "accept": [
+        "老子五千文"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-086",
+      "type": "changshi",
+      "unit": "xianqin2",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "《莊子》共多少篇？",
+      "q_s": "《庄子》共多少篇？",
+      "a_t": "三十三篇",
+      "a_s": "三十三篇",
+      "accept": [
+        "三十三篇"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-087",
+      "type": "changshi",
+      "unit": "xianqin2",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "墨子的名是甚麼？",
+      "q_s": "墨子的名是甚么？",
+      "a_t": "翟",
+      "a_s": "翟",
+      "accept": [
+        "翟"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-088",
+      "type": "changshi",
+      "unit": "xianqin2",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "墨子主張中，反對侵略戰爭的是甚麼？",
+      "q_s": "墨子主张中，反对侵略战争的是甚么？",
+      "a_t": "非攻",
+      "a_s": "非攻",
+      "accept": [
+        "非攻"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-089",
+      "type": "changshi",
+      "unit": "xianqin2",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "韓非是戰國末期哪一國人？",
+      "q_s": "韩非是战国末期哪一国人？",
+      "a_t": "韓國人",
+      "a_s": "韩国人",
+      "accept": [
+        "韓國人",
+        "韩国人"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-090",
+      "type": "changshi",
+      "unit": "xianqin2",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "韓非主張君主應該怎樣？",
+      "q_s": "韩非主张君主应该怎样？",
+      "a_t": "君主集權",
+      "a_s": "君主集权",
+      "accept": [
+        "君主集權",
+        "君主集权"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-091",
+      "type": "changshi",
+      "unit": "xianqin2",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "《呂氏春秋》又稱甚麼？",
+      "q_s": "《吕氏春秋》又称甚么？",
+      "a_t": "呂覽",
+      "a_s": "吕览",
+      "accept": [
+        "呂覽",
+        "吕览"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-092",
+      "type": "changshi",
+      "unit": "xianqin2",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "《呂氏春秋》共多少卷？",
+      "q_s": "《吕氏春秋》共多少卷？",
+      "a_t": "二十六卷",
+      "a_s": "二十六卷",
+      "accept": [
+        "二十六卷"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-093",
+      "type": "changshi",
+      "unit": "keju",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "漢代實行哪一種由地方推薦人才給中央的制度？",
+      "q_s": "汉代实行哪一种由地方推荐人才给中央的制度？",
+      "a_t": "察舉制",
+      "a_s": "察举制",
+      "accept": [
+        "察舉制",
+        "察举制"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-094",
+      "type": "changshi",
+      "unit": "keju",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "漢代察舉制的主要科目中，講求孝順廉潔的科目稱為什麼？",
+      "q_s": "汉代察举制的主要科目中，讲求孝顺廉洁的科目称为什么？",
+      "a_t": "孝廉",
+      "a_s": "孝廉",
+      "accept": [
+        "孝廉"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-095",
+      "type": "changshi",
+      "unit": "keju",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "漢代察舉制中的「茂才」原本稱為什麼？",
+      "q_s": "汉代察举制中的「茂才」原本称为什么？",
+      "a_t": "秀才",
+      "a_s": "秀才",
+      "accept": [
+        "秀才"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-096",
+      "type": "changshi",
+      "unit": "keju",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "東漢時秀才因避皇帝名諱而改稱茂才，所避的是哪位皇帝？",
+      "q_s": "东汉时秀才因避皇帝名讳而改称茂才，所避的是哪位皇帝？",
+      "a_t": "光武帝",
+      "a_s": "光武帝",
+      "accept": [
+        "光武帝"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-097",
+      "type": "changshi",
+      "unit": "keju",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "漢代被薦舉者接受皇帝策問時，抽籤取題作答的方式稱為什麼？",
+      "q_s": "汉代被荐举者接受皇帝策问时，抽签取题作答的方式称为什么？",
+      "a_t": "射策",
+      "a_s": "射策",
+      "accept": [
+        "射策"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-098",
+      "type": "changshi",
+      "unit": "keju",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "魏晉南北朝時期取代察舉制的主要選官制度是什麼？",
+      "q_s": "魏晋南北朝时期取代察举制的主要选官制度是什么？",
+      "a_t": "九品中正制（九品官人法）",
+      "a_s": "九品中正制（九品官人法）",
+      "accept": [
+        "九品中正制（九品官人法）",
+        "九品中正制"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-099",
+      "type": "changshi",
+      "unit": "keju",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "九品中正制後來被哪個階層操縱，以致出現「上品無寒門」？",
+      "q_s": "九品中正制后来被哪个阶层操纵，以致出现「上品无寒门」？",
+      "a_t": "豪門",
+      "a_s": "豪门",
+      "accept": [
+        "豪門",
+        "豪门"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-100",
+      "type": "changshi",
+      "unit": "keju",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "「上品無寒門」的下一句是什麼？",
+      "q_s": "「上品无寒门」的下一句是什么？",
+      "a_t": "下品無勢族",
+      "a_s": "下品无势族",
+      "accept": [
+        "下品無勢族",
+        "下品无势族"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-101",
+      "type": "changshi",
+      "unit": "keju",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "科舉制度正式誕生於哪個朝代？",
+      "q_s": "科举制度正式诞生于哪个朝代？",
+      "a_t": "隋代（隋朝）",
+      "a_s": "隋代（隋朝）",
+      "accept": [
+        "隋代（隋朝）",
+        "隋代"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-102",
+      "type": "changshi",
+      "unit": "keju",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "隋代設立的兩科取士中，除進士科外另一科稱為什麼？",
+      "q_s": "隋代设立的两科取士中，除进士科外另一科称为什么？",
+      "a_t": "明經",
+      "a_s": "明经",
+      "accept": [
+        "明經",
+        "明经"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-103",
+      "type": "changshi",
+      "unit": "keju",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "唐代地方舉送人才到中央參加考試稱為什麼？",
+      "q_s": "唐代地方举送人才到中央参加考试称为什么？",
+      "a_t": "鄉貢",
+      "a_s": "乡贡",
+      "accept": [
+        "鄉貢",
+        "乡贡"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-104",
+      "type": "changshi",
+      "unit": "keju",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "唐代由皇帝特詔臨時舉行的考試稱為什麼？",
+      "q_s": "唐代由皇帝特诏临时举行的考试称为什么？",
+      "a_t": "制舉",
+      "a_s": "制举",
+      "accept": [
+        "制舉",
+        "制举"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-105",
+      "type": "changshi",
+      "unit": "keju",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "宋代王安石改革後，只保留哪一科取士？",
+      "q_s": "宋代王安石改革后，只保留哪一科取士？",
+      "a_t": "進士科（進士）",
+      "a_s": "进士科（进士）",
+      "accept": [
+        "進士科（進士）",
+        "进士科（进士）",
+        "進士科",
+        "进士科"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-106",
+      "type": "changshi",
+      "unit": "keju",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "宋代禮部考試合格後，由皇帝親自覆審的環節稱為什麼？",
+      "q_s": "宋代礼部考试合格后，由皇帝亲自覆审的环节称为什么？",
+      "a_t": "殿試",
+      "a_s": "殿试",
+      "accept": [
+        "殿試",
+        "殿试"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-107",
+      "type": "changshi",
+      "unit": "keju",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "明清科舉中屬於入學資格、考中才算取得功名的第一級考試是什麼？",
+      "q_s": "明清科举中属于入学资格、考中才算取得功名的第一级考试是什么？",
+      "a_t": "童試",
+      "a_s": "童试",
+      "accept": [
+        "童試",
+        "童试"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-108",
+      "type": "changshi",
+      "unit": "keju",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "明清童試的應考者稱為什麼？",
+      "q_s": "明清童试的应考者称为什么？",
+      "a_t": "童生",
+      "a_s": "童生",
+      "accept": [
+        "童生"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-109",
+      "type": "changshi",
+      "unit": "keju",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "明清童試通過後稱為什麼，又稱庠生？",
+      "q_s": "明清童试通过后称为什么，又称庠生？",
+      "a_t": "生員（秀才）",
+      "a_s": "生员（秀才）",
+      "accept": [
+        "生員（秀才）",
+        "生员（秀才）",
+        "生員",
+        "生员"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-110",
+      "type": "changshi",
+      "unit": "keju",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "明清鄉試因在秋季舉行，故又稱為什麼？",
+      "q_s": "明清乡试因在秋季举行，故又称为什么？",
+      "a_t": "秋闈",
+      "a_s": "秋闱",
+      "accept": [
+        "秋闈",
+        "秋闱"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-111",
+      "type": "changshi",
+      "unit": "keju",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "明清鄉試又稱為什麼（三年一次）？",
+      "q_s": "明清乡试又称为什么（三年一次）？",
+      "a_t": "大比",
+      "a_s": "大比",
+      "accept": [
+        "大比"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-112",
+      "type": "changshi",
+      "unit": "keju",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "明清鄉試考中者稱為什麼？",
+      "q_s": "明清乡试考中者称为什么？",
+      "a_t": "舉人",
+      "a_s": "举人",
+      "accept": [
+        "舉人",
+        "举人"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-113",
+      "type": "changshi",
+      "unit": "keju",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "明清鄉試第一名稱為什麼？",
+      "q_s": "明清乡试第一名称为什么？",
+      "a_t": "解元",
+      "a_s": "解元",
+      "accept": [
+        "解元"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-114",
+      "type": "changshi",
+      "unit": "keju",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "明清會試由哪個中央部門主持？",
+      "q_s": "明清会试由哪个中央部门主持？",
+      "a_t": "禮部",
+      "a_s": "礼部",
+      "accept": [
+        "禮部",
+        "礼部"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-115",
+      "type": "changshi",
+      "unit": "keju",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "明清會試因在春天舉行，故又稱為什麼？",
+      "q_s": "明清会试因在春天举行，故又称为什么？",
+      "a_t": "春闈（禮闈）",
+      "a_s": "春闱（礼闱）",
+      "accept": [
+        "春闈（禮闈）",
+        "春闱（礼闱）",
+        "春闈",
+        "春闱"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-116",
+      "type": "changshi",
+      "unit": "keju",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "明清會試考中者稱為什麼？",
+      "q_s": "明清会试考中者称为什么？",
+      "a_t": "貢士",
+      "a_s": "贡士",
+      "accept": [
+        "貢士",
+        "贡士"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-117",
+      "type": "changshi",
+      "unit": "keju",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "明清會試第一名稱為什麼？",
+      "q_s": "明清会试第一名称为什么？",
+      "a_t": "會元",
+      "a_s": "会元",
+      "accept": [
+        "會元",
+        "会元"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-118",
+      "type": "changshi",
+      "unit": "keju",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "明清殿試第一甲第一名稱為什麼？",
+      "q_s": "明清殿试第一甲第一名称为什么？",
+      "a_t": "狀元",
+      "a_s": "状元",
+      "accept": [
+        "狀元",
+        "状元"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-119",
+      "type": "changshi",
+      "unit": "keju",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "明清殿試第一甲第二名稱為什麼？",
+      "q_s": "明清殿试第一甲第二名称为什么？",
+      "a_t": "榜眼",
+      "a_s": "榜眼",
+      "accept": [
+        "榜眼"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-120",
+      "type": "changshi",
+      "unit": "keju",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "明清殿試第二甲第一名俗稱為什麼？",
+      "q_s": "明清殿试第二甲第一名俗称为什么？",
+      "a_t": "傳臚",
+      "a_s": "传胪",
+      "accept": [
+        "傳臚",
+        "传胪"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-121",
+      "type": "changshi",
+      "unit": "keju",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "狀元、榜眼、探花合稱為什麼？",
+      "q_s": "状元、榜眼、探花合称为什么？",
+      "a_t": "三鼎甲",
+      "a_s": "三鼎甲",
+      "accept": [
+        "三鼎甲"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-122",
+      "type": "changshi",
+      "unit": "keju",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "明清狀元被授予翰林院的什麼官職？",
+      "q_s": "明清状元被授予翰林院的什么官职？",
+      "a_t": "翰林院修撰",
+      "a_s": "翰林院修撰",
+      "accept": [
+        "翰林院修撰"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-123",
+      "type": "changshi",
+      "unit": "keju",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "明清榜眼、探花被授予翰林院的什麼官職？",
+      "q_s": "明清榜眼、探花被授予翰林院的什么官职？",
+      "a_t": "翰林院編修",
+      "a_s": "翰林院编修",
+      "accept": [
+        "翰林院編修",
+        "翰林院编修"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-124",
+      "type": "changshi",
+      "unit": "keju",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "明清科舉考試所採用的文章體裁稱為什麼？",
+      "q_s": "明清科举考试所采用的文章体裁称为什么？",
+      "a_t": "八股文",
+      "a_s": "八股文",
+      "accept": [
+        "八股文"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-125",
+      "type": "changshi",
+      "unit": "keju",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "鄉試、會試、殿試均考取第一名，合稱為什麼？",
+      "q_s": "乡试、会试、殿试均考取第一名，合称为什么？",
+      "a_t": "連中三元",
+      "a_s": "连中三元",
+      "accept": [
+        "連中三元",
+        "连中三元"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-126",
+      "type": "changshi",
+      "unit": "keju",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "中國歷史上最早開始設立武舉的皇帝是誰？",
+      "q_s": "中国历史上最早开始设立武举的皇帝是谁？",
+      "a_t": "武則天",
+      "a_s": "武则天",
+      "accept": [
+        "武則天",
+        "武则天"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-127",
+      "type": "changshi",
+      "unit": "keju",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "唐代科舉承隋制，以哪兩科最為重要？",
+      "q_s": "唐代科举承隋制，以哪两科最为重要？",
+      "a_t": "進士、明經",
+      "a_s": "进士、明经",
+      "accept": [
+        "進士、明經",
+        "进士、明经"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-128",
+      "type": "changshi",
+      "unit": "keju",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "宋代殿試發榜時分為幾甲？",
+      "q_s": "宋代殿试发榜时分为几甲？",
+      "a_t": "五甲",
+      "a_s": "五甲",
+      "accept": [
+        "五甲"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-129",
+      "type": "changshi",
+      "unit": "keju",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "明清科舉的正式考試分為哪三級？",
+      "q_s": "明清科举的正式考试分为哪三级？",
+      "a_t": "鄉試、會試、殿試",
+      "a_s": "乡试、会试、殿试",
+      "accept": [
+        "鄉試、會試、殿試",
+        "乡试、会试、殿试"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-130",
+      "type": "changshi",
+      "unit": "keju",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "明清殿試由皇帝主考，所考的內容形式稱為什麼？",
+      "q_s": "明清殿试由皇帝主考，所考的内容形式称为什么？",
+      "a_t": "策問",
+      "a_s": "策问",
+      "accept": [
+        "策問",
+        "策问"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-131",
+      "type": "changshi",
+      "unit": "keju",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "明清殿試第一甲賜什麼名銜？",
+      "q_s": "明清殿试第一甲赐什么名衔？",
+      "a_t": "進士及第",
+      "a_s": "进士及第",
+      "accept": [
+        "進士及第",
+        "进士及第"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-132",
+      "type": "changshi",
+      "unit": "keju",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "明清殿試第二甲賜什麼名銜？",
+      "q_s": "明清殿试第二甲赐什么名衔？",
+      "a_t": "進士出身",
+      "a_s": "进士出身",
+      "accept": [
+        "進士出身",
+        "进士出身"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-133",
+      "type": "changshi",
+      "unit": "keju",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "明清殿試第三甲賜什麼名銜？",
+      "q_s": "明清殿试第三甲赐什么名衔？",
+      "a_t": "同進士出身",
+      "a_s": "同进士出身",
+      "accept": [
+        "同進士出身",
+        "同进士出身"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-134",
+      "type": "changshi",
+      "unit": "keju",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "明清會試在鄉試的哪一年舉行？",
+      "q_s": "明清会试在乡试的哪一年举行？",
+      "a_t": "次年",
+      "a_s": "次年",
+      "accept": [
+        "次年"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-135",
+      "type": "changshi",
+      "unit": "keju",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "明清鄉試在什麼地方舉行？",
+      "q_s": "明清乡试在什么地方举行？",
+      "a_t": "省城",
+      "a_s": "省城",
+      "accept": [
+        "省城"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-136",
+      "type": "changshi",
+      "unit": "keju",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "明清鄉試每幾年舉行一次？",
+      "q_s": "明清乡试每几年举行一次？",
+      "a_t": "三年",
+      "a_s": "三年",
+      "accept": [
+        "三年"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-137",
+      "type": "changshi",
+      "unit": "keju",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "漢代被薦舉者針對皇帝策問正面作答的方式稱為什麼？",
+      "q_s": "汉代被荐举者针对皇帝策问正面作答的方式称为什么？",
+      "a_t": "對策",
+      "a_s": "对策",
+      "accept": [
+        "對策",
+        "对策"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-138",
+      "type": "changshi",
+      "unit": "keju",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "明清科舉制度最為完備，通常以哪個朝代的制度為例？",
+      "q_s": "明清科举制度最为完备，通常以哪个朝代的制度为例？",
+      "a_t": "清代",
+      "a_s": "清代",
+      "accept": [
+        "清代"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-139",
+      "type": "changshi",
+      "unit": "keju",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "連中三元又稱為什麼？",
+      "q_s": "连中三元又称为什么？",
+      "a_t": "三元及第",
+      "a_s": "三元及第",
+      "accept": [
+        "三元及第"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-140",
+      "type": "changshi",
+      "unit": "hanwei",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "《孔雀東南飛》是我國現存古代最早的一首什麼詩？",
+      "q_s": "《孔雀东南飞》是我国现存古代最早的一首什么诗？",
+      "a_t": "長篇敘事詩",
+      "a_s": "长篇叙事诗",
+      "accept": [
+        "長篇敘事詩",
+        "长篇叙事诗"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-141",
+      "type": "changshi",
+      "unit": "hanwei",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "《孔雀東南飛》最早見於南朝徐陵編的哪一部詩歌總集？",
+      "q_s": "《孔雀东南飞》最早见于南朝徐陵编的哪一部诗歌总集？",
+      "a_t": "玉台新詠",
+      "a_s": "玉台新咏",
+      "accept": [
+        "玉台新詠",
+        "玉台新咏"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-142",
+      "type": "changshi",
+      "unit": "hanwei",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "宋代把《孔雀東南飛》編入《樂府詩集》的編者是誰？",
+      "q_s": "宋代把《孔雀东南飞》编入《乐府诗集》的编者是谁？",
+      "a_t": "郭茂倩",
+      "a_s": "郭茂倩",
+      "accept": [
+        "郭茂倩"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-143",
+      "type": "changshi",
+      "unit": "hanwei",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "《玉台新詠》由南朝陳的哪一位編成？",
+      "q_s": "《玉台新咏》由南朝陈的哪一位编成？",
+      "a_t": "徐陵",
+      "a_s": "徐陵",
+      "accept": [
+        "徐陵"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-144",
+      "type": "changshi",
+      "unit": "hanwei",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "《孔雀東南飛》中受封建家長壓迫而殉情的男子叫什麼名字？",
+      "q_s": "《孔雀东南飞》中受封建家长压迫而殉情的男子叫什么名字？",
+      "a_t": "焦仲卿",
+      "a_s": "焦仲卿",
+      "accept": [
+        "焦仲卿"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-145",
+      "type": "changshi",
+      "unit": "hanwei",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "《孔雀東南飛》中與焦仲卿雙雙殉情的女子叫什麼名字？",
+      "q_s": "《孔雀东南飞》中与焦仲卿双双殉情的女子叫什么名字？",
+      "a_t": "劉蘭芝",
+      "a_s": "刘兰芝",
+      "accept": [
+        "劉蘭芝",
+        "刘兰芝"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-146",
+      "type": "changshi",
+      "unit": "hanwei",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "《孔雀東南飛》與北朝的哪一篇並稱「樂府雙璧」？",
+      "q_s": "《孔雀东南飞》与北朝的哪一篇并称「乐府双璧」？",
+      "a_t": "木蘭辭",
+      "a_s": "木兰辞",
+      "accept": [
+        "木蘭辭",
+        "木兰辞"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-147",
+      "type": "changshi",
+      "unit": "hanwei",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "與《孔雀東南飛》並稱「漢樂府雙璧」的是哪一篇？",
+      "q_s": "与《孔雀东南飞》并称「汉乐府双璧」的是哪一篇？",
+      "a_t": "陌上桑",
+      "a_s": "陌上桑",
+      "accept": [
+        "陌上桑"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-148",
+      "type": "changshi",
+      "unit": "hanwei",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "「樂府」原是漢武帝時設立的什麼機構？",
+      "q_s": "「乐府」原是汉武帝时设立的什么机构？",
+      "a_t": "採集詩歌的官署",
+      "a_s": "采集诗歌的官署",
+      "accept": [
+        "採集詩歌的官署",
+        "采集诗歌的官署"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-149",
+      "type": "changshi",
+      "unit": "hanwei",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "建安文學的代表人物中，寫下《觀滄海》《短歌行》的是誰？",
+      "q_s": "建安文学的代表人物中，写下《观沧海》《短歌行》的是谁？",
+      "a_t": "曹操",
+      "a_s": "曹操",
+      "accept": [
+        "曹操"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-150",
+      "type": "changshi",
+      "unit": "hanwei",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "我國現存最早的文人七言詩是哪一篇？",
+      "q_s": "我国现存最早的文人七言诗是哪一篇？",
+      "a_t": "燕歌行",
+      "a_s": "燕歌行",
+      "accept": [
+        "燕歌行"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-151",
+      "type": "changshi",
+      "unit": "hanwei",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "我國現存最早的文人七言詩的作者是誰？",
+      "q_s": "我国现存最早的文人七言诗的作者是谁？",
+      "a_t": "曹丕",
+      "a_s": "曹丕",
+      "accept": [
+        "曹丕"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-152",
+      "type": "changshi",
+      "unit": "hanwei",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "文學史上第一篇文學理論專著是哪一部？",
+      "q_s": "文学史上第一篇文学理论专著是哪一部？",
+      "a_t": "典論論文",
+      "a_s": "典论论文",
+      "accept": [
+        "典論論文",
+        "典论论文"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-153",
+      "type": "changshi",
+      "unit": "hanwei",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "曹植的字是什麼？",
+      "q_s": "曹植的字是什么？",
+      "a_t": "子建",
+      "a_s": "子建",
+      "accept": [
+        "子建"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-154",
+      "type": "changshi",
+      "unit": "hanwei",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "曹植封陳王、諡「思」，世稱什麼？",
+      "q_s": "曹植封陈王、谥「思」，世称什么？",
+      "a_t": "陳思王",
+      "a_s": "陈思王",
+      "accept": [
+        "陳思王",
+        "陈思王"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-155",
+      "type": "changshi",
+      "unit": "hanwei",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "謝靈運評「曹子建獨占八斗」，「曹子建」指的是誰？",
+      "q_s": "谢灵运评「曹子建独占八斗」，「曹子建」指的是谁？",
+      "a_t": "曹植",
+      "a_s": "曹植",
+      "accept": [
+        "曹植"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-156",
+      "type": "changshi",
+      "unit": "hanwei",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "曹操、曹丕、曹植合稱什麼？",
+      "q_s": "曹操、曹丕、曹植合称什么？",
+      "a_t": "三曹",
+      "a_s": "三曹",
+      "accept": [
+        "三曹"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-157",
+      "type": "changshi",
+      "unit": "hanwei",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "《古詩十九首》最早見於南朝梁誰所編的《文選》？",
+      "q_s": "《古诗十九首》最早见于南朝梁谁所编的《文选》？",
+      "a_t": "蕭統",
+      "a_s": "萧统",
+      "accept": [
+        "蕭統",
+        "萧统"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-158",
+      "type": "changshi",
+      "unit": "hanwei",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "《古詩十九首》是東漢末年無名氏的哪一種詩體的選集？",
+      "q_s": "《古诗十九首》是东汉末年无名氏的哪一种诗体的选集？",
+      "a_t": "五言詩",
+      "a_s": "五言诗",
+      "accept": [
+        "五言詩",
+        "五言诗"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-159",
+      "type": "changshi",
+      "unit": "hanwei",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "標誌著文人五言詩成熟的是哪一組作品？",
+      "q_s": "标志著文人五言诗成熟的是哪一组作品？",
+      "a_t": "古詩十九首",
+      "a_s": "古诗十九首",
+      "accept": [
+        "古詩十九首",
+        "古诗十九首"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-160",
+      "type": "changshi",
+      "unit": "hanwei",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "劉勰《文心雕龍》稱《古詩十九首》為什麼？",
+      "q_s": "刘勰《文心雕龙》称《古诗十九首》为什么？",
+      "a_t": "五言之冠冕",
+      "a_s": "五言之冠冕",
+      "accept": [
+        "五言之冠冕"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-161",
+      "type": "changshi",
+      "unit": "hanwei",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "哪一部書讚《古詩十九首》「驚心動魄，一字千金」？",
+      "q_s": "哪一部书赞《古诗十九首》「惊心动魄，一字千金」？",
+      "a_t": "詩品",
+      "a_s": "诗品",
+      "accept": [
+        "詩品",
+        "诗品"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-162",
+      "type": "changshi",
+      "unit": "hanwei",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "陶淵明一名什麼？",
+      "q_s": "陶渊明一名什么？",
+      "a_t": "潛",
+      "a_s": "潜",
+      "accept": [
+        "潛",
+        "潜"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-163",
+      "type": "changshi",
+      "unit": "hanwei",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "陶淵明的字是什麼？",
+      "q_s": "陶渊明的字是什么？",
+      "a_t": "元亮",
+      "a_s": "元亮",
+      "accept": [
+        "元亮"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-164",
+      "type": "changshi",
+      "unit": "hanwei",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "陶淵明私諡「靖節」，世稱什麼？",
+      "q_s": "陶渊明私谥「靖节」，世称什么？",
+      "a_t": "靖節先生",
+      "a_s": "靖节先生",
+      "accept": [
+        "靖節先生",
+        "靖节先生"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-165",
+      "type": "changshi",
+      "unit": "hanwei",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "陶淵明曾任彭澤令，因此又稱什麼？",
+      "q_s": "陶渊明曾任彭泽令，因此又称什么？",
+      "a_t": "陶彭澤",
+      "a_s": "陶彭泽",
+      "accept": [
+        "陶彭澤",
+        "陶彭泽"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-166",
+      "type": "changshi",
+      "unit": "hanwei",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "我國文學史上第一位田園詩人是誰？",
+      "q_s": "我国文学史上第一位田园诗人是谁？",
+      "a_t": "陶淵明",
+      "a_s": "陶渊明",
+      "accept": [
+        "陶淵明",
+        "陶渊明"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-167",
+      "type": "changshi",
+      "unit": "hanwei",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "陶淵明歸隱後所作的辭賦名篇是哪一篇？",
+      "q_s": "陶渊明归隐后所作的辞赋名篇是哪一篇？",
+      "a_t": "歸去來兮辭",
+      "a_s": "归去来兮辞",
+      "accept": [
+        "歸去來兮辭",
+        "归去来兮辞"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-168",
+      "type": "changshi",
+      "unit": "hanwei",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "謝靈運世稱謝客，又稱什麼？",
+      "q_s": "谢灵运世称谢客，又称什么？",
+      "a_t": "謝康樂（謝臨川）",
+      "a_s": "谢康乐（谢临川）",
+      "accept": [
+        "謝康樂（謝臨川）",
+        "谢康乐（谢临川）",
+        "謝康樂",
+        "谢康乐"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-169",
+      "type": "changshi",
+      "unit": "hanwei",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "開創中國文學史上山水詩派的是誰？",
+      "q_s": "开创中国文学史上山水诗派的是谁？",
+      "a_t": "謝靈運",
+      "a_s": "谢灵运",
+      "accept": [
+        "謝靈運",
+        "谢灵运"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-170",
+      "type": "changshi",
+      "unit": "hanwei",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "謝靈運的代表作是哪一篇賦？",
+      "q_s": "谢灵运的代表作是哪一篇赋？",
+      "a_t": "山居賦",
+      "a_s": "山居赋",
+      "accept": [
+        "山居賦",
+        "山居赋"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-171",
+      "type": "changshi",
+      "unit": "hanwei",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "謝靈運與謝朓並稱什麼？",
+      "q_s": "谢灵运与谢朓并称什么？",
+      "a_t": "大小謝",
+      "a_s": "大小谢",
+      "accept": [
+        "大小謝",
+        "大小谢"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-172",
+      "type": "changshi",
+      "unit": "hanwei",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "「大小謝」中的「小謝」指誰？",
+      "q_s": "「大小谢」中的「小谢」指谁？",
+      "a_t": "謝朓",
+      "a_s": "谢朓",
+      "accept": [
+        "謝朓",
+        "谢朓"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-173",
+      "type": "changshi",
+      "unit": "hanwei",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "曹丕是曹操的什麼人？",
+      "q_s": "曹丕是曹操的什么人？",
+      "a_t": "次子",
+      "a_s": "次子",
+      "accept": [
+        "次子"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-174",
+      "type": "changshi",
+      "unit": "hanwei",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "曹植的《七哀詩》《白馬篇》之外，另一篇代表作是什麼？",
+      "q_s": "曹植的《七哀诗》《白马篇》之外，另一篇代表作是什么？",
+      "a_t": "洛神賦",
+      "a_s": "洛神赋",
+      "accept": [
+        "洛神賦",
+        "洛神赋"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-175",
+      "type": "changshi",
+      "unit": "hanwei",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "《古詩十九首》的內容主要抒寫什麼與士人失意？",
+      "q_s": "《古诗十九首》的内容主要抒写什么与士人失意？",
+      "a_t": "離愁別恨",
+      "a_s": "离愁别恨",
+      "accept": [
+        "離愁別恨",
+        "离愁别恨"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-176",
+      "type": "changshi",
+      "unit": "hanwei",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "《古詩十九首》習慣以什麼作為標題？",
+      "q_s": "《古诗十九首》习惯以什么作为标题？",
+      "a_t": "首句",
+      "a_s": "首句",
+      "accept": [
+        "首句"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-177",
+      "type": "changshi",
+      "unit": "hanwei",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "《玉台新詠》是繼《詩經》《楚辭》之後的又一部什麼？",
+      "q_s": "《玉台新咏》是继《诗经》《楚辞》之后的又一部什么？",
+      "a_t": "詩歌總集",
+      "a_s": "诗歌总集",
+      "accept": [
+        "詩歌總集",
+        "诗歌总集"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-178",
+      "type": "changshi",
+      "unit": "hanwei",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "「樂府」原是官署名，後來演變成什麼？",
+      "q_s": "「乐府」原是官署名，后来演变成什么？",
+      "a_t": "詩體名",
+      "a_s": "诗体名",
+      "accept": [
+        "詩體名",
+        "诗体名"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-179",
+      "type": "changshi",
+      "unit": "hanwei",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "陶淵明描寫理想社會的名篇是什麼？",
+      "q_s": "陶渊明描写理想社会的名篇是什么？",
+      "a_t": "桃花源記",
+      "a_s": "桃花源记",
+      "accept": [
+        "桃花源記",
+        "桃花源记"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-180",
+      "type": "changshi",
+      "unit": "hanwei",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "陶淵明描寫田園生活的組詩代表作是什麼？",
+      "q_s": "陶渊明描写田园生活的组诗代表作是什么？",
+      "a_t": "歸園田居",
+      "a_s": "归园田居",
+      "accept": [
+        "歸園田居",
+        "归园田居"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-181",
+      "type": "changshi",
+      "unit": "hanwei",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "曹操的《觀滄海》《短歌行》《龜雖壽》之外，另一首樂府詩代表作是什麼？",
+      "q_s": "曹操的《观沧海》《短歌行》《龟虽寿》之外，另一首乐府诗代表作是什么？",
+      "a_t": "蒿里行",
+      "a_s": "蒿里行",
+      "accept": [
+        "蒿里行"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-182",
+      "type": "changshi",
+      "unit": "hanwei",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "曹丕的《典論·論文》是文學史上第一篇什麼專著？",
+      "q_s": "曹丕的《典论·论文》是文学史上第一篇什么专著？",
+      "a_t": "文學理論專著",
+      "a_s": "文学理论专著",
+      "accept": [
+        "文學理論專著",
+        "文学理论专著"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-183",
+      "type": "changshi",
+      "unit": "wenhua",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "古代把日、月與金、木、水、火、土五星合稱什麼？",
+      "q_s": "古代把日、月与金、木、水、火、土五星合称什么？",
+      "a_t": "七政（七曜）",
+      "a_s": "七政（七曜）",
+      "accept": [
+        "七政（七曜）",
+        "七政"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-184",
+      "type": "changshi",
+      "unit": "wenhua",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "金星古稱明星，又名什麼？",
+      "q_s": "金星古称明星，又名什么？",
+      "a_t": "太白（明星）",
+      "a_s": "太白（明星）",
+      "accept": [
+        "太白（明星）",
+        "太白"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-185",
+      "type": "changshi",
+      "unit": "wenhua",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "金星在黎明時出現於東方，古人稱它為什麼？",
+      "q_s": "金星在黎明时出现于东方，古人称它为什么？",
+      "a_t": "啟明",
+      "a_s": "启明",
+      "accept": [
+        "啟明",
+        "启明"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-186",
+      "type": "changshi",
+      "unit": "wenhua",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "木星古稱什麼，並用以紀年？",
+      "q_s": "木星古称什么，并用以纪年？",
+      "a_t": "歲星",
+      "a_s": "岁星",
+      "accept": [
+        "歲星",
+        "岁星"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-187",
+      "type": "changshi",
+      "unit": "wenhua",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "水星古稱什麼？",
+      "q_s": "水星古称什么？",
+      "a_t": "辰星",
+      "a_s": "辰星",
+      "accept": [
+        "辰星"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-188",
+      "type": "changshi",
+      "unit": "wenhua",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "火星古稱什麼？",
+      "q_s": "火星古称什么？",
+      "a_t": "熒惑",
+      "a_s": "荧惑",
+      "accept": [
+        "熒惑",
+        "荧惑"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-189",
+      "type": "changshi",
+      "unit": "wenhua",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "土星又叫什麼星？",
+      "q_s": "土星又叫什么星？",
+      "a_t": "鎮星",
+      "a_s": "镇星",
+      "accept": [
+        "鎮星",
+        "镇星"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-190",
+      "type": "changshi",
+      "unit": "wenhua",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "古人用作黃道、赤道附近坐標的二十八個星宿，合稱什麼？",
+      "q_s": "古人用作黄道、赤道附近坐标的二十八个星宿，合称什么？",
+      "a_t": "二十八宿",
+      "a_s": "二十八宿",
+      "accept": [
+        "二十八宿"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-191",
+      "type": "changshi",
+      "unit": "wenhua",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "四象之中，代表東方的是什麼？",
+      "q_s": "四象之中，代表东方的是什么？",
+      "a_t": "蒼龍",
+      "a_s": "苍龙",
+      "accept": [
+        "蒼龍",
+        "苍龙"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-192",
+      "type": "changshi",
+      "unit": "wenhua",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "四象之中，代表北方的是什麼（龜蛇之象）？",
+      "q_s": "四象之中，代表北方的是什么（龟蛇之象）？",
+      "a_t": "玄武",
+      "a_s": "玄武",
+      "accept": [
+        "玄武"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-193",
+      "type": "changshi",
+      "unit": "wenhua",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "四象之中，代表西方的是什麼？",
+      "q_s": "四象之中，代表西方的是什么？",
+      "a_t": "白虎",
+      "a_s": "白虎",
+      "accept": [
+        "白虎"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-194",
+      "type": "changshi",
+      "unit": "wenhua",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "四象之中，代表南方的是什麼？",
+      "q_s": "四象之中，代表南方的是什么？",
+      "a_t": "朱雀",
+      "a_s": "朱雀",
+      "accept": [
+        "朱雀"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-195",
+      "type": "changshi",
+      "unit": "wenhua",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "東方蒼龍七宿的第一宿是什麼？",
+      "q_s": "东方苍龙七宿的第一宿是什么？",
+      "a_t": "角",
+      "a_s": "角",
+      "accept": [
+        "角"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-196",
+      "type": "changshi",
+      "unit": "wenhua",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "以月亮盈虧（朔望月）為單位的曆法叫什麼？",
+      "q_s": "以月亮盈亏（朔望月）为单位的历法叫什么？",
+      "a_t": "陰曆",
+      "a_s": "阴历",
+      "accept": [
+        "陰曆",
+        "阴历"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-197",
+      "type": "changshi",
+      "unit": "wenhua",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "我國古代曆法兼採陰曆與陽曆，合稱什麼？",
+      "q_s": "我国古代历法兼采阴历与阳历，合称什么？",
+      "a_t": "陰陽合曆",
+      "a_s": "阴阳合历",
+      "accept": [
+        "陰陽合曆",
+        "阴阳合历"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-198",
+      "type": "changshi",
+      "unit": "wenhua",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "古代曆法平年共有多少天？",
+      "q_s": "古代历法平年共有多少天？",
+      "a_t": "三百五十四天",
+      "a_s": "三百五十四天",
+      "accept": [
+        "三百五十四天"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-199",
+      "type": "changshi",
+      "unit": "wenhua",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "農曆三月（春季末月）稱什麼？",
+      "q_s": "农历三月（春季末月）称什么？",
+      "a_t": "季春",
+      "a_s": "季春",
+      "accept": [
+        "季春"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-200",
+      "type": "changshi",
+      "unit": "wenhua",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "二十四節氣中，正月的第二個節氣是什麼？",
+      "q_s": "二十四节气中，正月的第二个节气是什么？",
+      "a_t": "雨水",
+      "a_s": "雨水",
+      "accept": [
+        "雨水"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-201",
+      "type": "changshi",
+      "unit": "wenhua",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "二十四節氣中，二月的第二個節氣是什麼？",
+      "q_s": "二十四节气中，二月的第二个节气是什么？",
+      "a_t": "春分",
+      "a_s": "春分",
+      "accept": [
+        "春分"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-202",
+      "type": "changshi",
+      "unit": "wenhua",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "北斗斗柄指向北方時，天下屬於哪一季節？",
+      "q_s": "北斗斗柄指向北方时，天下属于哪一季节？",
+      "a_t": "冬",
+      "a_s": "冬",
+      "accept": [
+        "冬"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-203",
+      "type": "changshi",
+      "unit": "wenhua",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "十天干的第一位是什麼？",
+      "q_s": "十天干的第一位是什么？",
+      "a_t": "甲",
+      "a_s": "甲",
+      "accept": [
+        "甲"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-204",
+      "type": "changshi",
+      "unit": "wenhua",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "天干與地支依次相配，共六十個單位，合稱什麼？",
+      "q_s": "天干与地支依次相配，共六十个单位，合称什么？",
+      "a_t": "六十甲子",
+      "a_s": "六十甲子",
+      "accept": [
+        "六十甲子"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-205",
+      "type": "changshi",
+      "unit": "wenhua",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "夏代以建寅之月為歲首，這種曆正叫什麼？",
+      "q_s": "夏代以建寅之月为岁首，这种历正叫什么？",
+      "a_t": "夏正",
+      "a_s": "夏正",
+      "accept": [
+        "夏正"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-206",
+      "type": "changshi",
+      "unit": "wenhua",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "商代以建丑之月為歲首，稱為什麼？",
+      "q_s": "商代以建丑之月为岁首，称为什么？",
+      "a_t": "殷正",
+      "a_s": "殷正",
+      "accept": [
+        "殷正"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-207",
+      "type": "changshi",
+      "unit": "wenhua",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "周代以建子之月為歲首，稱為什麼？",
+      "q_s": "周代以建子之月为岁首，称为什么？",
+      "a_t": "周正",
+      "a_s": "周正",
+      "accept": [
+        "周正"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-208",
+      "type": "changshi",
+      "unit": "wenhua",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "正月初一日古稱元旦，現代稱為什麼？",
+      "q_s": "正月初一日古称元旦，现代称为什么？",
+      "a_t": "春節",
+      "a_s": "春节",
+      "accept": [
+        "春節",
+        "春节"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-209",
+      "type": "changshi",
+      "unit": "wenhua",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "八月十五日是賞月的哪一個節日？",
+      "q_s": "八月十五日是赏月的哪一个节日？",
+      "a_t": "中秋",
+      "a_s": "中秋",
+      "accept": [
+        "中秋"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-210",
+      "type": "changshi",
+      "unit": "wenhua",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "九月初九日，古人有登高飲酒習慣的是什麼節日？",
+      "q_s": "九月初九日，古人有登高饮酒习惯的是什么节日？",
+      "a_t": "重陽",
+      "a_s": "重阳",
+      "accept": [
+        "重陽",
+        "重阳"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-211",
+      "type": "changshi",
+      "unit": "wenhua",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "一年最後一天的晚上稱為什麼？",
+      "q_s": "一年最后一天的晚上称为什么？",
+      "a_t": "除夕",
+      "a_s": "除夕",
+      "accept": [
+        "除夕"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-212",
+      "type": "changshi",
+      "unit": "wenhua",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "五音（五聲）中，宮、商、角、徵之後的第五音是什麼？",
+      "q_s": "五音（五声）中，宫、商、角、征之后的第五音是什么？",
+      "a_t": "羽",
+      "a_s": "羽",
+      "accept": [
+        "羽"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-213",
+      "type": "changshi",
+      "unit": "wenhua",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "十二律中最低（第一）的一律是什麼？",
+      "q_s": "十二律中最低（第一）的一律是什么？",
+      "a_t": "黃鐘",
+      "a_s": "黄钟",
+      "accept": [
+        "黃鐘",
+        "黄钟"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-214",
+      "type": "changshi",
+      "unit": "wenhua",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "十二律中偶數的六個陰律合稱什麼？",
+      "q_s": "十二律中偶数的六个阴律合称什么？",
+      "a_t": "六呂",
+      "a_s": "六吕",
+      "accept": [
+        "六呂",
+        "六吕"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-215",
+      "type": "changshi",
+      "unit": "wenhua",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "上古金、石、土、革、絲、木、匏、竹八類樂器合稱什麼？",
+      "q_s": "上古金、石、土、革、丝、木、匏、竹八类乐器合称什么？",
+      "a_t": "八音",
+      "a_s": "八音",
+      "accept": [
+        "八音"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-216",
+      "type": "changshi",
+      "unit": "wenhua",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "八音之中，「金」類樂器以什麼為代表？",
+      "q_s": "八音之中，「金」类乐器以什么为代表？",
+      "a_t": "鐘鎛",
+      "a_s": "钟镈",
+      "accept": [
+        "鐘鎛",
+        "钟镈"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-217",
+      "type": "changshi",
+      "unit": "wenhua",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "八音之中，「竹」類樂器以什麼為代表？",
+      "q_s": "八音之中，「竹」类乐器以什么为代表？",
+      "a_t": "管簫",
+      "a_s": "管箫",
+      "accept": [
+        "管簫",
+        "管箫"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-218",
+      "type": "changshi",
+      "unit": "wenhua",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "金星在黃昏時出現於西方，古人稱它為甚麼？",
+      "q_s": "金星在黄昏时出现于西方，古人称它为甚么？",
+      "a_t": "長庚",
+      "a_s": "长庚",
+      "accept": [
+        "長庚",
+        "长庚"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-219",
+      "type": "changshi",
+      "unit": "wenhua",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "將天上星宿與地上州國對應的學說稱甚麼？",
+      "q_s": "将天上星宿与地上州国对应的学说称甚么？",
+      "a_t": "分野",
+      "a_s": "分野",
+      "accept": [
+        "分野"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-220",
+      "type": "changshi",
+      "unit": "wenhua",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "春季的第一個月稱甚麼？",
+      "q_s": "春季的第一个月称甚么？",
+      "a_t": "孟春",
+      "a_s": "孟春",
+      "accept": [
+        "孟春"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-221",
+      "type": "changshi",
+      "unit": "wenhua",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "夏季的第二個月稱甚麼？",
+      "q_s": "夏季的第二个月称甚么？",
+      "a_t": "仲夏",
+      "a_s": "仲夏",
+      "accept": [
+        "仲夏"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-222",
+      "type": "changshi",
+      "unit": "wenhua",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "二十四節氣中，三月的第二個節氣是甚麼？",
+      "q_s": "二十四节气中，三月的第二个节气是甚么？",
+      "a_t": "穀雨",
+      "a_s": "谷雨",
+      "accept": [
+        "穀雨",
+        "谷雨"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-223",
+      "type": "changshi",
+      "unit": "wenhua",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "二十四節氣中，六月的第一個節氣是甚麼？",
+      "q_s": "二十四节气中，六月的第一个节气是甚么？",
+      "a_t": "小暑",
+      "a_s": "小暑",
+      "accept": [
+        "小暑"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-224",
+      "type": "changshi",
+      "unit": "wenhua",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "十二律中，從低到高的第二律是甚麼？",
+      "q_s": "十二律中，从低到高的第二律是甚么？",
+      "a_t": "大呂",
+      "a_s": "大吕",
+      "accept": [
+        "大呂",
+        "大吕"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-225",
+      "type": "changshi",
+      "unit": "wenhua",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "十二律中奇數的六個陽律合稱甚麼？",
+      "q_s": "十二律中奇数的六个阳律合称甚么？",
+      "a_t": "六律",
+      "a_s": "六律",
+      "accept": [
+        "六律"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-226",
+      "type": "changshi",
+      "unit": "wenhua",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "八音之中，「石」類樂器以甚麼為代表？",
+      "q_s": "八音之中，「石」类乐器以甚么为代表？",
+      "a_t": "磬",
+      "a_s": "磬",
+      "accept": [
+        "磬"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-227",
+      "type": "changshi",
+      "unit": "wenhua",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "八音之中，「土」類樂器以甚麼為代表？",
+      "q_s": "八音之中，「土」类乐器以甚么为代表？",
+      "a_t": "塤",
+      "a_s": "埙",
+      "accept": [
+        "塤",
+        "埙"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-228",
+      "type": "changshi",
+      "unit": "wenhua",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "八音之中，「絲」類樂器以甚麼為代表？",
+      "q_s": "八音之中，「丝」类乐器以甚么为代表？",
+      "a_t": "琴瑟",
+      "a_s": "琴瑟",
+      "accept": [
+        "琴瑟"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-229",
+      "type": "changshi",
+      "unit": "wenhua",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "八音之中，「匏」類樂器以甚麼為代表？",
+      "q_s": "八音之中，「匏」类乐器以甚么为代表？",
+      "a_t": "笙",
+      "a_s": "笙",
+      "accept": [
+        "笙"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-230",
+      "type": "changshi",
+      "unit": "wenhua",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "正月初七日稱甚麼節日？",
+      "q_s": "正月初七日称甚么节日？",
+      "a_t": "人日",
+      "a_s": "人日",
+      "accept": [
+        "人日"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-231",
+      "type": "changshi",
+      "unit": "wenhua",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "冬至前一日稱甚麼？",
+      "q_s": "冬至前一日称甚么？",
+      "a_t": "小至",
+      "a_s": "小至",
+      "accept": [
+        "小至"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-232",
+      "type": "changshi",
+      "unit": "wenhua",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "十二月初八，有吃臘八粥習俗的日子稱甚麼？",
+      "q_s": "十二月初八，有吃腊八粥习俗的日子称甚么？",
+      "a_t": "臘日",
+      "a_s": "腊日",
+      "accept": [
+        "臘日",
+        "腊日"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-233",
+      "type": "changshi",
+      "unit": "wenhua",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "十二地支的第一位是甚麼？",
+      "q_s": "十二地支的第一位是甚么？",
+      "a_t": "子",
+      "a_s": "子",
+      "accept": [
+        "子"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-234",
+      "type": "changshi",
+      "unit": "wenhua",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "以月亮盈虧為週期的月稱甚麼月？",
+      "q_s": "以月亮盈亏为周期的月称甚么月？",
+      "a_t": "朔望月",
+      "a_s": "朔望月",
+      "accept": [
+        "朔望月"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-235",
+      "type": "changshi",
+      "unit": "wenhua",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "漢武帝時制定、此後採用夏正的曆法叫甚麼？",
+      "q_s": "汉武帝时制定、此后采用夏正的历法叫甚么？",
+      "a_t": "太初曆",
+      "a_s": "太初历",
+      "accept": [
+        "太初曆",
+        "太初历"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-236",
+      "type": "changshi",
+      "unit": "wenhua",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "七音是在五音之外加上變宮和甚麼？",
+      "q_s": "七音是在五音之外加上变宫和甚么？",
+      "a_t": "變徵",
+      "a_s": "变徵",
+      "accept": [
+        "變徵",
+        "变徵"
+      ],
+      "note": ""
+    },
+    {
+      "id": "cs-237",
+      "type": "changshi",
+      "unit": "wenhua",
+      "seg": 1,
+      "exam": 2,
+      "module": "changshi",
+      "q_t": "南方朱雀七宿的第一宿是甚麼？",
+      "q_s": "南方朱雀七宿的第一宿是甚么？",
+      "a_t": "井",
+      "a_s": "井",
+      "accept": [
+        "井"
+      ],
+      "note": ""
+    },
+    {
       "id": "mj-051",
       "type": "mingju",
       "unit": "mingju_jingshi",
@@ -4345,8 +7866,11 @@ window.CN_DATASET = {
     }
   ],
   "t2s": {
+    "並": "并",
+    "亞": "亚",
     "來": "来",
     "侶": "侣",
+    "個": "个",
     "們": "们",
     "側": "侧",
     "傑": "杰",
@@ -4356,24 +7880,29 @@ window.CN_DATASET = {
     "傾": "倾",
     "儀": "仪",
     "儉": "俭",
+    "優": "优",
     "兒": "儿",
     "內": "内",
     "兩": "两",
     "別": "别",
     "則": "则",
     "剛": "刚",
+    "創": "创",
     "劉": "刘",
     "劍": "剑",
     "勁": "劲",
     "動": "动",
     "勞": "劳",
+    "勢": "势",
     "勸": "劝",
     "卻": "却",
     "參": "参",
     "吳": "吴",
     "呂": "吕",
+    "員": "员",
     "問": "问",
     "啟": "启",
+    "單": "单",
     "嘯": "啸",
     "嚴": "严",
     "嚶": "嘤",
@@ -4382,6 +7911,8 @@ window.CN_DATASET = {
     "圓": "圆",
     "堅": "坚",
     "報": "报",
+    "塤": "埙",
+    "壓": "压",
     "壽": "寿",
     "夢": "梦",
     "奧": "奥",
@@ -4392,13 +7923,19 @@ window.CN_DATASET = {
     "孫": "孙",
     "學": "学",
     "宮": "宫",
+    "實": "实",
+    "審": "审",
+    "寫": "写",
     "寬": "宽",
     "將": "将",
+    "專": "专",
     "尋": "寻",
     "對": "对",
     "層": "层",
+    "屬": "属",
     "師": "师",
     "帶": "带",
+    "幾": "几",
     "廢": "废",
     "廣": "广",
     "廬": "庐",
@@ -4408,73 +7945,100 @@ window.CN_DATASET = {
     "後": "后",
     "從": "从",
     "復": "复",
+    "徵": "征",
     "恥": "耻",
     "悅": "悦",
     "悽": "凄",
+    "惡": "恶",
     "愛": "爱",
     "慘": "惨",
+    "慣": "惯",
     "慼": "戚",
     "慾": "欲",
     "憂": "忧",
     "憤": "愤",
     "憫": "悯",
+    "應": "应",
     "懟": "怼",
     "懲": "惩",
     "懷": "怀",
     "戀": "恋",
     "戰": "战",
     "戶": "户",
+    "採": "采",
     "換": "换",
     "損": "损",
     "搖": "摇",
     "擇": "择",
     "擊": "击",
     "擔": "担",
+    "據": "据",
     "敘": "叙",
+    "數": "数",
     "斃": "毙",
     "於": "于",
     "時": "时",
+    "晉": "晋",
+    "曆": "历",
     "曉": "晓",
     "書": "书",
+    "會": "会",
     "東": "东",
     "棄": "弃",
     "棲": "栖",
     "楊": "杨",
     "楓": "枫",
     "極": "极",
+    "構": "构",
     "樂": "乐",
     "樓": "楼",
+    "標": "标",
     "樣": "样",
     "樸": "朴",
     "橋": "桥",
+    "機": "机",
     "橫": "横",
     "櫝": "椟",
+    "權": "权",
     "歐": "欧",
     "歡": "欢",
+    "歲": "岁",
+    "歷": "历",
     "歸": "归",
     "殘": "残",
     "殤": "殇",
     "殺": "杀",
     "毀": "毁",
+    "氣": "气",
+    "況": "况",
     "淨": "净",
     "淵": "渊",
     "淺": "浅",
     "渾": "浑",
+    "滄": "沧",
     "滿": "满",
     "漁": "渔",
+    "漢": "汉",
     "漣": "涟",
     "漸": "渐",
+    "潔": "洁",
+    "潛": "潜",
+    "澤": "泽",
     "濁": "浊",
     "濃": "浓",
     "為": "为",
     "無": "无",
+    "熒": "荧",
     "爭": "争",
     "爾": "尔",
     "牆": "墙",
     "犧": "牺",
+    "狀": "状",
     "猶": "犹",
     "獨": "独",
     "獸": "兽",
+    "現": "现",
+    "環": "环",
     "瓊": "琼",
     "畢": "毕",
     "畫": "画",
@@ -4483,18 +8047,30 @@ window.CN_DATASET = {
     "盡": "尽",
     "眾": "众",
     "禍": "祸",
+    "禦": "御",
+    "禮": "礼",
     "種": "种",
+    "稱": "称",
     "穀": "谷",
     "窮": "穷",
+    "筆": "笔",
     "節": "节",
+    "簫": "箫",
     "簾": "帘",
     "籠": "笼",
+    "籤": "签",
+    "紀": "纪",
     "紅": "红",
     "紙": "纸",
+    "級": "级",
     "紳": "绅",
     "終": "终",
+    "組": "组",
     "絆": "绊",
     "絕": "绝",
+    "給": "给",
+    "統": "统",
+    "絲": "丝",
     "經": "经",
     "綠": "绿",
     "維": "维",
@@ -4502,17 +8078,24 @@ window.CN_DATASET = {
     "綿": "绵",
     "緣": "缘",
     "編": "编",
+    "縱": "纵",
     "縶": "絷",
     "縷": "缕",
     "總": "总",
     "繩": "绳",
     "繼": "继",
+    "續": "续",
     "羣": "群",
     "義": "义",
+    "習": "习",
+    "聖": "圣",
     "聞": "闻",
     "聲": "声",
+    "職": "职",
     "聽": "听",
     "脣": "唇",
+    "臘": "腊",
+    "臚": "胪",
     "臥": "卧",
     "臨": "临",
     "臺": "台",
@@ -4523,13 +8106,17 @@ window.CN_DATASET = {
     "艱": "艰",
     "荊": "荆",
     "莊": "庄",
+    "華": "华",
     "萬": "万",
     "葉": "叶",
+    "蒼": "苍",
     "蓋": "盖",
     "蓮": "莲",
     "蕩": "荡",
     "蕭": "萧",
+    "薦": "荐",
     "蘇": "苏",
+    "蘭": "兰",
     "處": "处",
     "虧": "亏",
     "衛": "卫",
@@ -4540,36 +8127,55 @@ window.CN_DATASET = {
     "視": "视",
     "親": "亲",
     "覺": "觉",
+    "覽": "览",
     "觀": "观",
+    "訂": "订",
     "計": "计",
     "訓": "训",
     "記": "记",
+    "設": "设",
     "許": "许",
+    "詔": "诏",
+    "評": "评",
     "詞": "词",
     "詠": "咏",
+    "試": "试",
     "詩": "诗",
     "該": "该",
     "詳": "详",
+    "誌": "志",
+    "誕": "诞",
     "語": "语",
     "誠": "诚",
     "說": "说",
     "誰": "谁",
     "調": "调",
     "論": "论",
+    "諡": "谥",
+    "諱": "讳",
     "諸": "诸",
     "謀": "谋",
     "謂": "谓",
     "謙": "谦",
+    "講": "讲",
+    "謝": "谢",
     "謨": "谟",
     "識": "识",
     "讀": "读",
     "變": "变",
+    "讚": "赞",
     "豈": "岂",
+    "貢": "贡",
     "貧": "贫",
     "責": "责",
+    "貴": "贵",
+    "貶": "贬",
     "費": "费",
     "賀": "贺",
     "資": "资",
+    "賜": "赐",
+    "賞": "赏",
+    "賤": "贱",
     "賦": "赋",
     "賴": "赖",
     "贈": "赠",
@@ -4578,6 +8184,7 @@ window.CN_DATASET = {
     "躓": "踬",
     "車": "车",
     "軍": "军",
+    "軻": "轲",
     "軾": "轼",
     "載": "载",
     "輔": "辅",
@@ -4589,20 +8196,30 @@ window.CN_DATASET = {
     "辭": "辞",
     "辯": "辩",
     "農": "农",
+    "這": "这",
+    "連": "连",
+    "週": "周",
+    "進": "进",
     "遊": "游",
+    "運": "运",
     "過": "过",
     "遠": "远",
     "遲": "迟",
+    "選": "选",
     "遼": "辽",
     "還": "还",
     "邊": "边",
     "鄉": "乡",
     "鄭": "郑",
     "釋": "释",
+    "針": "针",
     "鈴": "铃",
+    "銜": "衔",
     "銷": "销",
     "錄": "录",
     "錯": "错",
+    "鎛": "镈",
+    "鎮": "镇",
     "鐘": "钟",
     "鐵": "铁",
     "鑑": "鉴",
@@ -4613,6 +8230,7 @@ window.CN_DATASET = {
     "間": "间",
     "閣": "阁",
     "閨": "闺",
+    "闈": "闱",
     "闊": "阔",
     "闌": "阑",
     "關": "关",
@@ -4621,6 +8239,7 @@ window.CN_DATASET = {
     "陳": "陈",
     "陸": "陆",
     "陽": "阳",
+    "階": "阶",
     "際": "际",
     "隱": "隐",
     "雖": "虽",
@@ -4632,15 +8251,22 @@ window.CN_DATASET = {
     "雲": "云",
     "靈": "灵",
     "靜": "静",
+    "韋": "韦",
+    "韓": "韩",
+    "順": "顺",
     "須": "须",
+    "頌": "颂",
     "頤": "颐",
     "頭": "头",
     "顆": "颗",
     "題": "题",
+    "顏": "颜",
     "顓": "颛",
     "願": "愿",
     "顛": "颠",
+    "類": "类",
     "顧": "顾",
+    "顯": "显",
     "顰": "颦",
     "風": "风",
     "飄": "飘",
@@ -4651,6 +8277,7 @@ window.CN_DATASET = {
     "駕": "驾",
     "騷": "骚",
     "驂": "骖",
+    "驚": "惊",
     "體": "体",
     "魚": "鱼",
     "魯": "鲁",
@@ -4673,6 +8300,7 @@ window.CN_DATASET = {
     "黃": "黄",
     "齊": "齐",
     "齒": "齿",
+    "龍": "龙",
     "龜": "龟"
   }
 };
