@@ -98,7 +98,8 @@ if (-not $staged) {
 
 $swPath = Join-Path $root "sw.js"
 if (Test-Path $swPath) {
-  $sw = Get-Content $swPath -Raw
+  # 明確指定 UTF8：PowerShell 5.1 預設用 ANSI 讀無 BOM 的 UTF-8，會毀掉中文註解
+  $sw = Get-Content $swPath -Raw -Encoding UTF8
   $today = Get-Date -Format "yyyy-MM-dd"
   $m = [regex]::Match($sw, "cn-review-(\d{4}-\d{2}-\d{2})\.(\d+)")
   if ($m.Success) {

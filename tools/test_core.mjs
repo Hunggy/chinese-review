@@ -169,6 +169,36 @@ cj.forEach((it) => {
 });
 ok(cj_all_ok, '所有詞解的標準答案都能判對（' + cj.length + ' 題）');
 
+/* 回歸：單字關鍵詞不得讓「相反答案」過關（P1：是／不是、少／不少）
+ * 例：答案「是」，輸入「不是」必須判錯；照抄標準答案仍判對
+ */
+const ds_neg = {
+  meta: { title: 't' },
+  units: [{ id: 'A', name: 'A' }],
+  items: [
+    {
+      id: 'neg-yes', type: 'cijie', unit: 'A',
+      q_t: '題面【是】', q_s: '题面【是】', w_t: '是', w_s: '是',
+      a_t: ['是'], a_s: ['是'], k_t: ['是'], k_s: ['是'], note: ''
+    },
+    {
+      id: 'neg-shao', type: 'cijie', unit: 'A',
+      q_t: '題面【少】', q_s: '题面【少】', w_t: '少', w_s: '少',
+      a_t: ['少'], a_s: ['少'], k_t: ['少'], k_s: ['少'], note: ''
+    }
+  ],
+  t2s: {}
+};
+with_dataset(ds_neg, () => {
+  const neg_yes = C.items().find((it) => it.id === 'neg-yes');
+  const neg_shao = C.items().find((it) => it.id === 'neg-shao');
+  ok(C.cs_keywords(C.cijie_data(neg_yes)).every((k) => k.length >= 2), '關鍵詞只收長度 ≥ 2 的詞');
+  eq(C.grade_text(neg_yes, '是', {}).ok, true, '答案「是」照抄判對');
+  eq(C.grade_text(neg_yes, '不是', {}).ok, false, '答案「是」不得因「不是」判對');
+  eq(C.grade_text(neg_shao, '少', {}).ok, true, '答案「少」照抄判對');
+  eq(C.grade_text(neg_shao, '不少', {}).ok, false, '答案「少」不得因「不少」判對');
+});
+
 /* ============================================================ */
 section('6. 判分：常識（accept／書名號）');
 const cs0 = cs[0];
@@ -357,6 +387,35 @@ eq(rec_ov.ok, true, '覆寫後紀錄為答對');
 eq(rec_ov.overridden, true, '標記為覆寫');
 ok(s_ov.pending.length < before_ov, '覆寫後移除該題的重現');
 eq(C.session_result(s_ov).wrong_items, 0, '覆寫後結算無錯題');
+
+/* 進度（P2）：答錯插入重現 → 覆寫 → 進度必須回到 100% 且本輪結束 */
+const s_ov_prog = C.create_session({ items: mk_items(1, 'changshi', () => 'u1'), mode: 'practice', order: 'original', seed: 9 });
+const prog_out = C.session_answer(s_ov_prog, false, { user: '錯' });
+eq(s_ov_prog.total, 2, '答錯插入重現 → 總題數 2');
+ok(C.session_progress(s_ov_prog) < 1, '答錯後進度未滿');
+C.session_override(s_ov_prog, prog_out.rec.seq);
+eq(s_ov_prog.total, s_ov_prog.completed, '覆寫後總題數扣回（= 完成數）');
+eq(C.session_progress(s_ov_prog), 1, '覆寫後進度 100%');
+eq(s_ov_prog.finished, true, '覆寫後本輪標記完成');
+
+/* 持久統計（P1）：先答錯 → 覆寫 → wrong 回退、correct +1、待複習清掉 */
+C._cache_store();
+const ov_id = items[2].id;
+C.record(ov_id, false);
+eq(C.item_stats(ov_id).wrong, 1, '覆寫前持久統計 wrong=1');
+const ov_correct_before = C.item_stats(ov_id).correct;
+const ov_entry = C.record_override(ov_id);
+eq(ov_entry.wrong, 0, '覆寫後 wrong 回退到 0');
+eq(C.item_stats(ov_id).correct, ov_correct_before + 1, '覆寫後 correct +1');
+eq(C.item_stats(ov_id).due, false, '覆寫後不再列入待複習');
+eq(C.item_stats(ov_id).last_wrong, '', '錯題歸零後清掉 last_wrong');
+ok(!C.all_stats().some((r) => r.id === ov_id && r.due), '錯題清單不再標記待複習');
+eq(C.record_override(ov_id).wrong, 0, '重複覆寫不會讓 wrong 變負數');
+eq(C.record_override(''), null, '無 id 回傳 null');
+C.record(ov_id, false);
+eq(C.item_stats(ov_id).wrong, 1, 'record() 行為不變：仍正常累加 wrong');
+eq(C.record(ov_id, true, { override: true }).wrong, 0, 'record(..., {override:true}) 同樣回退舊錯誤');
+C._cache_store();
 
 /* ============================================================ */
 section('12. 儲存：settings / 統計 / 匯出匯入 / 重設');

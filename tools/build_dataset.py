@@ -26,6 +26,8 @@
 - cijie   : word=詞、chinese=義、example=例句（繁體）。
 - changshi: word=問、chinese=答（繁體）。
 - 選填（所有題型）：seg=第幾段、exam=該段第幾次大測（皆為 >=1 的整數）。
+- 選填（僅 changshi）：accept=其他可接受的同義答案，以全形分號「；」或「|」分隔
+  （例：`楚辭體,楚辭體（騷體）,騷體`）。空值不影響，未填此欄時自動產生的 accept 不變。
 
 規則摘要
 --------
@@ -33,7 +35,8 @@
 2. 詞解：q_t 為例句並以【】標出該詞第一次出現；例句從缺或找不到該詞時改為
    「解釋「詞」」並在 note 說明。a_t 為義項（依「，；、：」切開，去掉括號補充與
    「音…」注音等註記）；k_t 為核心關鍵詞（義項再切出 >=2 漢字的片段，並保留原義項）。
-3. 常識：accept = 答案去掉《》「」後的形式（繁簡各一）＋再去掉（…）補充的形式。
+3. 常識：accept = 答案去掉《》「」後的形式（繁簡各一）＋再去掉（…）補充的形式，
+   再併入 CSV 選填欄 accept 的每個值（同樣補上 t2s 版本，去重）。
 4. 所有繁體欄位以 OpenCC t2s 產生簡體欄位；t2s 表逐字轉換、只留有差異的字。
 5. id 依「來源檔順序＋行號」編號（mj- / cj- / cs-），已知來源在前、新增來源按檔名排序，
    重跑穩定；重複條目會跳過。
@@ -359,8 +362,25 @@ def mark_first(text: str, word: str):
 
 
 # ---------- 常識：accept ----------
-def build_accept(a_t: str) -> list:
-    """答案去掉《》「」等形式（繁簡各一）＋去掉（…）補充的形式。"""
+ACCEPT_SEP_RE = re.compile(r"[；|｜]")
+
+
+def parse_accept(raw: str) -> list:
+    """CSV accept 欄 → 答案陣列。
+
+    以全形分號「；」或半形「|」分隔（不用逗號，答案本身可能有逗號；
+    另容錯全形「｜」）；每個值 trim、丟棄空值、保序去重。
+    """
+    out = []
+    for piece in ACCEPT_SEP_RE.split(raw or ""):
+        piece = piece.strip()
+        if piece and piece not in out:
+            out.append(piece)
+    return out
+
+
+def build_accept(a_t: str, extra=None) -> list:
+    """答案去掉《》「」等形式（繁簡各一）＋去掉（…）補充的形式，再併入 CSV 的 accept。"""
     marks = "《》「」『』〈〉"
     base = "".join(ch for ch in a_t if ch not in marks).strip()
     variants = [base]
@@ -369,6 +389,10 @@ def build_accept(a_t: str) -> list:
         variants.append(stripped)
     out = []
     for v in variants:
+        for form in (v, t2s(v)):
+            if form and form not in out:
+                out.append(form)
+    for v in (extra or []):
         for form in (v, t2s(v)):
             if form and form not in out:
                 out.append(form)
@@ -606,7 +630,7 @@ def build_changshi(rec: dict, unit: str):
         "type": "changshi", "unit": unit,
         "q_t": q, "q_s": t2s(q),
         "a_t": a, "a_s": t2s(a),
-        "accept": build_accept(a),
+        "accept": build_accept(a, parse_accept(rec.get("accept", ""))),
         "note": "",
     }, None
 
@@ -747,6 +771,8 @@ def build_dataset(now: str = None):
                 t_fields.extend(v if isinstance(v, list) else [v])
         if it["type"] == "mingju":
             t_fields.append(it["t"])
+        elif it["type"] == "changshi":
+            t_fields.extend(it.get("accept", []))   # accept 含繁簡兩種形式，都要進 t2s 表
     t_fields.extend(u["name"] for u in units)
 
     chars = set()

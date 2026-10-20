@@ -541,12 +541,14 @@
     return out;
   }
 
-  /* 關鍵詞正規化：長度 ≥ 1 漢字 */
+  /* 關鍵詞正規化：只收長度 ≥ 2 漢字的詞
+   * 單字關鍵詞（如「是」「少」）用子字串比對時，會被「不是」「不少」這類相反答案命中 → 寧嚴不寬
+   */
   function cs_keywords(cd) {
     var out = [], i;
     for (i = 0; i < cd.k.t.length; i++) { out.push(norm(cd.k.t[i])); }
     for (i = 0; i < cd.k.s.length; i++) { out.push(norm(cd.k.s[i])); }
-    return uniq(out.filter(function (k) { return k.length >= 1; }));
+    return uniq(out.filter(function (k) { return k.length >= 2; }));
   }
 
   /* 該題的標準答案（顯示用，依 script） */
@@ -788,7 +790,16 @@
     if (st.wrong > 0) st.wrong -= 1;
     st.correct += 1;
     if (st.scheduled || st.consolidated) st.consolidated = true;
-    s.pending = s.pending.filter(function (p) { return p.id !== rec.id; });
+    /* 移除該題尚未出現的重現；移除幾個就把總題數扣回幾個，
+     * 否則 total 永遠比實際多，進度條到不了 100%
+     */
+    var removed = 0;
+    s.pending = s.pending.filter(function (p) {
+      if (p.id !== rec.id) return true;
+      removed += 1;
+      return false;
+    });
+    if (removed > 0) s.total = Math.max(s.completed, s.total - removed, 1);
     if (!s.pending.length) { s.finished = true; s.ended_at = Date.now(); }
     return rec;
   }
@@ -1001,10 +1012,13 @@
     };
   }
 
-  /* 記錄一次作答（跨輪次保存） */
+  /* 記錄一次作答（跨輪次保存）
+   * opts.override：覆寫既有錯誤（等同 record_override），供舊呼叫點使用
+   */
   function record_answer(id, ok, opts) {
     if (!id) return null;
     opts = opts || {};
+    if (opts.override) return record_override(id, opts);
     var s = store_load();
     var e = s.items[id] = sanitize_entry(s.items[id]);
     if (ok) { e.correct += 1; }
@@ -1013,6 +1027,27 @@
     if (!s.daily[dk]) s.daily[dk] = { answered: 0, correct: 0 };
     s.daily[dk].answered += 1;
     if (ok) s.daily[dk].correct += 1;
+    trim_daily(s);
+    store_save();
+    return e;
+  }
+
+  /* 覆寫為答對（持久統計）：把先前記下的 wrong 回退 1 次、改記 1 次 correct
+   * 讓「錯題統計」「待複習」跟著清掉；不改 answered（該次作答早已計入）
+   * 參數：id 題目 id（opts 預留）；回傳更新後的 entry（同 record() 形狀），無 id 回傳 null
+   */
+  function record_override(id, opts) {
+    if (!id) return null;
+    opts = opts || {};
+    var s = store_load();
+    var e = s.items[id] = sanitize_entry(s.items[id]);
+    if (e.wrong > 0) e.wrong -= 1;
+    e.correct += 1;
+    /* 錯題回退到 0 時 last_wrong 一併清掉（與 clear_wrong 語義一致） */
+    if (e.wrong === 0) e.last_wrong = '';
+    var dk = date_key();
+    if (!s.daily[dk]) s.daily[dk] = { answered: 0, correct: 0 };
+    s.daily[dk].correct = Math.min(s.daily[dk].answered, s.daily[dk].correct + 1);
     trim_daily(s);
     store_save();
     return e;
@@ -1410,6 +1445,7 @@
     set_units_setting: settings_set_units,
     item_stats: item_stats,
     record: record_answer,
+    record_override: record_override,
     toggle_hard: toggle_hard,
     set_hard: set_hard,
     clear_wrong: clear_wrong,

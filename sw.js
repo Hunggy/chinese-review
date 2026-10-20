@@ -7,7 +7,7 @@
 (function () {
   'use strict';
 
-  var VERSION = 'cn-review-2026-10-21.2';
+  var VERSION = 'cn-review-2026-10-21.3';
 
   var PRECACHE = [
     './',
@@ -36,8 +36,12 @@
   self.addEventListener('activate', function (e) {
     e.waitUntil(
       caches.keys().then(function (keys) {
+        /* 只清自己前綴的快取（VERSION = 'cn-review-<日期>.<序號>'）：
+         * 同一 origin 上可能有別的站（例如英文站）的快取，不可一併刪除。 */
+        var prefix_match = VERSION.match(/^(.*-)\d{4}-\d{2}-\d{2}\.\d+$/);
+        var prefix = prefix_match ? prefix_match[1] : VERSION;
         return Promise.all(keys.map(function (k) {
-          if (k !== VERSION) return caches.delete(k);
+          if (k.indexOf(prefix) === 0 && k !== VERSION) return caches.delete(k);
           return null;
         }));
       }).then(function () { return self.clients.claim(); })

@@ -521,7 +521,8 @@
       }
     }
 
-    var override = (rec && !rec.ok && !rec.mc && rec.mode !== 'flash')
+    /* 回顧模式不提供覆寫：畫面上是舊題，覆寫會改到錯的紀錄 */
+    var override = (rec && !rec.ok && !rec.mc && rec.mode !== 'flash' && !S.review && S.phase !== 'review')
       ? '<button class="btn btn-ghost" type="button" data-action="override">意思對了，算我對</button>' : '';
 
     return '' +
@@ -563,20 +564,20 @@
     var ea = C.author_pair(item), es = C.source_pair(item);
     var exp_a = sm ? ea.s : ea.t, exp_s = sm ? es.s : es.t;
     var d = rec && rec.dual ? rec.dual : null;
-    var gave_up = !!(rec && rec.gaveup);
 
     function row(label, expected, ok, yours) {
       var cls = 'dual-result-row' + (ok === true ? ' is-ok' : (ok === false ? ' is-bad' : ''));
       return '<div class="' + cls + '">' +
         '<span class="field-label">' + h(T(label)) + '</span>' +
         '<span class="dual-answer han" data-raw>' + h(expected) + '</span>' +
-        (ok === null ? '' : '<span class="dual-mark">' + (ok ? '✓' : '✗') + '</span>') +
+        (ok === null ? '<span class="dual-mark">—</span>' : '<span class="dual-mark">' + (ok ? '✓' : '✗') + '</span>') +
         (ok === false && yours ? '<span class="dual-yours">' + h(T('你寫：')) + '<span data-raw>' + h(yours) + '</span></span>' : '') +
       '</div>';
     }
 
-    var a_ok = d ? !!d.author_ok : (gave_up ? false : null);
-    var s_ok = d ? !!d.source_ok : (gave_up ? false : null);
+    /* 未作答／直接看答案：中性（—），不要畫成答錯 */
+    var a_ok = d ? !!d.author_ok : null;
+    var s_ok = d ? !!d.source_ok : null;
     return '<div class="dual-result">' +
       row('作者', exp_a, a_ok, d ? d.author : '') +
       row('出處', exp_s, s_ok, d ? d.source : '') +
@@ -975,6 +976,11 @@
     restore_focus();
   }
 
+  /* 換題後回到頂部（長題目不會停在捲動位置） */
+  function scroll_top() {
+    try { window.scrollTo(0, 0); } catch (e) { }
+  }
+
   function restore_focus() {
     if (S.screen !== 'quiz' || S.phase !== 'asking') return;
     var ai = $('#authorInput');
@@ -997,6 +1003,8 @@
   }
 
   function go_home() {
+    /* 已答完但還沒按「下一題」：先給結算畫面，別把成果跳過 */
+    if (S.screen === 'quiz' && S.session && S.session.finished) { finish(); return; }
     if (S.screen === 'quiz' && S.session && S.session.pending.length && !S.session.finished) {
       confirm_overlay({
         title: '離開練習？',
@@ -1050,6 +1058,7 @@
     S.live_phase = S.phase;
     clear_auto();
     go('quiz');
+    scroll_top();
   }
 
   function clear_auto() {
@@ -1111,18 +1120,28 @@
 
     if (S.screen === 'quiz') {
       if (rec.ok) toast('答對了');
-      else if (rec.dual && (rec.dual.author_ok || rec.dual.source_ok)) toast('只對了一半，稍後會再出現');
+      else if (s.mode === 'speed') {
+        /* 速通不會重現題目，別承諾「稍後會再出現」 */
+        toast(rec.dual && (rec.dual.author_ok || rec.dual.source_ok) ? '只對了一半' : '答錯了');
+      } else if (rec.dual && (rec.dual.author_ok || rec.dual.source_ok)) toast('只對了一半，稍後會再出現');
       else toast('答錯了，稍後會再出現');
     }
     if (s.mode === 'speed') schedule_auto();
   }
 
-  function schedule_auto() {
+  /* 速通自動跳題：overlay 開著時短延遲重試，最多約 6 秒（避免無限重排） */
+  function schedule_auto(retry) {
     clear_auto();
+    var n = retry || 0;
     S.timer = setTimeout(function () {
       S.timer = null;
-      if (S.screen === 'quiz' && S.phase === 'answered' && !overlay_open()) next_question(true);
-    }, 900);
+      if (S.screen !== 'quiz' || S.phase !== 'answered') return;
+      if (overlay_open()) {
+        if (n < 15) schedule_auto(n + 1);
+        return;
+      }
+      next_question(true);
+    }, n ? 400 : 900);
   }
 
   function next_question(auto) {
@@ -1139,6 +1158,7 @@
     S.phase = s.mode === 'flash' ? 'flash-front' : 'asking';
     S.live_phase = S.phase;
     render();
+    scroll_top();
   }
 
   function give_up() {
@@ -1152,17 +1172,29 @@
   function override_answer() {
     var s = S.session;
     if (!s || !S.last || S.last.ok) return;
+    /* 回顧模式畫面上不是最後一題，覆寫會改錯紀錄 */
+    if (S.review || S.phase === 'review') { toast('回顧模式不能覆寫'); return; }
     var rec = C.session_override(s, S.last.seq);
     if (!rec) return;
-    C.record(rec.id, true, {});
+    record_override(rec.id);
     toast('已算你對');
     render();
   }
 
+  /* 覆寫為答對：同步回退持久錯誤統計（core 提供 record_override 時優先使用） */
+  function record_override(id) {
+    if (!id) return null;
+    try {
+      if (typeof C.record_override === 'function') return C.record_override(id);
+      if (typeof C.record === 'function') return C.record(id, true, { override: true });
+    } catch (e) { /* 統計失敗不阻斷流程 */ }
+    return null;
+  }
+
   function flip_card() {
     if (!S.session || S.session.mode !== 'flash') return;
-    if (S.phase === 'flash-front') { S.phase = 'flash-back'; render(); return; }
-    if (S.phase === 'flash-back') { S.phase = 'flash-front'; render(); }
+    if (S.phase === 'flash-front') { S.phase = 'flash-back'; S.live_phase = S.phase; render(); return; }
+    if (S.phase === 'flash-back') { S.phase = 'flash-front'; S.live_phase = S.phase; render(); }
   }
 
   function flash_mark(known) {
@@ -1466,13 +1498,20 @@
     if (!file) return;
     var reader = new FileReader();
     reader.onload = function () {
-      var res = C.import_text(String(reader.result));
+      /* 匯入時一併還原設定檔（replace_settings），再套用偏好 */
+      var res = C.import_text(String(reader.result), { replace_settings: true });
       if (!res.ok) { toast('匯入失敗：' + res.error); return; }
       confirm_overlay({
         title: '匯入完成',
-        text: '已合併 ' + res.count + ' 題的進度紀錄（同題取較多者）。',
+        text: '已合併 ' + res.count + ' 題的進度紀錄（同題取較多者），設定亦已還原。',
         ok_label: '知道了',
-        on_ok: function () { close_overlay(); render(); }
+        on_ok: function () {
+          close_overlay();
+          S.settings = C.settings();
+          S.module = S.settings.module || S.module;
+          apply_prefs();
+          render();
+        }
       });
     };
     reader.onerror = function () { toast('讀取檔案失敗'); };
@@ -1514,6 +1553,7 @@
     var typing = in_input();
 
     if (S.phase === 'review') {
+      if (typing) return;
       if (k === 'ArrowLeft') { e.preventDefault(); enter_review(); return; }
       if (k === 'ArrowRight') { e.preventDefault(); review_forward(); return; }
       if (k === 'Escape') { e.preventDefault(); review_forward(); return; }
@@ -1537,7 +1577,13 @@
       if (k === 'Enter') { e.preventDefault(); flash_mark(true); return; }
     }
 
-    if (k === 'ArrowLeft') { e.preventDefault(); enter_review(); return; }
+    /* 輸入框聚焦時不攔 ←（使用者只是在修字） */
+    if (k === 'ArrowLeft') {
+      if (typing) return;
+      e.preventDefault();
+      enter_review();
+      return;
+    }
     if (k === 'a' || k === 'A') {
       if (typing) return;
       e.preventDefault();

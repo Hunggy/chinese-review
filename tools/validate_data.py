@@ -17,12 +17,16 @@
 6. t2s 覆蓋率：繁體欄位中每個可轉換的字都要在表中且值正確；表中不得有冗餘字。
 7. 繁簡欄位長度一致（t/s、src_t/src_s、q、w、a[*]、k[*]）。
 8. 同 unit 內正規化後重複條目。
-9. 常識 accept 至少包含 a_t 去書名號後的形式。
+9. 常識 accept 至少包含 a_t 去書名號後的形式（CSV 另填的同義答案只是併入，不影響此規則）；
+   且 a_t 與每個 accept 都不得含數字／英文字母（判分只留漢字，含數字必判錯）。
 10. dataset.js 內容與 dataset.json 一致。
 11. 每題都有 seg / exam，且為 >=1 的整數。
 12. 名句有 author_t / author_s（不可為空；佚名也算有），且 src 不含作者樣式
     （如 `屈原《離騷》`、開頭符合 `^[^《]+《` 一律 warning）。
-13. 另印出來源統計（tools/build_report.json）：每 unit 題數、skip 原因、待人工處理的非 CSV 檔。
+13. 名句必須真的切得開：先找句讀標點、再退而找「。」（與 js/core.js 的 split_mingju 一致），
+    找不到切點或切完下半句沒有漢字 → error（題庫會出現空答案）。
+14. 每個 unit 至少 1 題（表頭寫壞時會整份 0 題卻靜默通過）。
+15. 另印出來源統計（tools/build_report.json）：每 unit 題數、skip 原因、待人工處理的非 CSV 檔。
 """
 
 from __future__ import annotations
@@ -55,6 +59,7 @@ VALID_MODULES = ("mingju", "cijie", "changshi")
 ID_RE = re.compile(r"^(mj|cj|cs)-(\d{3})$")
 PREFIX_OF = {"mingju": "mj", "cijie": "cj", "changshi": "cs"}
 AUTHOR_IN_SRC_RE = re.compile(r"^[^《]+《")   # 出處欄開頭疑似含作者
+ASCII_ALNUM_RE = re.compile(r"[0-9A-Za-z]")   # 判分只留漢字：出現這些字元必判錯
 
 errors = []
 warnings = []
@@ -252,6 +257,14 @@ def validate(data: dict, js_data, report):
                 half = _split_half(it.get("t", ""))
                 if not half or not only_han(half):
                     warn("%s 切半後上半句沒有漢字" % label)
+            # 真的切得開才不會出空答案：先找句讀標點、再退而找「。」
+            # （與 js/core.js 的 split_mingju 一致；都沒有時前端只能對半硬切）
+            t_text = it.get("t", "")
+            cut = _split_index(t_text)
+            if cut < 0:
+                err("%s 名句只有一句且無句讀標點／句號，無法切半：%s" % (label, t_text))
+            elif not only_han(t_text[cut + 1:]):
+                err("%s 切半後下半句為空（t 只有一句）：%s" % (label, t_text))
             t_side_texts.extend([it.get("t", ""), it.get("src_t", "")])
 
         elif itype == "cijie":
@@ -318,7 +331,18 @@ def validate(data: dict, js_data, report):
                         % (label, base, ",".join(forms)))
                 if len(forms) != len(set(forms)):
                     warn("%s accept 有重複項" % label)
+                for form in forms:
+                    if not isinstance(form, str) or not form.strip():
+                        err("%s accept 有空值或非字串項：%r" % (label, form))
                 accept_violations += len(acc) < 1
+            # 判分只留漢字：答案（含每個 accept）一旦含數字／英文字母，學生寫對了也會被濾掉
+            for tag, val in ([("a_t", it.get("a_t", ""))]
+                             + [("accept", x) for x in (acc if isinstance(acc, list) else [])
+                                if isinstance(x, str)]):
+                bad = sorted(set(ASCII_ALNUM_RE.findall(val)))
+                if bad:
+                    err("%s %s 含數字／英文字母「%s」，判分只留漢字必判錯：%s"
+                        % (label, tag, "".join(bad), val))
             if len(it.get("q_t", "")) != len(it.get("q_s", "")):
                 err("%s 題面繁簡長度不一致：%s / %s" % (label, it.get("q_t"), it.get("q_s")))
             if len(it.get("a_t", "")) != len(it.get("a_s", "")):
@@ -354,6 +378,13 @@ def validate(data: dict, js_data, report):
     t_side_texts.extend(u.get("name", "") for u in units)
     for text in t_side_texts:
         t_side_chars.update(ch for ch in text if has_han(ch))
+
+    # 3b. 每個 unit 至少 1 題（表頭寫壞時會整份 0 題卻靜默通過）
+    for u in units:
+        n = counts.get((u.get("module"), u.get("id")), 0)
+        if n == 0:
+            err("unit %s（%s，module=%s）題數為 0"
+                % (u.get("id"), u.get("name"), u.get("module")))
 
     # 4. t2s 覆蓋率
     if isinstance(t2s, dict):
@@ -437,6 +468,14 @@ def _split_half(text: str):
         if ch in SPLIT_PUNCT:
             return text[:i]
     return None
+
+
+def _split_index(text: str) -> int:
+    """名句切點索引：句讀標點優先，其次「。」（與 js/core.js split_mingju 一致）；無切點回 -1。"""
+    for i, ch in enumerate(text):
+        if ch in SPLIT_PUNCT:
+            return i
+    return text.find("。")
 
 
 # 與 js/core.js 的 WRAP_PREFIX 對齊：判分前會去掉這些前綴
