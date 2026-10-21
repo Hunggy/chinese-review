@@ -438,7 +438,7 @@
         return {
           ask: '寫出作者與出處：',
           prompt: sm ? full.s : full.t,
-          hint: '作者與出處兩欄都答對才算對（繁簡皆可）'
+          hint: '作者與出處兩欄都答對才算對；出處填書名即可（打完整篇名也算對）（繁簡皆可）'
         };
       }
       var mp = C.mingju_pair(item, dir);

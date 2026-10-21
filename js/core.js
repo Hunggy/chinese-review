@@ -286,6 +286,9 @@
 
   function source_pair(item) { return pair(item, 'src'); }
 
+  /* 完整出處（含篇名，如《左傳·僖公五年》）——只用於寬容判分與搜尋，不顯示 */
+  function source_full_pair(item) { return pair(item, 'src_full'); }
+
   /* 是否為「佚名」類寫法（含簡體變體） */
   function is_anon_text(text) {
     var n = norm(text);
@@ -529,7 +532,11 @@
     var a_forms = uniq([norm(a_raw), norm_answer(a_raw)]).filter(Boolean);
     var s_forms = uniq([norm(s_raw), norm_answer(s_raw)]).filter(Boolean);
     var a_targets = uniq([norm(exp_a.t), norm(exp_a.s)]).filter(Boolean);
-    var s_targets = uniq([norm(exp_s.t), norm(exp_s.s)]).filter(Boolean);
+    /* 出處只考書名（src_t/src_s）；願意背篇名的人打完整出處（src_full_t/src_full_s）也算對 */
+    var exp_s_full = source_full_pair(item);
+    var s_targets = uniq([
+      norm(exp_s.t), norm(exp_s.s), norm(exp_s_full.t), norm(exp_s_full.s)
+    ]).filter(Boolean);
     /* 標準為「佚名」時，接受無名氏／不詳 */
     var anon_targets = ANON_NAMES.concat(ANON_NAMES.map(to_simple)).map(norm).filter(Boolean);
     var anon_expected = norm_match(a_targets, anon_targets);
@@ -1310,7 +1317,7 @@
 
   function search_haystack(item) {
     if (!item) return '';
-    var parts = [item.t, item.s, item.q_t, item.q_s, item.w_t, item.w_s, item.src_t, item.src_s, item.author_t, item.author_s, item.note];
+    var parts = [item.t, item.s, item.q_t, item.q_s, item.w_t, item.w_s, item.src_t, item.src_s, item.src_full_t, item.src_full_s, item.author_t, item.author_s, item.note];
     var lists = ['a_t', 'a_s', 'k_t', 'k_s', 'accept'];
     var i, j, v;
     for (i = 0; i < lists.length; i++) {
@@ -1366,7 +1373,7 @@
         return {
           ask: '寫出作者與出處：',
           prompt: use_s ? full2.s : full2.t,
-          hint: '作者與出處兩欄都答對才算對（繁簡皆可）'
+          hint: '作者與出處兩欄都答對才算對；出處填書名即可（打完整篇名也算對）（繁簡皆可）'
         };
       }
       return {
@@ -1483,6 +1490,7 @@
     sentence: sentence,
     author_pair: author_pair,
     source_pair: source_pair,
+    source_full_pair: source_full_pair,
     author_variant: author_variant,
     join_author_src: join_author_src,
     is_anon_text: is_anon_text,

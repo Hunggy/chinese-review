@@ -759,7 +759,7 @@ items.forEach((it) => {
 ok(pair_ok, '必填欄位齊全（t/s、a、a_t）');
 
 /* ============================================================
- * 17. 名句作者・出處（v1.1）
+ * 17. 名句作者・出處（v1.1／v1.2 只考書名、篇名放 note）
  * ============================================================ */
 section('17. 名句作者・出處');
 
@@ -769,7 +769,31 @@ mj.forEach((it) => {
   ok(!!it.author_t && !!it.author_s, it.id + ' 有作者欄位');
   ok(!!it.src_t && !!it.src_s, it.id + ' 有出處欄位');
   ok(!/^[^《]+《/.test(it.src_t), it.id + ' 出處不含作者');
+  /* v1.2：src_t/src_s 只放書名，篇名改放 note（不再考篇名） */
+  ok(it.src_t.indexOf('·') < 0 && it.src_s.indexOf('·') < 0, it.id + ' 出處只留書名（不含篇名分隔符）');
+  if (it.src_full_t) {
+    ok(it.src_full_t.indexOf(it.src_t.replace(/^《|》$/g, '')) >= 0,
+      it.id + ' src_full_t 以書名開頭');
+    ok(String(it.note || '').indexOf(it.src_full_t) >= 0, it.id + ' note 含完整出處（篇名）');
+  }
 });
+const with_detail = mj.filter((it) => !!it.src_full_t);
+ok(with_detail.length > 0, '有名句帶篇名（src_full_t）');
+ok(with_detail.every((it) => String(it.note || '').indexOf('作答填書名即可') >= 0),
+  '有篇名的名句 note 註明只需書名');
+
+/* 指定題：左丘明《左傳·僖公五年》→ 書名《左傳》、篇名放 note */
+const zhuan = mj.find((it) => it.author_t === '左丘明' && /僖公五年/.test(String(it.src_full_t || '')));
+ok(!!zhuan, '題庫有《左傳·僖公五年》（帶篇名）');
+if (zhuan) {
+  eq(zhuan.src_t, '《左傳》', 'src_t 只留書名《左傳》');
+  ok(zhuan.note.indexOf('僖公五年') >= 0, 'note 保留篇名「僖公五年」');
+  eq(C.grade_author(zhuan, '左丘明', '左傳').ok, true, '只寫書名（左傳）→ ok');
+  eq(C.grade_author(zhuan, '左丘明', '《左傳》').ok, true, '只寫書名（《左傳》）→ ok');
+  eq(C.grade_author(zhuan, '左丘明', '左傳·僖公五年').ok, true, '願意背篇名（左傳·僖公五年）→ 也算對');
+  eq(C.grade_author(zhuan, '左丘明', '左傳僖公五年').ok, true, '完整出處（無分隔符）→ 也算對');
+  eq(C.grade_author(zhuan, '左丘明', '左傳·隱公元年').ok, false, '書名＋錯誤篇名 → 不算對（只接受書名或完整正確出處）');
+}
 
 if (named) {
   const expA = named.author_t;
@@ -808,6 +832,17 @@ eq(opt.options.length, 4, '作者出處選擇題 4 個選項');
 eq(new Set(opt.options.map((o) => o.t)).size, 4, '作者出處選項不重複');
 ok(opt.options.some((o) => C.norm(o.t) === C.norm(named.author_t + '《' + named.src_t.replace(/^《|》$/g, '') + '》') || C.norm(o.t) === C.norm(C.join_author_src(named.author_t, named.src_t))), '選項含正確作者＋出處');
 ok(opt.options.every((o) => o.t.indexOf('《') >= 0), '每個選項都是「作者《出處》」格式');
+ok(opt.options.every((o) => o.t.indexOf('·') < 0 && o.s.indexOf('·') < 0),
+  '作者出處選項只顯示書名（不含篇名）');
+
+/* v1.2：指定題（左丘明《左傳·僖公五年》）的選擇題選項也不得出現篇名 */
+if (zhuan) {
+  const zo = C.build_options(zhuan, mj, { direction: 'author', seed: 11 });
+  eq(zo.options.length, 4, '《左傳》題的選擇題 4 個選項');
+  ok(zo.options.every((o) => o.t.indexOf('·') < 0), '《左傳》題的選項都不含篇名');
+  ok(zo.options.some((o) => C.norm(o.t) === C.norm('左丘明《左傳》')), '正確選項＝左丘明《左傳》');
+  eq(zo.correct.t, '左丘明《左傳》', 'answer_variants 用書名版');
+}
 
 /* ============================================================
  * 18. 段／次大測（v1.1）

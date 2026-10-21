@@ -180,37 +180,37 @@
     {
       "id": "mj-051",
       "unit": "mingju_jingshi",
-      "src_t": "《尚書·大禹謨》",
+      "src_t": "《尚書》",
       "reason": "出處「《尚书·大禹谟》」判斷不出作者，暫定「佚名」，請人工覆核"
     },
     {
       "id": "mj-060",
       "unit": "mingju_jingshi",
-      "src_t": "《戰國策·趙策一》",
+      "src_t": "《戰國策》",
       "reason": "出處「《战国策·赵策一》」判斷不出作者，暫定「佚名」，請人工覆核"
     },
     {
       "id": "mj-061",
       "unit": "mingju_jingshi",
-      "src_t": "《戰國策·趙策一》",
+      "src_t": "《戰國策》",
       "reason": "出處「《战国策·赵策一》」判斷不出作者，暫定「佚名」，請人工覆核"
     },
     {
       "id": "mj-062",
       "unit": "mingju_jingshi",
-      "src_t": "《戰國策·楚策一》",
+      "src_t": "《戰國策》",
       "reason": "出處「《战国策·楚策一》」判斷不出作者，暫定「佚名」，請人工覆核"
     },
     {
       "id": "mj-063",
       "unit": "mingju_jingshi",
-      "src_t": "《戰國策·秦策三》",
+      "src_t": "《戰國策》",
       "reason": "出處「《战国策·秦策三》」判斷不出作者，暫定「佚名」，請人工覆核"
     },
     {
       "id": "mj-064",
       "unit": "mingju_jingshi",
-      "src_t": "《戰國策·燕策二》",
+      "src_t": "《戰國策》",
       "reason": "出處「《战国策·燕策二》」判斷不出作者，暫定「佚名」，請人工覆核"
     }
   ],
@@ -235,9 +235,114 @@
   "shadowed": [],
   "notes": [
     {
+      "id": "mj-001",
+      "unit": "mingju",
+      "note": "原句見《詩經·大雅·蕩》，作答填書名即可。"
+    },
+    {
+      "id": "mj-002",
+      "unit": "mingju",
+      "note": "原句見《詩經·大雅·抑》，作答填書名即可。"
+    },
+    {
+      "id": "mj-003",
+      "unit": "mingju",
+      "note": "原句見《詩經·小雅·鶴鳴》，作答填書名即可。"
+    },
+    {
+      "id": "mj-004",
+      "unit": "mingju",
+      "note": "原句見《詩經·小雅·采薇》，作答填書名即可。"
+    },
+    {
+      "id": "mj-005",
+      "unit": "mingju",
+      "note": "原句見《詩經·小雅·小旻》，作答填書名即可。"
+    },
+    {
+      "id": "mj-006",
+      "unit": "mingju",
+      "note": "原句見《詩經·小雅·車舝》，作答填書名即可。"
+    },
+    {
+      "id": "mj-007",
+      "unit": "mingju",
+      "note": "原句見《詩經·小雅·伐木》，作答填書名即可。"
+    },
+    {
+      "id": "mj-008",
+      "unit": "mingju",
+      "note": "原句見《詩經·衛風·淇奧》，作答填書名即可。"
+    },
+    {
+      "id": "mj-009",
+      "unit": "mingju",
+      "note": "原句見《詩經·衛風·木瓜》，作答填書名即可。"
+    },
+    {
+      "id": "mj-010",
+      "unit": "mingju",
+      "note": "原句見《詩經·周南·關雎》，作答填書名即可。"
+    },
+    {
+      "id": "mj-011",
+      "unit": "mingju",
+      "note": "原句見《詩經·鄭風·風雨》，作答填書名即可。"
+    },
+    {
+      "id": "mj-012",
+      "unit": "mingju",
+      "note": "原句見《詩經·鄘風·相鼠》，作答填書名即可。"
+    },
+    {
+      "id": "mj-013",
+      "unit": "mingju",
+      "note": "原句見《詩經·秦風·蒹葭》，作答填書名即可。"
+    },
+    {
+      "id": "mj-014",
+      "unit": "mingju",
+      "note": "原句見《詩經·王風·采葛》，作答填書名即可。"
+    },
+    {
+      "id": "mj-019",
+      "unit": "mingju",
+      "note": "原句見《九章·涉江》，作答填書名即可。"
+    },
+    {
+      "id": "mj-020",
+      "unit": "mingju",
+      "note": "原句見《九章·涉江》，作答填書名即可。"
+    },
+    {
+      "id": "mj-021",
+      "unit": "mingju",
+      "note": "原句見《九章·哀郢》，作答填書名即可。"
+    },
+    {
+      "id": "mj-022",
+      "unit": "mingju",
+      "note": "原句見《九歌·國殤》，作答填書名即可。"
+    },
+    {
       "id": "mj-038",
       "unit": "mingju",
       "note": "原句無句讀標點，無法切半（仍保留）"
+    },
+    {
+      "id": "mj-048",
+      "unit": "mingju",
+      "note": "原句見《念奴嬌·赤壁懷古》，作答填書名即可。"
+    },
+    {
+      "id": "mj-049",
+      "unit": "mingju",
+      "note": "原句見《念奴嬌·赤壁懷古》，作答填書名即可。"
+    },
+    {
+      "id": "mj-050",
+      "unit": "mingju",
+      "note": "原句見《蝶戀花·春景》，作答填書名即可。"
     },
     {
       "id": "cj-019",
@@ -1463,6 +1568,141 @@
       "id": "cs-241",
       "unit": "wenhua",
       "note": "南方朱雀七宿依次為井、鬼、柳、星、張、翼、軫。"
+    },
+    {
+      "id": "mj-051",
+      "unit": "mingju_jingshi",
+      "note": "原句見《尚書·大禹謨》，作答填書名即可。"
+    },
+    {
+      "id": "mj-052",
+      "unit": "mingju_jingshi",
+      "note": "原句見《左傳·僖公五年》，作答填書名即可。"
+    },
+    {
+      "id": "mj-053",
+      "unit": "mingju_jingshi",
+      "note": "原句見《左傳·僖公十年》，作答填書名即可。"
+    },
+    {
+      "id": "mj-054",
+      "unit": "mingju_jingshi",
+      "note": "原句見《左傳·襄公十一年》，作答填書名即可。"
+    },
+    {
+      "id": "mj-055",
+      "unit": "mingju_jingshi",
+      "note": "原句見《左傳·襄公二十一年》，作答填書名即可。"
+    },
+    {
+      "id": "mj-056",
+      "unit": "mingju_jingshi",
+      "note": "原句見《左傳·襄公三十一年》，作答填書名即可。"
+    },
+    {
+      "id": "mj-057",
+      "unit": "mingju_jingshi",
+      "note": "原句見《左傳·宣公二年》，作答填書名即可。"
+    },
+    {
+      "id": "mj-058",
+      "unit": "mingju_jingshi",
+      "note": "原句見《左傳·隱公元年》，作答填書名即可。"
+    },
+    {
+      "id": "mj-059",
+      "unit": "mingju_jingshi",
+      "note": "原句見《國語·周語上》，作答填書名即可。"
+    },
+    {
+      "id": "mj-060",
+      "unit": "mingju_jingshi",
+      "note": "原句見《戰國策·趙策一》，作答填書名即可。"
+    },
+    {
+      "id": "mj-061",
+      "unit": "mingju_jingshi",
+      "note": "原句見《戰國策·趙策一》，作答填書名即可。"
+    },
+    {
+      "id": "mj-062",
+      "unit": "mingju_jingshi",
+      "note": "原句見《戰國策·楚策一》，作答填書名即可。"
+    },
+    {
+      "id": "mj-063",
+      "unit": "mingju_jingshi",
+      "note": "原句見《戰國策·秦策三》，作答填書名即可。"
+    },
+    {
+      "id": "mj-064",
+      "unit": "mingju_jingshi",
+      "note": "原句見《戰國策·燕策二》，作答填書名即可。"
+    },
+    {
+      "id": "mj-065",
+      "unit": "mingju_jingshi",
+      "note": "原句見《孫子兵法·謀攻》，作答填書名即可。"
+    },
+    {
+      "id": "mj-066",
+      "unit": "mingju_jingshi",
+      "note": "原句見《道德經·二章》，作答填書名即可。"
+    },
+    {
+      "id": "mj-067",
+      "unit": "mingju_jingshi",
+      "note": "原句見《道德經·十九章》，作答填書名即可。"
+    },
+    {
+      "id": "mj-068",
+      "unit": "mingju_jingshi",
+      "note": "原句見《道德經·二十二章》，作答填書名即可。"
+    },
+    {
+      "id": "mj-069",
+      "unit": "mingju_jingshi",
+      "note": "原句見《道德經·三十三章》，作答填書名即可。"
+    },
+    {
+      "id": "mj-070",
+      "unit": "mingju_jingshi",
+      "note": "原句見《道德經·四十一章》，作答填書名即可。"
+    },
+    {
+      "id": "mj-071",
+      "unit": "mingju_jingshi",
+      "note": "原句見《道德經·四十四章》，作答填書名即可。"
+    },
+    {
+      "id": "mj-072",
+      "unit": "mingju_jingshi",
+      "note": "原句見《道德經·四十五章》，作答填書名即可。"
+    },
+    {
+      "id": "mj-073",
+      "unit": "mingju_jingshi",
+      "note": "原句見《道德經·五十八章》，作答填書名即可。"
+    },
+    {
+      "id": "mj-074",
+      "unit": "mingju_jingshi",
+      "note": "原句見《道德經·六十四章》，作答填書名即可。"
+    },
+    {
+      "id": "mj-075",
+      "unit": "mingju_jingshi",
+      "note": "原句見《道德經·七十三章》，作答填書名即可。"
+    },
+    {
+      "id": "mj-083",
+      "unit": "mingju_jingshi",
+      "note": "原句見《鷓鴣天·春閨》，作答填書名即可。"
+    },
+    {
+      "id": "mj-091",
+      "unit": "mingju_jingshi",
+      "note": "原句見《卜算子·詠梅》，作答填書名即可。"
     }
   ],
   "fallback_q": [
@@ -1515,13 +1755,13 @@
       "from": "启",
       "opencc": "啓",
       "used": "啟",
-      "count": 1
+      "count": 3
     },
     {
       "from": "峰",
       "opencc": "峯",
       "used": "峰",
-      "count": 1
+      "count": 3
     }
   ],
   "stray_simplified_chars": [

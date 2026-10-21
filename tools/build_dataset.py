@@ -45,7 +45,9 @@
 4. 所有繁體欄位以 OpenCC t2s 產生簡體欄位；t2s 表逐字轉換、只留有差異的字。
 5. id 依「來源檔順序＋行號」編號（mj- / cj- / cs-），已知來源在前、新增來源按檔名排序，
    重跑穩定；重複條目會跳過。
-6. 名句的 chinese 若寫成「作者《出處》」，拆成 author_t/author_s 與 src_t/src_s（出處只留書名號）；
+6. 名句的 chinese 若寫成「作者《出處》」，拆成 author_t/author_s 與 src_t/src_s；
+   出處再拆成書名（src_t/src_s，例《左傳》）與篇名：篇名非空時另輸出完整出處
+   src_full_t/src_full_s，並在 note 註明「原句見《左傳·僖公五年》，作答填書名即可。」；
    沒寫作者時由出處推斷（詩經／古詩十九首→佚名、楚辭→屈原，其餘暫定佚名並列進報告待覆核）。
 7. 每題都有 seg / exam：CSV 欄 seg、exam 優先；其次檔名（seg1／第1段、exam1／第1次）；
    最後用 UNITS_CONFIG 的 seg／exam（預設 1）。分佈統計列在報告的 segments／exams。
@@ -131,6 +133,9 @@ GRAMMAR_META = ("作動詞", "用作動詞", "使動用法", "意動用法", "�
 
 # ---------- 名句：作者／出處 ----------
 SRC_AUTHOR_RE = re.compile(r"^([^《》]+)《([^《》]+)》(.*)$")   # 「屈原《離騷》」→ 作者＋《出處》
+# 出處的「書名‧篇名」分隔符：· ・ ‧ • 與半形點
+SRC_DETAIL_SEP_RE = re.compile(r"[·・‧•.]")
+SRC_TITLE_RE = re.compile(r"^《([^《》]+)》(.*)$")              # 「《書名》」→ 書名（去掉外層書名號）
 ANON_HINTS = ("詩經", "诗经", "古詩十九首", "古诗十九首")        # 無作者 → 佚名
 CHUCI_HINTS = ("楚辭", "楚辞")                                  # 無作者 → 屈原
 ANON_AUTHOR = "佚名"
@@ -245,6 +250,27 @@ def split_author_source(text: str):
         return "", raw
     src = ("《%s》" % m.group(2).strip()) + m.group(3).strip()
     return author, src
+
+
+def split_src(src: str):
+    """把出處拆成 (書名, 篇名)：`《左傳·僖公五年》` → ("《左傳》", "僖公五年")。
+
+    - 分隔符接受 `·`、`・`、`‧`、`•` 與半形點 `.`（只看書名號內的第一個）。
+    - 沒有分隔符時回傳 (原字串, "")，書名即整串（如 `《離騷》`）。
+    - 分隔符前後有一邊為空（如 `《·篇》`）也視為沒有篇名，避免生出空書名。
+    """
+    raw = (src or "").strip()
+    if not raw:
+        return "", ""
+    m = SRC_TITLE_RE.match(raw)
+    inner = m.group(1).strip() if m else raw
+    d = SRC_DETAIL_SEP_RE.search(inner)
+    if not d:
+        return raw, ""
+    book, detail = inner[:d.start()].strip(), inner[d.end():].strip()
+    if not book or not detail:
+        return raw, ""
+    return "《%s》" % book, detail
 
 
 def guess_author(src: str):
@@ -571,18 +597,32 @@ def build_mingju(rec: dict, unit: str):
         author_use = author
     else:
         author_use, need_review = guess_author(src)
-    note = ""
+    # 出處拆成書名（作答／顯示用）與篇名（放進 note 當補充說明）
+    book, detail = split_src(src)
+    book_t, book_s = s2t_fixed(book), t2s(s2t_fixed(book))
+    src_full_t = s2t_fixed(src)
+    notes = []
+    if detail:
+        notes.append("原句見%s，作答填書名即可" % src_full_t)
     if not any(ch in SPLIT_PUNCT for ch in raw):
-        note = "原句無句讀標點，無法切半（仍保留）"
+        notes.append("原句無句讀標點，無法切半（仍保留）")
     if not src:
-        note = (note + "；" if note else "") + "出處從缺"
+        notes.append("出處從缺")
+    note = "；".join(notes)
+    if detail and note:
+        note += "。"
     item = {
         "type": "mingju", "unit": unit,
         "t": t, "s": raw,
         "author_t": s2t_fixed(author_use), "author_s": t2s(author_use),
-        "src_t": s2t_fixed(src), "src_s": src,
-        "note": note,
+        "src_t": book_t, "src_s": book_s,
     }
+    if detail:
+        item["src_full_t"] = src_full_t
+        item["src_full_s"] = t2s(src_full_t)
+    item["note"] = note
+    if detail:
+        item["note_s"] = t2s(note)
     if need_review:
         item["_author_note"] = ("出處「%s」判斷不出作者，暫定「%s」，請人工覆核"
                                 % (src or "(從缺)", author_use))
@@ -655,7 +695,9 @@ BUILDERS = {"mingju": build_mingju, "cijie": build_cijie, "changshi": build_chan
 
 def dedupe_key(item: dict):
     if item["type"] == "mingju":
-        return (item["unit"], "mingju", norm_key(item["t"]), norm_key(item["src_t"]))
+        # 以完整出處判重（與改版前一致）：src_t 現在是書名，篇名在 src_full_t
+        src = item.get("src_full_t") or item["src_t"]
+        return (item["unit"], "mingju", norm_key(item["t"]), norm_key(src))
     if item["type"] == "cijie":
         return (item["unit"], "cijie", norm_key(item["w_t"]), norm_key("".join(item["a_t"])))
     return (item["unit"], "changshi", norm_key(item["q_t"]), norm_key(item["a_t"]))
