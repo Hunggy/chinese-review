@@ -102,6 +102,7 @@ UNITS_CONFIG = [
     {"file": "第1段_第2次_孔雀東南飛_cijie.csv", "id": "kongque", "name": "《孔雀東南飛》", "module": "cijie", "seg": 1, "exam": 2},
     {"file": "第1段_第2次_齊桓晉文之事_cijie.csv", "id": "qihuan", "name": "《齊桓晉文之事》", "module": "cijie", "seg": 1, "exam": 2},
     {"file": "第1段_第2次_齊桓晉文之事_一詞多義_cijie.csv", "id": "qihuan_yi", "name": "《齊桓晉文之事》・一詞多義", "module": "cijie", "seg": 1, "exam": 2},
+    {"file": "第1段_第2次_齊桓晉文之事_詞類活用_cijie.csv", "id": "qihuan_hy", "name": "《齊桓晉文之事》・詞類活用", "module": "cijie", "seg": 1, "exam": 2},
     {"file": "xianqin_wenxue.csv", "id": "xianqin", "name": "先秦文學常識", "module": "changshi"},
     {"file": "zhuzi_yuyan.csv", "id": "zhuzi", "name": "諸子寓言出處", "module": "changshi"},
     {"file": "第1段_第2次_先秦文學.csv", "id": "xianqin2", "name": "先秦文學常識・續", "module": "changshi", "seg": 1, "exam": 2},

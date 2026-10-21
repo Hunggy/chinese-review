@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-21T21:14:35+08:00",
+  "generated_at": "2026-10-21T21:44:09+08:00",
   "source_dirs": [
     "source",
     "data/source"
@@ -124,6 +124,19 @@
       "skipped": 0
     },
     {
+      "file": "第1段_第2次_齊桓晉文之事_詞類活用_cijie.csv",
+      "source": "source/第1段_第2次_齊桓晉文之事_詞類活用_cijie.csv",
+      "unit": "qihuan_hy",
+      "name": "《齊桓晉文之事》・詞類活用",
+      "module": "cijie",
+      "known": true,
+      "detected_by": "已知來源",
+      "seg": 1,
+      "exam": 2,
+      "count": 6,
+      "skipped": 0
+    },
+    {
       "file": "xianqin_wenxue.csv",
       "source": "data/source/xianqin_wenxue.csv",
       "unit": "xianqin",
@@ -217,16 +230,16 @@
   ],
   "module_counts": {
     "mingju": 100,
-    "cijie": 142,
+    "cijie": 148,
     "changshi": 241
   },
-  "total": 483,
+  "total": 489,
   "segments": {
-    "1": 483
+    "1": 489
   },
   "exams": {
     "1": 166,
-    "2": 317
+    "2": 323
   },
   "author_review": [
     {
@@ -557,6 +570,11 @@
       "note": "「刑」通「型」，指以身作則。"
     },
     {
+      "id": "cj-127",
+      "unit": "qihuan_yi",
+      "note": "名詞作動詞，用尺量長短。"
+    },
+    {
       "id": "cj-131",
       "unit": "qihuan_yi",
       "note": "寡妻指正妻、嫡妻，不是寡婦。"
@@ -569,7 +587,37 @@
     {
       "id": "cj-139",
       "unit": "qihuan_yi",
-      "note": "此「明」指視力。"
+      "note": "形容詞作名詞，此「明」指視力。"
+    },
+    {
+      "id": "cj-143",
+      "unit": "qihuan_hy",
+      "note": "形容詞作動詞，使動用法：使……遠離。"
+    },
+    {
+      "id": "cj-144",
+      "unit": "qihuan_hy",
+      "note": "意動用法：第一個「老」是動詞，第二個「老」指老人。"
+    },
+    {
+      "id": "cj-145",
+      "unit": "qihuan_hy",
+      "note": "意動用法：第一個「幼」是動詞，第二個「幼」指孩子。"
+    },
+    {
+      "id": "cj-146",
+      "unit": "qihuan_hy",
+      "note": "名詞作動詞，讀作「旺」；「故王之不王」的第二個「王」同此用法。"
+    },
+    {
+      "id": "cj-147",
+      "unit": "qihuan_hy",
+      "note": "名詞作動詞，讀作「意」，指穿上。"
+    },
+    {
+      "id": "cj-148",
+      "unit": "qihuan_hy",
+      "note": "名詞作動詞，用秤稱量輕重。"
     },
     {
       "id": "cs-001",
@@ -1938,7 +1986,7 @@
       "q_t": "解釋「鞫」"
     }
   ],
-  "t2s_count": 467,
+  "t2s_count": 469,
   "s2t_fixes": [
     {
       "from": "为",
