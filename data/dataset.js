@@ -3,7 +3,7 @@ window.CN_DATASET = {
   "meta": {
     "title": "中文溫習",
     "version": "2026-10-21",
-    "generated_at": "2026-10-21T20:38:51+08:00"
+    "generated_at": "2026-10-21T21:14:35+08:00"
   },
   "units": [
     {
@@ -3857,236 +3857,6 @@ window.CN_DATASET = {
       "seg": 1,
       "exam": 2,
       "module": "cijie",
-      "q_t": "抑為【采】色不足視於目與",
-      "q_s": "抑为【采】色不足视于目与",
-      "w_t": "采",
-      "w_s": "采",
-      "a_t": [
-        "彩",
-        "彩色"
-      ],
-      "a_s": [
-        "彩",
-        "彩色"
-      ],
-      "k_t": [
-        "彩色"
-      ],
-      "k_s": [
-        "彩色"
-      ],
-      "note": "「采」通「彩」，采色即彩色，指顏色。",
-      "accept": [
-        "彩",
-        "彩色"
-      ],
-      "note_s": "「采」通「彩」，采色即彩色，指颜色。"
-    },
-    {
-      "id": "cj-113",
-      "type": "cijie",
-      "unit": "qihuan",
-      "seg": 1,
-      "exam": 2,
-      "module": "cijie",
-      "q_t": "抑為采色不足視於目【與】",
-      "q_s": "抑为采色不足视于目【与】",
-      "w_t": "與",
-      "w_s": "与",
-      "a_t": [
-        "歟",
-        "語氣詞"
-      ],
-      "a_s": [
-        "欤",
-        "语气词"
-      ],
-      "k_t": [
-        "語氣詞"
-      ],
-      "k_s": [
-        "语气词"
-      ],
-      "note": "「與」通「歟」，句末表疑問語氣。",
-      "accept": [
-        "歟",
-        "欤",
-        "嗎",
-        "吗"
-      ],
-      "note_s": "「与」通「欤」，句末表疑问语气。"
-    },
-    {
-      "id": "cj-114",
-      "type": "cijie",
-      "unit": "qihuan",
-      "seg": 1,
-      "exam": 2,
-      "module": "cijie",
-      "q_t": "行旅皆欲出於王之【涂】",
-      "q_s": "行旅皆欲出于王之【涂】",
-      "w_t": "涂",
-      "w_s": "涂",
-      "a_t": [
-        "途",
-        "道路"
-      ],
-      "a_s": [
-        "途",
-        "道路"
-      ],
-      "k_t": [
-        "道路"
-      ],
-      "k_s": [
-        "道路"
-      ],
-      "note": "「涂」通「途」，指道路，與「途」同義。",
-      "accept": [
-        "途",
-        "道路"
-      ],
-      "note_s": "「涂」通「途」，指道路，与「途」同义。"
-    },
-    {
-      "id": "cj-115",
-      "type": "cijie",
-      "unit": "qihuan",
-      "seg": 1,
-      "exam": 2,
-      "module": "cijie",
-      "q_t": "蓋亦【反】其本矣",
-      "q_s": "盖亦【反】其本矣",
-      "w_t": "反",
-      "w_s": "反",
-      "a_t": [
-        "返",
-        "回到"
-      ],
-      "a_s": [
-        "返",
-        "回到"
-      ],
-      "k_t": [
-        "回到"
-      ],
-      "k_s": [
-        "回到"
-      ],
-      "note": "「反」通「返」，即回到根本，指回歸。",
-      "accept": [
-        "返",
-        "回到",
-        "返回"
-      ],
-      "note_s": "「反」通「返」，即回到根本，指回归。"
-    },
-    {
-      "id": "cj-116",
-      "type": "cijie",
-      "unit": "qihuan",
-      "seg": 1,
-      "exam": 2,
-      "module": "cijie",
-      "q_t": "【蓋】亦反其本矣",
-      "q_s": "【盖】亦反其本矣",
-      "w_t": "蓋",
-      "w_s": "盖",
-      "a_t": [
-        "盍",
-        "何不"
-      ],
-      "a_s": [
-        "盍",
-        "何不"
-      ],
-      "k_t": [
-        "何不"
-      ],
-      "k_s": [
-        "何不"
-      ],
-      "note": "「蓋」通「盍」，即何不，表反問語氣。",
-      "accept": [
-        "盍",
-        "何不"
-      ],
-      "note_s": "「盖」通「盍」，即何不，表反问语气。"
-    },
-    {
-      "id": "cj-117",
-      "type": "cijie",
-      "unit": "qihuan",
-      "seg": 1,
-      "exam": 2,
-      "module": "cijie",
-      "q_t": "放【辟】邪侈",
-      "q_s": "放【辟】邪侈",
-      "w_t": "辟",
-      "w_s": "辟",
-      "a_t": [
-        "僻",
-        "邪僻"
-      ],
-      "a_s": [
-        "僻",
-        "邪僻"
-      ],
-      "k_t": [
-        "邪僻"
-      ],
-      "k_s": [
-        "邪僻"
-      ],
-      "note": "「辟」通「僻」，指行為邪僻不正。",
-      "accept": [
-        "僻",
-        "邪僻"
-      ],
-      "note_s": "「辟」通「僻」，指行为邪僻不正。"
-    },
-    {
-      "id": "cj-118",
-      "type": "cijie",
-      "unit": "qihuan",
-      "seg": 1,
-      "exam": 2,
-      "module": "cijie",
-      "q_t": "是【罔】民也",
-      "q_s": "是【罔】民也",
-      "w_t": "罔",
-      "w_s": "罔",
-      "a_t": [
-        "網",
-        "張網陷害"
-      ],
-      "a_s": [
-        "网",
-        "张网陷害"
-      ],
-      "k_t": [
-        "張網陷害"
-      ],
-      "k_s": [
-        "张网陷害"
-      ],
-      "note": "「罔」通「網」，指張網羅使民陷罪。",
-      "accept": [
-        "網",
-        "网",
-        "陷害",
-        "張網",
-        "张网"
-      ],
-      "note_s": "「罔」通「网」，指张网罗使民陷罪。"
-    },
-    {
-      "id": "cj-119",
-      "type": "cijie",
-      "unit": "qihuan",
-      "seg": 1,
-      "exam": 2,
-      "module": "cijie",
       "q_t": "【頒】白者不負戴於道路矣",
       "q_s": "【颁】白者不负戴于道路矣",
       "w_t": "頒",
@@ -4114,7 +3884,7 @@ window.CN_DATASET = {
       "note_s": "「颁」通「斑」，颁白即头发斑白，借指老人。"
     },
     {
-      "id": "cj-120",
+      "id": "cj-113",
       "type": "cijie",
       "unit": "qihuan",
       "seg": 1,
@@ -4142,115 +3912,7 @@ window.CN_DATASET = {
       "note_s": "写牛临死前恐惧颤抖的样子，状其惊惧。"
     },
     {
-      "id": "cj-121",
-      "type": "cijie",
-      "unit": "qihuan",
-      "seg": 1,
-      "exam": 2,
-      "module": "cijie",
-      "q_t": "仰不足以【事】父母",
-      "q_s": "仰不足以【事】父母",
-      "w_t": "事",
-      "w_s": "事",
-      "a_t": [
-        "侍奉"
-      ],
-      "a_s": [
-        "侍奉"
-      ],
-      "k_t": [
-        "侍奉"
-      ],
-      "k_s": [
-        "侍奉"
-      ],
-      "note": "與「事君」同事，指奉養、服侍。",
-      "note_s": "与「事君」同事，指奉养、服侍。"
-    },
-    {
-      "id": "cj-122",
-      "type": "cijie",
-      "unit": "qihuan",
-      "seg": 1,
-      "exam": 2,
-      "module": "cijie",
-      "q_t": "天下之欲【疾】其君者",
-      "q_s": "天下之欲【疾】其君者",
-      "w_t": "疾",
-      "w_s": "疾",
-      "a_t": [
-        "痛恨"
-      ],
-      "a_s": [
-        "痛恨"
-      ],
-      "k_t": [
-        "痛恨"
-      ],
-      "k_s": [
-        "痛恨"
-      ],
-      "note": "不是「疾病」，而是指憎恨、痛恨。",
-      "note_s": "不是「疾病」，而是指憎恨、痛恨。"
-    },
-    {
-      "id": "cj-123",
-      "type": "cijie",
-      "unit": "qihuan",
-      "seg": 1,
-      "exam": 2,
-      "module": "cijie",
-      "q_t": "【及】陷於罪，然後從而刑之",
-      "q_s": "【及】陷于罪，然后从而刑之",
-      "w_t": "及",
-      "w_s": "及",
-      "a_t": [
-        "等到"
-      ],
-      "a_s": [
-        "等到"
-      ],
-      "k_t": [
-        "等到"
-      ],
-      "k_s": [
-        "等到"
-      ],
-      "note": "表時間的介詞，即等到……的時候。",
-      "note_s": "表时间的介词，即等到……的时候。"
-    },
-    {
-      "id": "cj-124",
-      "type": "cijie",
-      "unit": "qihuan",
-      "seg": 1,
-      "exam": 2,
-      "module": "cijie",
-      "q_t": "仲尼之徒無【道】桓文之事者",
-      "q_s": "仲尼之徒无【道】桓文之事者",
-      "w_t": "道",
-      "w_s": "道",
-      "a_t": [
-        "稱說",
-        "談論"
-      ],
-      "a_s": [
-        "称说",
-        "谈论"
-      ],
-      "k_t": [
-        "稱說",
-        "談論"
-      ],
-      "k_s": [
-        "称说",
-        "谈论"
-      ],
-      "note": "不是「道路」，指稱述、談論之意。",
-      "note_s": "不是「道路」，指称述、谈论之意。"
-    },
-    {
-      "id": "cj-125",
+      "id": "cj-114",
       "type": "cijie",
       "unit": "qihuan",
       "seg": 1,
@@ -4280,121 +3942,7 @@ window.CN_DATASET = {
       "note_s": "指外在的表现、状况，即具体情况。"
     },
     {
-      "id": "cj-126",
-      "type": "cijie",
-      "unit": "qihuan",
-      "seg": 1,
-      "exam": 2,
-      "module": "cijie",
-      "q_t": "【殆】有甚焉",
-      "q_s": "【殆】有甚焉",
-      "w_t": "殆",
-      "w_s": "殆",
-      "a_t": [
-        "恐怕",
-        "大概"
-      ],
-      "a_s": [
-        "恐怕",
-        "大概"
-      ],
-      "k_t": [
-        "恐怕",
-        "大概"
-      ],
-      "k_s": [
-        "恐怕",
-        "大概"
-      ],
-      "note": "表推測語氣的副詞，即恐怕、大概。",
-      "note_s": "表推测语气的副词，即恐怕、大概。"
-    },
-    {
-      "id": "cj-127",
-      "type": "cijie",
-      "unit": "qihuan",
-      "seg": 1,
-      "exam": 2,
-      "module": "cijie",
-      "q_t": "故民之從之也【輕】",
-      "q_s": "故民之从之也【轻】",
-      "w_t": "輕",
-      "w_s": "轻",
-      "a_t": [
-        "容易"
-      ],
-      "a_s": [
-        "容易"
-      ],
-      "k_t": [
-        "容易"
-      ],
-      "k_s": [
-        "容易"
-      ],
-      "note": "指百姓歸附君主很容易，毫不困難。",
-      "note_s": "指百姓归附君主很容易，毫不困难。"
-    },
-    {
-      "id": "cj-128",
-      "type": "cijie",
-      "unit": "qihuan",
-      "seg": 1,
-      "exam": 2,
-      "module": "cijie",
-      "q_t": "此惟救死而恐不【贍】",
-      "q_s": "此惟救死而恐不【赡】",
-      "w_t": "贍",
-      "w_s": "赡",
-      "a_t": [
-        "足",
-        "夠"
-      ],
-      "a_s": [
-        "足",
-        "够"
-      ],
-      "k_t": [
-        "足"
-      ],
-      "k_s": [
-        "足"
-      ],
-      "note": "指連活命都恐怕不足，即不夠用。",
-      "note_s": "指连活命都恐怕不足，即不够用。"
-    },
-    {
-      "id": "cj-129",
-      "type": "cijie",
-      "unit": "qihuan",
-      "seg": 1,
-      "exam": 2,
-      "module": "cijie",
-      "q_t": "寡【固】不可以敵眾",
-      "q_s": "寡【固】不可以敌众",
-      "w_t": "固",
-      "w_s": "固",
-      "a_t": [
-        "本來"
-      ],
-      "a_s": [
-        "本来"
-      ],
-      "k_t": [
-        "本來"
-      ],
-      "k_s": [
-        "本来"
-      ],
-      "note": "「固」即本來，用以加強肯定語氣。",
-      "accept": [
-        "當然",
-        "当然"
-      ],
-      "note_s": "「固」即本来，用以加强肯定语气。"
-    },
-    {
-      "id": "cj-130",
+      "id": "cj-115",
       "type": "cijie",
       "unit": "qihuan_yi",
       "seg": 1,
@@ -4425,7 +3973,7 @@ window.CN_DATASET = {
       ]
     },
     {
-      "id": "cj-131",
+      "id": "cj-116",
       "type": "cijie",
       "unit": "qihuan_yi",
       "seg": 1,
@@ -4454,7 +4002,7 @@ window.CN_DATASET = {
       ]
     },
     {
-      "id": "cj-132",
+      "id": "cj-117",
       "type": "cijie",
       "unit": "qihuan_yi",
       "seg": 1,
@@ -4485,7 +4033,7 @@ window.CN_DATASET = {
       "note_s": "此句「舆薪」指一车柴薪，言目力好却看不见，是孟子设喻。"
     },
     {
-      "id": "cj-133",
+      "id": "cj-118",
       "type": "cijie",
       "unit": "qihuan_yi",
       "seg": 1,
@@ -4515,7 +4063,7 @@ window.CN_DATASET = {
       "note_s": "此句「见」表被动，即「不被保佑」。"
     },
     {
-      "id": "cj-134",
+      "id": "cj-119",
       "type": "cijie",
       "unit": "qihuan_yi",
       "seg": 1,
@@ -4544,7 +4092,7 @@ window.CN_DATASET = {
       ]
     },
     {
-      "id": "cj-135",
+      "id": "cj-120",
       "type": "cijie",
       "unit": "qihuan_yi",
       "seg": 1,
@@ -4573,7 +4121,7 @@ window.CN_DATASET = {
       ]
     },
     {
-      "id": "cj-136",
+      "id": "cj-121",
       "type": "cijie",
       "unit": "qihuan_yi",
       "seg": 1,
@@ -4604,7 +4152,7 @@ window.CN_DATASET = {
       ]
     },
     {
-      "id": "cj-137",
+      "id": "cj-122",
       "type": "cijie",
       "unit": "qihuan_yi",
       "seg": 1,
@@ -4634,7 +4182,7 @@ window.CN_DATASET = {
       ]
     },
     {
-      "id": "cj-138",
+      "id": "cj-123",
       "type": "cijie",
       "unit": "qihuan_yi",
       "seg": 1,
@@ -4666,7 +4214,7 @@ window.CN_DATASET = {
       "note_s": "「之」作动词，往、到；不是代词。"
     },
     {
-      "id": "cj-139",
+      "id": "cj-124",
       "type": "cijie",
       "unit": "qihuan_yi",
       "seg": 1,
@@ -4703,7 +4251,7 @@ window.CN_DATASET = {
       ]
     },
     {
-      "id": "cj-140",
+      "id": "cj-125",
       "type": "cijie",
       "unit": "qihuan_yi",
       "seg": 1,
@@ -4737,7 +4285,7 @@ window.CN_DATASET = {
       "note_s": "「刑」通「型」，指以身作则。"
     },
     {
-      "id": "cj-141",
+      "id": "cj-126",
       "type": "cijie",
       "unit": "qihuan_yi",
       "seg": 1,
@@ -4767,7 +4315,7 @@ window.CN_DATASET = {
       ]
     },
     {
-      "id": "cj-142",
+      "id": "cj-127",
       "type": "cijie",
       "unit": "qihuan_yi",
       "seg": 1,
@@ -4797,7 +4345,7 @@ window.CN_DATASET = {
       ]
     },
     {
-      "id": "cj-143",
+      "id": "cj-128",
       "type": "cijie",
       "unit": "qihuan_yi",
       "seg": 1,
@@ -4830,7 +4378,7 @@ window.CN_DATASET = {
       ]
     },
     {
-      "id": "cj-144",
+      "id": "cj-129",
       "type": "cijie",
       "unit": "qihuan_yi",
       "seg": 1,
@@ -4858,7 +4406,7 @@ window.CN_DATASET = {
       ]
     },
     {
-      "id": "cj-145",
+      "id": "cj-130",
       "type": "cijie",
       "unit": "qihuan_yi",
       "seg": 1,
@@ -4892,7 +4440,7 @@ window.CN_DATASET = {
       ]
     },
     {
-      "id": "cj-146",
+      "id": "cj-131",
       "type": "cijie",
       "unit": "qihuan_yi",
       "seg": 1,
@@ -4921,7 +4469,7 @@ window.CN_DATASET = {
       "note_s": "寡妻指正妻、嫡妻，不是寡妇。"
     },
     {
-      "id": "cj-147",
+      "id": "cj-132",
       "type": "cijie",
       "unit": "qihuan_yi",
       "seg": 1,
@@ -4951,7 +4499,7 @@ window.CN_DATASET = {
       "note_s": "「爱」是吝惜，不是喜爱。"
     },
     {
-      "id": "cj-148",
+      "id": "cj-133",
       "type": "cijie",
       "unit": "qihuan_yi",
       "seg": 1,
@@ -4982,7 +4530,7 @@ window.CN_DATASET = {
       ]
     },
     {
-      "id": "cj-149",
+      "id": "cj-134",
       "type": "cijie",
       "unit": "qihuan_yi",
       "seg": 1,
@@ -5013,7 +4561,7 @@ window.CN_DATASET = {
       ]
     },
     {
-      "id": "cj-150",
+      "id": "cj-135",
       "type": "cijie",
       "unit": "qihuan_yi",
       "seg": 1,
@@ -5044,7 +4592,7 @@ window.CN_DATASET = {
       ]
     },
     {
-      "id": "cj-151",
+      "id": "cj-136",
       "type": "cijie",
       "unit": "qihuan_yi",
       "seg": 1,
@@ -5075,7 +4623,7 @@ window.CN_DATASET = {
       ]
     },
     {
-      "id": "cj-152",
+      "id": "cj-137",
       "type": "cijie",
       "unit": "qihuan_yi",
       "seg": 1,
@@ -5105,7 +4653,7 @@ window.CN_DATASET = {
       ]
     },
     {
-      "id": "cj-153",
+      "id": "cj-138",
       "type": "cijie",
       "unit": "qihuan_yi",
       "seg": 1,
@@ -5133,7 +4681,7 @@ window.CN_DATASET = {
       ]
     },
     {
-      "id": "cj-154",
+      "id": "cj-139",
       "type": "cijie",
       "unit": "qihuan_yi",
       "seg": 1,
@@ -5163,7 +4711,7 @@ window.CN_DATASET = {
       "note_s": "此「明」指视力。"
     },
     {
-      "id": "cj-155",
+      "id": "cj-140",
       "type": "cijie",
       "unit": "qihuan_yi",
       "seg": 1,
@@ -5193,7 +4741,7 @@ window.CN_DATASET = {
       ]
     },
     {
-      "id": "cj-156",
+      "id": "cj-141",
       "type": "cijie",
       "unit": "qihuan_yi",
       "seg": 1,
@@ -5223,7 +4771,7 @@ window.CN_DATASET = {
       ]
     },
     {
-      "id": "cj-157",
+      "id": "cj-142",
       "type": "cijie",
       "unit": "qihuan_yi",
       "seg": 1,
@@ -10656,7 +10204,6 @@ window.CN_DATASET = {
     "問": "问",
     "啟": "启",
     "單": "单",
-    "嗎": "吗",
     "嘆": "叹",
     "嘯": "啸",
     "嚴": "严",
@@ -10669,7 +10216,6 @@ window.CN_DATASET = {
     "塤": "埙",
     "壓": "压",
     "壽": "寿",
-    "夠": "够",
     "夢": "梦",
     "奧": "奥",
     "妝": "妆",
@@ -10763,7 +10309,6 @@ window.CN_DATASET = {
     "櫝": "椟",
     "權": "权",
     "歐": "欧",
-    "歟": "欤",
     "歡": "欢",
     "歲": "岁",
     "歷": "历",
@@ -10957,7 +10502,6 @@ window.CN_DATASET = {
     "賦": "赋",
     "賴": "赖",
     "贈": "赠",
-    "贍": "赡",
     "趙": "赵",
     "踐": "践",
     "躓": "踬",
@@ -10967,7 +10511,6 @@ window.CN_DATASET = {
     "軾": "轼",
     "載": "载",
     "輔": "辅",
-    "輕": "轻",
     "輪": "轮",
     "輾": "辗",
     "輿": "舆",
