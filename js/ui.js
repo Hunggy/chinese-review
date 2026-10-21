@@ -781,6 +781,12 @@
       return (sm ? a.s : a.t).join('／');
     }
     if (it.type === 'changshi') return h(sm ? C.str_field(it, 'a_s') : C.str_field(it, 'a_t'));
+    if (it.type === 'mingju') {
+      /* 名句除了出處，也要顯示作者：屈原《離騷》 */
+      var av = C.author_variant(it);
+      var at = sm ? av.s : av.t;
+      if (at) return h(at);
+    }
     var src = C.pair(it, 'src');
     return sm ? src.s : src.t;
   }
@@ -797,7 +803,9 @@
     var src = sm ? sc.s : sc.t;
     if (it.type === 'mingju') {
       rows.push('<div class="browse-full han" data-raw>' + h(sm ? C.str_field(it, 's') : C.str_field(it, 't')) + '</div>');
-      if (src) rows.push('<div class="browse-src" data-raw>' + h(src) + '</div>');
+      var mav = C.author_variant(it);
+      var mline = sm ? mav.s : mav.t;
+      if (mline) rows.push('<div class="browse-src" data-raw>' + h(mline) + '</div>');
     } else if (it.type === 'cijie') {
       var w = C.pair(it, 'w');
       rows.push('<div class="browse-full" data-raw>' + h((sm ? w.s : w.t) + '：' + det.lines.join('／')) + '</div>');
