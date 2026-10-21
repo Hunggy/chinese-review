@@ -199,6 +199,61 @@ with_dataset(ds_neg, () => {
   eq(C.grade_text(neg_shao, '不少', {}).ok, false, '答案「少」不得因「不少」判對');
 });
 
+/* 詞解 accept：多個可接受答案（如通假字「通「已」，停止」拆開寫也算對） */
+const ds_cj_accept = {
+  meta: { title: 't' },
+  units: [{ id: 'A', name: 'A' }],
+  items: [
+    {
+      id: 'cj-acc-1', type: 'cijie', unit: 'A',
+      q_t: '題面【已】', q_s: '题面【已】', w_t: '已', w_s: '已',
+      a_t: ['停止'], a_s: ['停止'], k_t: ['停止'], k_s: ['停止'],
+      accept: ['已', '已停止'], note: ''
+    },
+    {
+      id: 'cj-acc-2', type: 'cijie', unit: 'A',
+      q_t: '題面【少】', q_s: '题面【少】', w_t: '少', w_s: '少',
+      a_t: ['停止'], a_s: ['停止'], k_t: ['停止'], k_s: ['停止'], note: ''
+    }
+  ],
+  t2s: {}
+};
+with_dataset(ds_cj_accept, () => {
+  const acc1 = C.items().find((it) => it.id === 'cj-acc-1');
+  const acc2 = C.items().find((it) => it.id === 'cj-acc-2');
+  eq(C.grade_text(acc1, '已', {}).ok, true, '詞解 accept「已」判對');
+  eq(C.grade_text(acc1, '停止', {}).ok, true, '詞解標準答案「停止」仍判對');
+  eq(C.grade_text(acc1, '已停止', {}).ok, true, '詞解 accept「已停止」判對');
+  eq(C.grade_text(acc1, '開始', {}).ok, false, '詞解無關答案判錯');
+  eq(C.grade_text(acc2, '停止', {}).ok, true, '沒有 accept 的詞解照抄答案仍判對');
+  eq(C.grade_text(acc2, '已', {}).ok, false, '沒有 accept 的詞解不吃其他答案');
+});
+
+/* 詞解 note：自動提示與 CSV note 並存（mock 資料驗證） */
+const ds_cj_note = {
+  meta: { title: 't' },
+  units: [{ id: 'A', name: 'A' }],
+  items: [
+    {
+      id: 'cj-note-1', type: 'cijie', unit: 'A',
+      q_t: '解釋「蚤」', q_s: '解释「蚤」', w_t: '蚤', w_s: '蚤',
+      a_t: ['通「早」'], a_s: ['通「早」'], k_t: ['通「早」'], k_s: ['通「早」'],
+      note: '例句從缺，題面改為「解釋「詞」」；通「早」，早晨',
+      note_s: '例句从缺，题面改为「解释「词」」；通「早」，早晨'
+    }
+  ],
+  t2s: {}
+};
+with_dataset(ds_cj_note, () => {
+  const it = C.item('cj-note-1');
+  ok(!!(it && it.note), '有 note 的詞解題：C.item(id).note 有值');
+  ok(it.note.indexOf('例句從缺') >= 0, '詞解 note 保留程式自動提示（例句從缺）');
+  ok(it.note.indexOf('通「早」，早晨') >= 0, '詞解 note 同時含 CSV 補充說明（今義／通假）');
+  ok(!!it.note_s, '詞解 note_s 可讀');
+  eq(C.detail(it).note, it.note, '詞解 detail 可讀合併後的 note');
+  eq(C.grade_text(it, '通「早」', {}).ok, true, 'note 不影響詞解判分');
+});
+
 /* ============================================================ */
 section('6. 判分：常識（accept／書名號）');
 const cs0 = cs[0];

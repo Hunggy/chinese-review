@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-21T01:41:07+08:00",
+  "generated_at": "2026-10-21T20:38:51+08:00",
   "source_dirs": [
     "source",
     "data/source"
@@ -69,6 +69,58 @@
       "seg": 1,
       "exam": 1,
       "count": 24,
+      "skipped": 0
+    },
+    {
+      "file": "第1段_第2次_古詩十九首_cijie.csv",
+      "source": "source/第1段_第2次_古詩十九首_cijie.csv",
+      "unit": "gushi19",
+      "name": "《古詩十九首》",
+      "module": "cijie",
+      "known": true,
+      "detected_by": "已知來源",
+      "seg": 1,
+      "exam": 2,
+      "count": 6,
+      "skipped": 0
+    },
+    {
+      "file": "第1段_第2次_孔雀東南飛_cijie.csv",
+      "source": "source/第1段_第2次_孔雀東南飛_cijie.csv",
+      "unit": "kongque",
+      "name": "《孔雀東南飛》",
+      "module": "cijie",
+      "known": true,
+      "detected_by": "已知來源",
+      "seg": 1,
+      "exam": 2,
+      "count": 11,
+      "skipped": 0
+    },
+    {
+      "file": "第1段_第2次_齊桓晉文之事_cijie.csv",
+      "source": "source/第1段_第2次_齊桓晉文之事_cijie.csv",
+      "unit": "qihuan",
+      "name": "《齊桓晉文之事》",
+      "module": "cijie",
+      "known": true,
+      "detected_by": "已知來源",
+      "seg": 1,
+      "exam": 2,
+      "count": 22,
+      "skipped": 0
+    },
+    {
+      "file": "第1段_第2次_齊桓晉文之事_一詞多義_cijie.csv",
+      "source": "source/第1段_第2次_齊桓晉文之事_一詞多義_cijie.csv",
+      "unit": "qihuan_yi",
+      "name": "《齊桓晉文之事》・一詞多義",
+      "module": "cijie",
+      "known": true,
+      "detected_by": "已知來源",
+      "seg": 1,
+      "exam": 2,
+      "count": 28,
       "skipped": 0
     },
     {
@@ -165,16 +217,16 @@
   ],
   "module_counts": {
     "mingju": 100,
-    "cijie": 90,
+    "cijie": 157,
     "changshi": 241
   },
-  "total": 431,
+  "total": 498,
   "segments": {
-    "1": 431
+    "1": 498
   },
   "exams": {
     "1": 166,
-    "2": 265
+    "2": 332
   },
   "author_review": [
     {
@@ -363,6 +415,236 @@
       "id": "cj-081",
       "unit": "liao_e",
       "note": "例句未出現該詞，題面改為「解釋「詞」」"
+    },
+    {
+      "id": "cj-091",
+      "unit": "gushi19",
+      "note": "指窗格交錯鏤花，「疏」是鏤刻的意思。"
+    },
+    {
+      "id": "cj-092",
+      "unit": "gushi19",
+      "note": "表揣測的副詞，語氣委婉，相當於「恐怕」。"
+    },
+    {
+      "id": "cj-093",
+      "unit": "gushi19",
+      "note": "指心中感慨悲傷而不能自已，不是「大方」。"
+    },
+    {
+      "id": "cj-094",
+      "unit": "gushi19",
+      "note": "用伯牙鍾子期的典故，感歎知音難遇。"
+    },
+    {
+      "id": "cj-095",
+      "unit": "gushi19",
+      "note": "音同「位」，是贈送之意；不是「遺失」。"
+    },
+    {
+      "id": "cj-096",
+      "unit": "gushi19",
+      "note": "寫遊子回頭遠望故鄉，不忍離去的動作。"
+    },
+    {
+      "id": "cj-097",
+      "unit": "kongque",
+      "note": "今義：值得憐憫、令人同情，與「可愛」不同。"
+    },
+    {
+      "id": "cj-098",
+      "unit": "kongque",
+      "note": "今義：一起工作、同處任事，多指同事關係。"
+    },
+    {
+      "id": "cj-099",
+      "unit": "kongque",
+      "note": "今義：不受拘束、按自己意願行事。"
+    },
+    {
+      "id": "cj-100",
+      "unit": "kongque",
+      "note": "今義：訓斥、教導，多指長輩對晚輩的責備。"
+    },
+    {
+      "id": "cj-101",
+      "unit": "kongque",
+      "note": "今義：處罰、處置，多指對過錯的懲戒。"
+    },
+    {
+      "id": "cj-102",
+      "unit": "kongque",
+      "note": "今義：方便、順利，指做事易行無阻。"
+    },
+    {
+      "id": "cj-103",
+      "unit": "kongque",
+      "note": "今義：運輸往來，指人車貨物的往還。"
+    },
+    {
+      "id": "cj-104",
+      "unit": "kongque",
+      "note": "今義：太監，指宮中侍奉的閹人。"
+    },
+    {
+      "id": "cj-105",
+      "unit": "kongque",
+      "note": "「謝家事夫婿」的「謝」同為辭別。"
+    },
+    {
+      "id": "cj-106",
+      "unit": "kongque",
+      "note": "指劉母婉言推辭媒人，不肯即刻許婚。"
+    },
+    {
+      "id": "cj-107",
+      "unit": "kongque",
+      "note": "「多謝」即多多告訴，勸誡後來的人。"
+    },
+    {
+      "id": "cj-108",
+      "unit": "qihuan",
+      "note": "「以」通「已」，即停止、罷了。"
+    },
+    {
+      "id": "cj-109",
+      "unit": "qihuan",
+      "note": "「說」通「悅」，指心裡高興、喜悅。"
+    },
+    {
+      "id": "cj-110",
+      "unit": "qihuan",
+      "note": "「枝」通「肢」，折枝即彎腰行禮。"
+    },
+    {
+      "id": "cj-111",
+      "unit": "qihuan",
+      "note": "「刑」通「型」，指以身作則、樹立榜樣。"
+    },
+    {
+      "id": "cj-112",
+      "unit": "qihuan",
+      "note": "「采」通「彩」，采色即彩色，指顏色。"
+    },
+    {
+      "id": "cj-113",
+      "unit": "qihuan",
+      "note": "「與」通「歟」，句末表疑問語氣。"
+    },
+    {
+      "id": "cj-114",
+      "unit": "qihuan",
+      "note": "「涂」通「途」，指道路，與「途」同義。"
+    },
+    {
+      "id": "cj-115",
+      "unit": "qihuan",
+      "note": "「反」通「返」，即回到根本，指回歸。"
+    },
+    {
+      "id": "cj-116",
+      "unit": "qihuan",
+      "note": "「蓋」通「盍」，即何不，表反問語氣。"
+    },
+    {
+      "id": "cj-117",
+      "unit": "qihuan",
+      "note": "「辟」通「僻」，指行為邪僻不正。"
+    },
+    {
+      "id": "cj-118",
+      "unit": "qihuan",
+      "note": "「罔」通「網」，指張網羅使民陷罪。"
+    },
+    {
+      "id": "cj-119",
+      "unit": "qihuan",
+      "note": "「頒」通「斑」，頒白即頭髮斑白，借指老人。"
+    },
+    {
+      "id": "cj-120",
+      "unit": "qihuan",
+      "note": "寫牛臨死前恐懼顫抖的樣子，狀其驚懼。"
+    },
+    {
+      "id": "cj-121",
+      "unit": "qihuan",
+      "note": "與「事君」同事，指奉養、服侍。"
+    },
+    {
+      "id": "cj-122",
+      "unit": "qihuan",
+      "note": "不是「疾病」，而是指憎恨、痛恨。"
+    },
+    {
+      "id": "cj-123",
+      "unit": "qihuan",
+      "note": "表時間的介詞，即等到……的時候。"
+    },
+    {
+      "id": "cj-124",
+      "unit": "qihuan",
+      "note": "不是「道路」，指稱述、談論之意。"
+    },
+    {
+      "id": "cj-125",
+      "unit": "qihuan",
+      "note": "指外在的表現、狀況，即具體情況。"
+    },
+    {
+      "id": "cj-126",
+      "unit": "qihuan",
+      "note": "表推測語氣的副詞，即恐怕、大概。"
+    },
+    {
+      "id": "cj-127",
+      "unit": "qihuan",
+      "note": "指百姓歸附君主很容易，毫不困難。"
+    },
+    {
+      "id": "cj-128",
+      "unit": "qihuan",
+      "note": "指連活命都恐怕不足，即不夠用。"
+    },
+    {
+      "id": "cj-129",
+      "unit": "qihuan",
+      "note": "「固」即本來，用以加強肯定語氣。"
+    },
+    {
+      "id": "cj-132",
+      "unit": "qihuan_yi",
+      "note": "此句「輿薪」指一車柴薪，言目力好卻看不見，是孟子設喻。"
+    },
+    {
+      "id": "cj-133",
+      "unit": "qihuan_yi",
+      "note": "此句「見」表被動，即「不被保佑」。"
+    },
+    {
+      "id": "cj-138",
+      "unit": "qihuan_yi",
+      "note": "「之」作動詞，往、到；不是代詞。"
+    },
+    {
+      "id": "cj-140",
+      "unit": "qihuan_yi",
+      "note": "「刑」通「型」，指以身作則。"
+    },
+    {
+      "id": "cj-146",
+      "unit": "qihuan_yi",
+      "note": "寡妻指正妻、嫡妻，不是寡婦。"
+    },
+    {
+      "id": "cj-147",
+      "unit": "qihuan_yi",
+      "note": "「愛」是吝惜，不是喜愛。"
+    },
+    {
+      "id": "cj-154",
+      "unit": "qihuan_yi",
+      "note": "此「明」指視力。"
     },
     {
       "id": "cs-001",
@@ -1731,7 +2013,7 @@
       "q_t": "解釋「鞫」"
     }
   ],
-  "t2s_count": 436,
+  "t2s_count": 472,
   "s2t_fixes": [
     {
       "from": "为",
@@ -1766,12 +2048,16 @@
   ],
   "stray_simplified_chars": [
     "丑",
+    "于",
     "余",
     "占",
     "台",
     "吃",
     "干",
     "斗",
+    "涂",
+    "辟",
+    "采",
     "里"
   ]
 }

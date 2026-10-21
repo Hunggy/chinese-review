@@ -454,11 +454,15 @@
       got = norm_answer(raw);
       /* 使用者輸入與標準答案走同一套正規化（含去外殼），避免「為／是／指」開頭的答案被判錯 */
       var forms = uniq([norm(raw), got]).filter(Boolean);
+      /* 選填 accept（如通假字拆開寫）：每個值都可獨立判對；沒有此欄時等同空陣列 */
+      var cj_accept = list_field(item, 'accept');
       targets = uniq(
         cd.a.t.map(norm_answer)
           .concat(cd.a.s.map(norm_answer))
           .concat(cd.a.t.map(norm))
           .concat(cd.a.s.map(norm))
+          .concat(cj_accept.map(norm_answer))
+          .concat(cj_accept.map(norm))
           .filter(Boolean)
       );
       for (i = 0; i < forms.length; i++) {

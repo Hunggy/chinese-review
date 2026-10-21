@@ -31,6 +31,7 @@
 15. 另印出來源統計（tools/build_report.json）：每 unit 題數、skip 原因、待人工處理的非 CSV 檔。
 16. 選填 note（答後補充說明）：若有必須是字串、note 與 note_s 漢字長度必須一致（逐字轉換），
     常識題有 note 就必須有 note_s；note 含數字／英文字母只印 warning（顯示用，不影響判分）。
+17. 詞解選填 accept：若有必須是非空字串陣列（每項非空字串），否則 error。
 """
 
 from __future__ import annotations
@@ -312,6 +313,18 @@ def validate(data: dict, js_data, report):
                     err("%s 義項繁簡長度不一致：%s / %s" % (label, x, y))
                 check_brackets("%s a/k" % label, x)
                 check_brackets("%s a/k(s)" % label, y)
+            # 選填 accept（通假字等額外可接受答案）：有就必須是非空字串陣列
+            acc_cj = it.get("accept")
+            if acc_cj is not None:
+                if not isinstance(acc_cj, list) or not acc_cj:
+                    err("%s accept 需為非空陣列：%r" % (label, acc_cj))
+                else:
+                    for form in acc_cj:
+                        if not isinstance(form, str) or not form.strip():
+                            err("%s accept 有空值或非字串項：%r" % (label, form))
+                    forms_cj = [x for x in acc_cj if isinstance(x, str)]
+                    if len(forms_cj) != len(set(forms_cj)):
+                        warn("%s accept 有重複項" % label)
             if len(it.get("q_t", "")) != len(it.get("q_s", "")):
                 err("%s 題面繁簡長度不一致：%s / %s" % (label, it.get("q_t"), it.get("q_s")))
             if len(it.get("w_t", "")) != len(it.get("w_s", "")):
@@ -340,7 +353,9 @@ def validate(data: dict, js_data, report):
                 if not rescue:
                     warn("%s 標準答案以「%s」開頭且無替代關鍵詞，照抄會被判錯：%s"
                          % (label, hit, head))
-            t_side_texts.extend([q_t, it.get("w_t", "")] + a_t + k_t)
+            t_side_texts.extend([q_t, it.get("w_t", "")] + a_t + k_t
+                                + [x for x in (acc_cj if isinstance(acc_cj, list) else [])
+                                   if isinstance(x, str)])
 
         else:  # changshi
             for key in ("q_t", "q_s", "a_t", "a_s"):

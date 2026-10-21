@@ -26,13 +26,17 @@
 - cijie   : word=詞、chinese=義、example=例句（繁體）。
 - changshi: word=問、chinese=答（繁體）。
 - 選填（所有題型）：seg=第幾段、exam=該段第幾次大測（皆為 >=1 的整數）。
-- 選填（僅 changshi）：accept=其他可接受的同義答案，以全形分號「；」或「|」分隔
+- 選填（changshi／cijie）：accept=其他可接受的同義答案，以全形分號「；」或「|」分隔
   （例：`楚辭體,楚辭體（騷體）,騷體`）。空值不影響，未填此欄時自動產生的 accept 不變。
+  cijie 的 accept 用於通假字等「拆開寫也算對」的情況（如答案「通「已」，停止」填 `已；停止`）。
 - 選填（僅 changshi）：group=干擾項的「同類」群組名（如 `數量`、`稱謂`、`書名`）；
   選擇題會優先取同 unit 同 group 的答案作干擾項。留空則只按 unit／題型抽，
   空值時該欄完全不輸出（資料檔與未填時一致）。
 - 選填（僅 changshi）：note=答後顯示的「補充說明」（背景／來由／關聯知識，繁體）；
   非空時另產生 note_s（t2s 逐字轉換），留空則 note 為空字串、不輸出 note_s。
+- 選填（僅 cijie）：note=答後補充說明（如古今異義的「今義：…」），追加在程式自動產生的
+  提示之後（以「；」連接，兩者並存），非空時另輸出 note_s；accept=其他可接受的答案
+  （如通假字拆開寫），分隔規則同 changshi，逐值併入 accept（補 t2s、去重），空值不輸出該欄。
 
 規則摘要
 --------
@@ -94,6 +98,10 @@ UNITS_CONFIG = [
     {"file": "guoshang_cijie.csv", "id": "guoshang", "name": "《國殤》", "module": "cijie"},
     {"file": "jishi_cijie.csv", "id": "jishi", "name": "《季氏將伐顓臾》", "module": "cijie"},
     {"file": "liao_e_cijie.csv", "id": "liao_e", "name": "《蓼莪》", "module": "cijie"},
+    {"file": "第1段_第2次_古詩十九首_cijie.csv", "id": "gushi19", "name": "《古詩十九首》", "module": "cijie", "seg": 1, "exam": 2},
+    {"file": "第1段_第2次_孔雀東南飛_cijie.csv", "id": "kongque", "name": "《孔雀東南飛》", "module": "cijie", "seg": 1, "exam": 2},
+    {"file": "第1段_第2次_齊桓晉文之事_cijie.csv", "id": "qihuan", "name": "《齊桓晉文之事》", "module": "cijie", "seg": 1, "exam": 2},
+    {"file": "第1段_第2次_齊桓晉文之事_一詞多義_cijie.csv", "id": "qihuan_yi", "name": "《齊桓晉文之事》・一詞多義", "module": "cijie", "seg": 1, "exam": 2},
     {"file": "xianqin_wenxue.csv", "id": "xianqin", "name": "先秦文學常識", "module": "changshi"},
     {"file": "zhuzi_yuyan.csv", "id": "zhuzi", "name": "諸子寓言出處", "module": "changshi"},
     {"file": "第1段_第2次_先秦文學.csv", "id": "xianqin2", "name": "先秦文學常識・續", "module": "changshi", "seg": 1, "exam": 2},
@@ -654,14 +662,31 @@ def build_cijie(rec: dict, unit: str):
     if senses and senses[0] == answer.strip() and clean_annotations(answer) == "":
         notes.append("來源僅提供注音，未提供義項")
 
-    return {
+    # 選填 CSV note：追加在自動提示之後（不覆蓋），兩者以「；」連接
+    extra_note = (rec.get("note") or "").strip()
+    if extra_note:
+        notes.append(extra_note)
+
+    item = {
         "type": "cijie", "unit": unit,
         "q_t": q_t, "q_s": t2s(q_t),
         "w_t": word, "w_s": t2s(word),
         "a_t": senses, "a_s": [t2s(x) for x in senses],
         "k_t": keys, "k_s": [t2s(x) for x in keys],
         "note": "；".join(notes),
-    }, None
+    }
+    # 選填 CSV accept：逐值併入可接受答案（補 t2s 版本、保序去重）；沒有值時不輸出此欄
+    accept = []
+    for value in parse_accept(rec.get("accept", "")):
+        for form in (value, t2s(value)):
+            if form and form not in accept:
+                accept.append(form)
+    if accept:
+        item["accept"] = accept
+    # 有 CSV note 才輸出 note_s（含自動提示的完整 note，繁簡長度才會一致）
+    if extra_note:
+        item["note_s"] = t2s(item["note"])
+    return item, None
 
 
 def build_changshi(rec: dict, unit: str):
@@ -828,7 +853,7 @@ def build_dataset(now: str = None):
                 t_fields.extend(v if isinstance(v, list) else [v])
         if it["type"] == "mingju":
             t_fields.append(it["t"])
-        elif it["type"] == "changshi":
+        elif it["type"] in ("changshi", "cijie"):
             t_fields.extend(it.get("accept", []))   # accept 含繁簡兩種形式，都要進 t2s 表
     t_fields.extend(u["name"] for u in units)
 
