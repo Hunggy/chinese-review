@@ -50,8 +50,10 @@
 5. id 依「來源檔順序＋行號」編號（mj- / cj- / cs-），已知來源在前、新增來源按檔名排序，
    重跑穩定；重複條目會跳過。
 6. 名句的 chinese 若寫成「作者《出處》」，拆成 author_t/author_s 與 src_t/src_s；
-   出處再拆成書名（src_t/src_s，例《左傳》）與篇名：篇名非空時另輸出完整出處
-   src_full_t/src_full_s，並在 note 註明「原句見《左傳·僖公五年》，作答填書名即可。」；
+   出處再拆成書名（src_t/src_s，例《左傳》）與篇名；所有名句一律輸出完整出處
+   src_full_t/src_full_s（書名＋篇名，沒有篇名時等於書名）。
+   note 依 exam 區分：exam 1 →「出處須寫全名（<src_full_t>），只寫書名不計分」；
+   exam>1 且有篇名 →「原句見<src_full_t>，作答填書名即可」；
    沒寫作者時由出處推斷（詩經／古詩十九首→佚名、楚辭→屈原，其餘暫定佚名並列進報告待覆核）。
 7. 每題都有 seg / exam：CSV 欄 seg、exam 優先；其次檔名（seg1／第1段、exam1／第1次）；
    最後用 UNITS_CONFIG 的 seg／exam（預設 1）。分佈統計列在報告的 segments／exams。
@@ -609,29 +611,25 @@ def build_mingju(rec: dict, unit: str):
     # 出處拆成書名（作答／顯示用）與篇名（放進 note 當補充說明）
     book, detail = split_src(src)
     book_t, book_s = s2t_fixed(book), t2s(s2t_fixed(book))
+    # 完整出處（書名＋篇名）：所有名句一律輸出；沒有篇名時等於書名（v1.3）
     src_full_t = s2t_fixed(src)
+    src_full_s = t2s(src_full_t)
+    # 出處以外的 note 片段（出處相關片段依 exam 由 main 迴圈組裝，因為 row 級 exam 在 build 之後才賦值）
     notes = []
-    if detail:
-        notes.append("原句見%s，作答填書名即可" % src_full_t)
     if not any(ch in SPLIT_PUNCT for ch in raw):
         notes.append("原句無句讀標點，無法切半（仍保留）")
     if not src:
         notes.append("出處從缺")
-    note = "；".join(notes)
-    if detail and note:
-        note += "。"
     item = {
         "type": "mingju", "unit": unit,
         "t": t, "s": raw,
         "author_t": s2t_fixed(author_use), "author_s": t2s(author_use),
         "src_t": book_t, "src_s": book_s,
+        "src_full_t": src_full_t, "src_full_s": src_full_s,
+        "note": "",
     }
-    if detail:
-        item["src_full_t"] = src_full_t
-        item["src_full_s"] = t2s(src_full_t)
-    item["note"] = note
-    if detail:
-        item["note_s"] = t2s(note)
+    item["_note_extra"] = notes            # 除出處外其餘 note 片段（無句讀／出處從缺）
+    item["_has_detail"] = bool(detail)     # 是否有篇名（exam>1 的 note 只在有篇名時出現）
     if need_review:
         item["_author_note"] = ("出處「%s」判斷不出作者，暫定「%s」，請人工覆核"
                                 % (src or "(從缺)", author_use))
@@ -806,6 +804,25 @@ def build_dataset(now: str = None):
                 warnings.append("來源 %s:%d 的段／次大測欄位無效（%s），已改用預設 seg=%d exam=%d"
                                 % (e["file"], line_no, "、".join(bad),
                                    levels["seg"], levels["exam"]))
+            # 名句 note 依 exam 組裝：出處相關片段在此才補（row 級 exam 剛賦值，v1.3）
+            if item["type"] == "mingju":
+                notes = item.pop("_note_extra", []) or []
+                has_detail = item.pop("_has_detail", False)
+                src_full_t = item.get("src_full_t") or ""
+                src_note = ""
+                if src_full_t:
+                    if item["exam"] == 1:
+                        src_note = "出處須寫全名（%s），只寫書名不計分" % src_full_t
+                    elif has_detail:
+                        src_note = "原句見%s，作答填書名即可" % src_full_t
+                if src_note:
+                    notes.insert(0, src_note)
+                note = "；".join(notes)
+                if src_note and note:
+                    note += "。"
+                item["note"] = note
+                if note:
+                    item["note_s"] = t2s(note)
             count += 1
             drafts.append(item)
 

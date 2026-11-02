@@ -1123,6 +1123,19 @@ a { color: var(--accent-ink); text-underline-offset: 3px; }
 .option[disabled] { cursor: default; }
 .option[disabled]:hover { transform: none; }
 
+/* ---- 名句「作者・出處」＋選擇題：作者／作品兩組並列（v1.4） ---- */
+.option-group { margin-top: var(--sp-5); }
+.option-group + .option-group { margin-top: var(--sp-6); }
+.option-group-label {
+  display: block;
+  margin-bottom: var(--sp-2);
+  font-family: var(--font-serif);
+  font-size: var(--fs-xs);
+  letter-spacing: var(--track-wide);
+  color: var(--ink-3);
+}
+.option-group .options { margin-top: 0; }
+
 /* ---- 翻卡自評 ---- */
 .card-controls {
   display: grid;

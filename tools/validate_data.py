@@ -32,6 +32,9 @@
 16. 選填 note（答後補充說明）：若有必須是字串、note 與 note_s 漢字長度必須一致（逐字轉換），
     常識題有 note 就必須有 note_s；note 含數字／英文字母只印 warning（顯示用，不影響判分）。
 17. 詞解選填 accept：若有必須是非空字串陣列（每項非空字串），否則 error。
+18. 名句 src_full（完整出處）：存在時必須是字串且 src_full_t/src_full_s 繁簡長度一致；
+    exam 1（第 1 次大測）名句必須有 src_full_t/src_full_s，且 src_full_t 含 src_t 的書名
+    （去掉書名號後 in 檢查，確保全名以書名開頭）。
 """
 
 from __future__ import annotations
@@ -276,6 +279,21 @@ def validate(data: dict, js_data, report):
                 err("%s 繁簡長度不一致：t(%d) / s(%d)" % (label, len(it.get("t", "")), len(it.get("s", ""))))
             if len(it.get("src_t", "")) != len(it.get("src_s", "")):
                 err("%s 出處繁簡長度不一致：%s / %s" % (label, it.get("src_t"), it.get("src_s")))
+            # v1.3：完整出處 src_full_t/src_full_s（所有名句都要有；無篇名時＝書名）
+            full_t = it.get("src_full_t")
+            full_s = it.get("src_full_s")
+            if full_t is not None or full_s is not None:
+                if not isinstance(full_t, str) or not isinstance(full_s, str):
+                    err("%s src_full 必須是字串：%r / %r" % (label, full_t, full_s))
+                elif len(full_t) != len(full_s):
+                    err("%s src_full 繁簡長度不一致：%s / %s" % (label, full_t, full_s))
+            if it.get("exam") == 1:
+                if not full_t or not full_s:
+                    err("%s exam 1 名句缺 src_full_t/src_full_s（出處須寫全名，只寫書名不計分）" % label)
+                else:
+                    book_name = it.get("src_t", "").strip("《》")
+                    if book_name and book_name not in full_t:
+                        err("%s src_full_t 未包含書名「%s」：%s" % (label, book_name, full_t))
             if t2s and only_han(T2S.convert(it.get("t", ""))) != only_han(it.get("s", "")):
                 err("%s t2s 轉換後與 s 不一致：t=%s s=%s" % (label, it.get("t"), it.get("s")))
             if not any(ch in SPLIT_PUNCT for ch in it.get("t", "")):

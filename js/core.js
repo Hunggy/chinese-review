@@ -286,8 +286,22 @@
 
   function source_pair(item) { return pair(item, 'src'); }
 
-  /* 完整出處（含篇名，如《左傳·僖公五年》）——只用於寬容判分與搜尋，不顯示 */
+  /* 完整出處（含篇名，如《左傳·僖公五年》）——用於寬容判分與搜尋 */
   function source_full_pair(item) { return pair(item, 'src_full'); }
+
+  /* 第 1 次大測（exam 1）：出處必須寫全名（書名＋篇名），只寫書名不計分 */
+  function requires_full_source(item) {
+    return item_exam(item) === 1;
+  }
+
+  /* 作答／顯示用的出處欄位：exam 1 用完整出處（src_full），其餘用書名（src）；
+   * src_full 缺欄位時退回 src。 */
+  function source_answer_pair(item) {
+    if (!requires_full_source(item)) return source_pair(item);
+    var p = pair(item, 'src_full');
+    if (!p.t && !p.s) return source_pair(item);
+    return p;
+  }
 
   /* 是否為「佚名」類寫法（含簡體變體） */
   function is_anon_text(text) {
@@ -307,9 +321,9 @@
     return a + '《' + s + '》';
   }
 
-  /* 名句「作者・出處」模式的組合答案（選擇題選項用） */
+  /* 名句「作者・出處」模式的組合答案（選擇題選項用；exam 1 用完整出處） */
   function author_variant(item) {
-    var a = author_pair(item), s = source_pair(item);
+    var a = author_pair(item), s = source_answer_pair(item);
     return { t: join_author_src(a.t, s.t), s: join_author_src(a.s, s.s) };
   }
 
@@ -512,11 +526,18 @@
     return false;
   }
 
-  /* 名句「作者・出處」判分：兩欄都對才算 ok；回傳逐欄結果（spec §7） */
+  /* 名句「作者・出處」判分：兩欄都對才算 ok；回傳逐欄結果（spec §7）
+   * 出處判分依 exam 而定（v1.3）：
+   *   - exam 1（第 1 次大測）：只接受完整出處（src_full_t/src_full_s，無 src_full 時退回書名），
+   *     只寫書名判錯；expected_source 為全名。
+   *   - 其他次大測：書名（src_t/src_s）或完整出處（src_full_t/src_full_s）都算對。
+   */
   function grade_author(item, author_text, source_text, opts) {
     opts = opts || {};
     var a_raw = str(author_text).trim(), s_raw = str(source_text).trim();
-    var exp_a = author_pair(item), exp_s = source_pair(item);
+    var full = requires_full_source(item);
+    var exp_a = author_pair(item);
+    var exp_s = full ? source_answer_pair(item) : source_pair(item);
     var out = {
       ok: false,
       author_ok: false,
@@ -536,11 +557,17 @@
     var a_forms = uniq([norm(a_raw), norm_answer(a_raw)]).filter(Boolean);
     var s_forms = uniq([norm(s_raw), norm_answer(s_raw)]).filter(Boolean);
     var a_targets = uniq([norm(exp_a.t), norm(exp_a.s)]).filter(Boolean);
-    /* 出處只考書名（src_t/src_s）；願意背篇名的人打完整出處（src_full_t/src_full_s）也算對 */
-    var exp_s_full = source_full_pair(item);
-    var s_targets = uniq([
-      norm(exp_s.t), norm(exp_s.s), norm(exp_s_full.t), norm(exp_s_full.s)
-    ]).filter(Boolean);
+    var s_targets;
+    if (full) {
+      /* exam 1：出處只接受完整出處（exp_s 已由 source_answer_pair 取 src_full） */
+      s_targets = uniq([norm(exp_s.t), norm(exp_s.s)]).filter(Boolean);
+    } else {
+      /* 其他次大測：只考書名（src_t/src_s）；願意背篇名的人打完整出處（src_full_t/src_full_s）也算對 */
+      var exp_s_full = source_full_pair(item);
+      s_targets = uniq([
+        norm(exp_s.t), norm(exp_s.s), norm(exp_s_full.t), norm(exp_s_full.s)
+      ]).filter(Boolean);
+    }
     /* 標準為「佚名」時，接受無名氏／不詳 */
     var anon_targets = ANON_NAMES.concat(ANON_NAMES.map(to_simple)).map(norm).filter(Boolean);
     var anon_expected = norm_match(a_targets, anon_targets);
@@ -730,6 +757,69 @@
       if (norm(options[i].t) === norm(correct.t) && norm(correct.t)) { correct_index = i; break; }
     }
     return { options: options, correct_index: correct_index, correct: correct, count: options.length };
+  }
+
+  /* 名句「作者・出處」＋選擇題：作者／作品兩組並列（v1.4，只處理 mingju）
+   * 回傳 { split: true, author: { options, correct_index, correct }, work: { options, correct_index, correct } }
+   * - options 為 {t,s} 陣列；author 用 author_pair、work 用 source_answer_pair
+   *   （exam 1 用完整出處 src_full、其他次用書名 src）
+   * - 干擾項分層：同 unit 其他名句 → 其他名句 → pool 內其他題型同名欄位（最後手段）
+   * - seed 行為與 build_options 一致（同 seed 結果穩定）；題庫不足時安全退化（不拋錯）
+   */
+  function build_split_options(item, pool, opts) {
+    opts = opts || {};
+    var rng = opts.rng || make_rng(opts.seed === undefined ? undefined : opts.seed);
+    pool = is_array(pool) && pool.length ? pool : all_items();
+    var author_correct = author_pair(item);
+    var work_correct = source_answer_pair(item);
+
+    /* 單組選項：收集該欄位值 → 分層抽干擾項 → 併入正確項後打亂 */
+    function build_group(correct, extractor) {
+      var cands = [], i, it;
+      for (i = 0; i < pool.length; i++) {
+        it = pool[i];
+        if (!it || it.id === item.id) continue;
+        var v = extractor(it);
+        if (!v || (!v.t && !v.s)) continue;
+        cands.push({ v: v, type: it.type, unit: it.unit });
+      }
+      cands = shuffle(cands, rng);
+
+      var tiers = [
+        function (c) { return c.type === 'mingju' && c.unit === item.unit; },
+        function (c) { return c.type === 'mingju'; },
+        function () { return true; }
+      ];
+      var picked = [], taken = {};
+      var ct = norm(correct.t); if (ct) taken[ct] = 1;
+      var cs = norm(correct.s); if (cs) taken[cs] = 1;
+      function pick(c) {
+        if (picked.length >= 3) return false;
+        var n = norm(c.v.t) || norm(c.v.s);
+        if (!n || taken[n]) return false;
+        taken[n] = 1;
+        picked.push(c.v);
+        return true;
+      }
+      for (i = 0; i < tiers.length && picked.length < 3; i++) {
+        var matched = cands.filter(tiers[i]);
+        for (var k = 0; k < matched.length && picked.length < 3; k++) pick(matched[k]);
+      }
+
+      var options = picked.concat([correct]);
+      options = shuffle(options, rng);
+      var correct_index = 0;
+      for (i = 0; i < options.length; i++) {
+        if (options[i] === correct) { correct_index = i; break; }
+      }
+      return { options: options, correct_index: correct_index, correct: correct };
+    }
+
+    return {
+      split: true,
+      author: build_group(author_correct, function (it) { return author_pair(it); }),
+      work: build_group(work_correct, function (it) { return source_answer_pair(it); })
+    };
   }
 
   /* 選項 key：A B C D */
@@ -1403,16 +1493,19 @@
     if (!item) return { lines: [], src: '', note: '' };
     if (item.type === 'mingju') {
       var p = sentence(item);
-      return { lines: [use_s ? p.s : p.t], src: use_s ? pair(item, 'src').s : pair(item, 'src').t, note: str(item.note) };
+      var sp = source_answer_pair(item);
+      return { lines: [use_s ? p.s : p.t], src: use_s ? sp.s : sp.t, note: str(item.note) };
     }
     if (item.type === 'cijie') {
       var a = list_pair(item, 'a'), w = pair(item, 'w');
       var lines = (use_s ? a.s : a.t).slice();
       if (!lines.length) lines = [''];
-      return { lines: lines, word: use_s ? w.s : w.t, src: use_s ? pair(item, 'src').s : pair(item, 'src').t, note: str(item.note) };
+      var sp2 = source_answer_pair(item);
+      return { lines: lines, word: use_s ? w.s : w.t, src: use_s ? sp2.s : sp2.t, note: str(item.note) };
     }
     var c = pair(item, 'a');
-    return { lines: [use_s ? c.s : c.t], src: use_s ? pair(item, 'src').s : pair(item, 'src').t, note: str(item.note) };
+    var sp3 = source_answer_pair(item);
+    return { lines: [use_s ? c.s : c.t], src: use_s ? sp3.s : sp3.t, note: str(item.note) };
   }
 
   /* ============================================================
@@ -1495,6 +1588,8 @@
     author_pair: author_pair,
     source_pair: source_pair,
     source_full_pair: source_full_pair,
+    requires_full_source: requires_full_source,
+    source_answer_pair: source_answer_pair,
     author_variant: author_variant,
     join_author_src: join_author_src,
     is_anon_text: is_anon_text,
@@ -1521,6 +1616,7 @@
 
     /* 選擇題 */
     build_options: build_options,
+    build_split_options: build_split_options,
     option_key: option_key,
     answer_shape: answer_shape,
     shape_family: shape_family,

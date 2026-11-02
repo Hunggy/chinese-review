@@ -814,7 +814,8 @@ items.forEach((it) => {
 ok(pair_ok, '必填欄位齊全（t/s、a、a_t）');
 
 /* ============================================================
- * 17. 名句作者・出處（v1.1／v1.2 只考書名、篇名放 note）
+ * 17. 名句作者・出處（v1.1／v1.2 只考書名、篇名放 note；
+ *     v1.3：exam 1 出處須寫全名，其他次仍只考書名）
  * ============================================================ */
 section('17. 名句作者・出處');
 
@@ -826,28 +827,50 @@ mj.forEach((it) => {
   ok(!/^[^《]+《/.test(it.src_t), it.id + ' 出處不含作者');
   /* v1.2：src_t/src_s 只放書名，篇名改放 note（不再考篇名） */
   ok(it.src_t.indexOf('·') < 0 && it.src_s.indexOf('·') < 0, it.id + ' 出處只留書名（不含篇名分隔符）');
-  if (it.src_full_t) {
-    ok(it.src_full_t.indexOf(it.src_t.replace(/^《|》$/g, '')) >= 0,
-      it.id + ' src_full_t 以書名開頭');
-    ok(String(it.note || '').indexOf(it.src_full_t) >= 0, it.id + ' note 含完整出處（篇名）');
+  /* v1.3：所有名句都有 src_full（無篇名時＝書名），exam 1 的 note 須提示寫全名 */
+  ok(!!it.src_full_t && !!it.src_full_s, it.id + ' 有完整出處 src_full（無篇名時＝書名）');
+  ok(it.src_full_t.indexOf(it.src_t.replace(/^《|》$/g, '')) >= 0, it.id + ' src_full_t 以書名開頭');
+  if (C.item_exam(it) === 1) {
+    ok(String(it.note || '').indexOf(it.src_full_t) >= 0, it.id + ' exam 1 note 含完整出處（全名）');
   }
 });
-const with_detail = mj.filter((it) => !!it.src_full_t);
-ok(with_detail.length > 0, '有名句帶篇名（src_full_t）');
-ok(with_detail.every((it) => String(it.note || '').indexOf('作答填書名即可') >= 0),
-  '有篇名的名句 note 註明只需書名');
+const exam1_mj = mj.filter((it) => C.item_exam(it) === 1);
+const exam2_mj = mj.filter((it) => C.item_exam(it) === 2);
+ok(exam1_mj.length > 0 && exam2_mj.length > 0, '第 1／2 次大測名句都有資料（' + exam1_mj.length + '/' + exam2_mj.length + '）');
+ok(exam1_mj.every((it) => String(it.note || '').indexOf('出處須寫全名') >= 0), 'exam 1 名句 note 提示出處須寫全名');
+ok(exam2_mj.filter((it) => it.src_full_t !== it.src_t).every((it) => String(it.note || '').indexOf('作答填書名即可') >= 0),
+  'exam 2 帶篇名的名句 note 註明只需書名');
 
-/* 指定題：左丘明《左傳·僖公五年》→ 書名《左傳》、篇名放 note */
+/* 指定題：左丘明《左傳·僖公五年》（exam 2）→ 書名《左傳》、篇名放 note */
 const zhuan = mj.find((it) => it.author_t === '左丘明' && /僖公五年/.test(String(it.src_full_t || '')));
 ok(!!zhuan, '題庫有《左傳·僖公五年》（帶篇名）');
 if (zhuan) {
   eq(zhuan.src_t, '《左傳》', 'src_t 只留書名《左傳》');
   ok(zhuan.note.indexOf('僖公五年') >= 0, 'note 保留篇名「僖公五年」');
-  eq(C.grade_author(zhuan, '左丘明', '左傳').ok, true, '只寫書名（左傳）→ ok');
-  eq(C.grade_author(zhuan, '左丘明', '《左傳》').ok, true, '只寫書名（《左傳》）→ ok');
-  eq(C.grade_author(zhuan, '左丘明', '左傳·僖公五年').ok, true, '願意背篇名（左傳·僖公五年）→ 也算對');
-  eq(C.grade_author(zhuan, '左丘明', '左傳僖公五年').ok, true, '完整出處（無分隔符）→ 也算對');
-  eq(C.grade_author(zhuan, '左丘明', '左傳·隱公元年').ok, false, '書名＋錯誤篇名 → 不算對（只接受書名或完整正確出處）');
+  eq(C.grade_author(zhuan, '左丘明', '左傳').ok, true, 'exam 2 只寫書名（左傳）→ ok');
+  eq(C.grade_author(zhuan, '左丘明', '《左傳》').ok, true, 'exam 2 只寫書名（《左傳》）→ ok');
+  eq(C.grade_author(zhuan, '左丘明', '左傳·僖公五年').ok, true, 'exam 2 願意背篇名（左傳·僖公五年）→ 也算對');
+  eq(C.grade_author(zhuan, '左丘明', '左傳僖公五年').ok, true, 'exam 2 完整出處（無分隔符）→ 也算對');
+  eq(C.grade_author(zhuan, '左丘明', '左傳·隱公元年').ok, false, 'exam 2 書名＋錯誤篇名 → 不算對（只接受書名或完整正確出處）');
+}
+
+/* v1.3：exam 1 出處只接受全名（書名＋篇名），只寫書名判錯 */
+const e1_full = exam1_mj.find((it) => String(it.src_full_t || '').indexOf('·') >= 0);
+ok(!!e1_full, '有 exam 1 名句帶篇名');
+if (e1_full) {
+  const r_book = C.grade_author(e1_full, e1_full.author_t, e1_full.src_t);
+  eq(r_book.source_ok, false, 'exam 1 只寫書名（' + e1_full.src_t + '）→ source_ok=false');
+  eq(r_book.ok, false, 'exam 1 只寫書名 → 整題錯');
+  const r_full = C.grade_author(e1_full, e1_full.author_t, e1_full.src_full_t);
+  eq(r_full.source_ok, true, 'exam 1 寫完整出處 → source_ok=true');
+  eq(r_full.ok, true, 'exam 1 寫完整出處 → ok');
+  const r_nosep = C.grade_author(e1_full, e1_full.author_t, e1_full.src_full_t.replace('·', ''));
+  eq(r_nosep.source_ok, true, 'exam 1 完整出處（無分隔符）→ source_ok=true');
+  eq(r_nosep.ok, true, 'exam 1 無分隔符 → 整題也對');
+  eq(C.grade_author(e1_full, e1_full.author_s, e1_full.src_full_s).ok, true, 'exam 1 簡體完整出處 → ok');
+  /* 回傳的 expected_source 為全名 */
+  eq(r_full.expected_source, e1_full.src_full_t, 'exam 1 expected_source 為全名');
+  eq(r_full.expected_source_s, e1_full.src_full_s, 'exam 1 expected_source_s 為全名');
 }
 
 if (named) {
@@ -887,10 +910,17 @@ eq(opt.options.length, 4, '作者出處選擇題 4 個選項');
 eq(new Set(opt.options.map((o) => o.t)).size, 4, '作者出處選項不重複');
 ok(opt.options.some((o) => C.norm(o.t) === C.norm(named.author_t + '《' + named.src_t.replace(/^《|》$/g, '') + '》') || C.norm(o.t) === C.norm(C.join_author_src(named.author_t, named.src_t))), '選項含正確作者＋出處');
 ok(opt.options.every((o) => o.t.indexOf('《') >= 0), '每個選項都是「作者《出處》」格式');
-ok(opt.options.every((o) => o.t.indexOf('·') < 0 && o.s.indexOf('·') < 0),
-  '作者出處選項只顯示書名（不含篇名）');
 
-/* v1.2：指定題（左丘明《左傳·僖公五年》）的選擇題選項也不得出現篇名 */
+/* v1.3：選擇題選項格式依目標題 exam 而定——exam 1 含全名、exam 2 只顯示書名 */
+const e1_first = exam1_mj[0];
+if (e1_first && String(e1_first.src_full_t || '').indexOf('·') >= 0) {
+  const e1o = C.build_options(e1_first, mj, { direction: 'author', seed: 17 });
+  eq(e1o.options.length, 4, 'exam 1 作者出處選擇題 4 個選項');
+  ok(e1o.options.some((o) => o.t.indexOf(e1_first.src_full_t) >= 0), 'exam 1 選擇題選項含全名（' + e1_first.src_full_t + '）');
+  ok(C.author_variant(e1_first).t.indexOf(e1_first.src_full_t) >= 0, 'exam 1 author_variant 用完整出處');
+}
+
+/* v1.2：指定題（左丘明《左傳·僖公五年》，exam 2）的選擇題選項也不得出現篇名 */
 if (zhuan) {
   const zo = C.build_options(zhuan, mj, { direction: 'author', seed: 11 });
   eq(zo.options.length, 4, '《左傳》題的選擇題 4 個選項');
@@ -898,6 +928,107 @@ if (zhuan) {
   ok(zo.options.some((o) => C.norm(o.t) === C.norm('左丘明《左傳》')), '正確選項＝左丘明《左傳》');
   eq(zo.correct.t, '左丘明《左傳》', 'answer_variants 用書名版');
 }
+
+/* ============================================================
+ * 17b. 名句作者・出處＋選擇題：作者／作品兩組並列（v1.4）
+ * ============================================================ */
+section('17b. 名句作者出處選擇題（split 兩組）');
+
+const split_mj = mj.filter((it) => it.type === 'mingju');
+const split_target = named || mj[0];
+const spl = C.build_split_options(split_target, split_mj, { direction: 'author', seed: 31 });
+eq(spl.split, true, '回傳 split: true 標記');
+ok(!!spl.author && !!spl.work, '含 author／work 兩組');
+['author', 'work'].forEach((k) => {
+  const g = spl[k];
+  eq(g.options.length, 4, k + ' 組 4 個選項');
+  eq(new Set(g.options.map((o) => C.norm(o.t))).size, 4, k + ' 組選項不重複');
+  eq(C.norm(g.options[g.correct_index].t), C.norm(g.correct.t), k + ' 組 correct_index 指向正確項');
+  ok(g.options.some((o) => C.norm(o.t) === C.norm(g.correct.t)), k + ' 組含正確項');
+});
+ok(spl.author.options.every((o) => o.t.indexOf('《') < 0), '作者組選項都是純作者（不含《》）');
+ok(spl.work.options.every((o) => o.t.indexOf('《') === 0), '作品組選項以書名號開頭');
+
+/* exam 1：作品組用完整出處（含「·」）；exam 2：作品組用書名 */
+const e1_split = exam1_mj.find((it) => String(it.src_full_t || '').indexOf('·') >= 0) || exam1_mj[0];
+if (e1_split) {
+  const g1 = C.build_split_options(e1_split, split_mj, { direction: 'author', seed: 41 }).work;
+  const e1_works = new Set(split_mj.filter((it) => C.item_exam(it) === 1).map((it) => C.source_answer_pair(it).t));
+  ok(g1.options.every((o) => e1_works.has(o.t)), 'exam 1 作品組選項都是完整出處（' + g1.options.map((o) => o.t).join('、') + '）');
+  ok(g1.options.some((o) => o.t.indexOf('·') >= 0), 'exam 1 帶篇名題的作品組含「·」分隔符');
+  eq(C.norm(g1.options[g1.correct_index].t), C.norm(e1_split.src_full_t), 'exam 1 作品組正確項為完整出處');
+}
+const e2_split = exam2_mj[0];
+if (e2_split) {
+  const g2 = C.build_split_options(e2_split, split_mj, { direction: 'author', seed: 43 }).work;
+  const e2_works = new Set(split_mj.filter((it) => C.item_exam(it) === 2).map((it) => C.source_pair(it).t));
+  ok(g2.options.every((o) => e2_works.has(o.t)), 'exam 2 作品組選項都是書名（' + g2.options.map((o) => o.t).join('、') + '）');
+  ok(g2.options.every((o) => o.t.indexOf('·') < 0), 'exam 2 作品組選項不含篇名分隔符');
+  eq(C.norm(g2.options[g2.correct_index].t), C.norm(C.source_pair(e2_split).t), 'exam 2 作品組正確項為書名');
+}
+
+/* 固定 seed 重跑結果一致（選項順序與索引相同） */
+const spl_a = C.build_split_options(split_target, split_mj, { direction: 'author', seed: 55 });
+const spl_b = C.build_split_options(split_target, split_mj, { direction: 'author', seed: 55 });
+eq(spl_a, spl_b, '固定 seed 重跑結果一致');
+
+/* 同 unit 優先：作者組干擾項先取同 unit 名句的作者 */
+const unit_authors = new Set(split_mj.filter((it) => it.unit === split_target.unit && it.id !== split_target.id).map((it) => C.author_pair(it).t));
+if (unit_authors.size >= 3) {
+  const da = spl.author.options.filter((o) => C.norm(o.t) !== C.norm(spl.author.correct.t));
+  ok(da.every((o) => unit_authors.has(o.t)), '作者組干擾項取自同 unit 名句作者（' + da.map((o) => o.t).join('、') + '）');
+}
+
+/* mock：同 unit 作者／作品不足 → 放寬到其他名句，仍湊滿 4 個 */
+const ds_split_small = {
+  meta: { title: 't' },
+  units: [{ id: 'A', name: 'A' }, { id: 'B', name: 'B' }],
+  items: [
+    { id: 'sp-0', type: 'mingju', unit: 'A', exam: 2, t: '句一。', s: '句一。', author_t: '甲', author_s: '甲', src_t: '《書一》', src_s: '《书一》' },
+    { id: 'sp-1', type: 'mingju', unit: 'A', exam: 2, t: '句二。', s: '句二。', author_t: '甲', author_s: '甲', src_t: '《書二》', src_s: '《书二》' },
+    { id: 'sp-2', type: 'mingju', unit: 'B', exam: 2, t: '句三。', s: '句三。', author_t: '乙', author_s: '乙', src_t: '《書三》', src_s: '《书三》' },
+    { id: 'sp-3', type: 'mingju', unit: 'B', exam: 2, t: '句四。', s: '句四。', author_t: '丙', author_s: '丙', src_t: '《書四》', src_s: '《书四》' },
+    { id: 'sp-4', type: 'mingju', unit: 'B', exam: 2, t: '句五。', s: '句五。', author_t: '丁', author_s: '丁', src_t: '《書五》', src_s: '《书五》' }
+  ],
+  t2s: {}
+};
+with_dataset(ds_split_small, () => {
+  const all = C.items();
+  const target = all.find((it) => it.id === 'sp-0');
+  let b = null, err = null;
+  try { b = C.build_split_options(target, all, { direction: 'author', seed: 7 }); } catch (e) { err = e; }
+  ok(!err, 'split mock 不拋錯' + (err ? '：' + err.message : ''));
+  if (b) {
+    eq(b.author.options.length, 4, 'mock 作者組 4 個選項（同 unit 不足時放寬到其他名句）');
+    ok(b.author.options.some((o) => o.t === '甲'), 'mock 作者組含正確項「甲」');
+    eq(new Set(b.author.options.map((o) => o.t)).size, 4, 'mock 作者組不重複');
+    eq(b.work.options.length, 4, 'mock 作品組 4 個選項');
+    ok(b.work.options.some((o) => o.t === '《書一》'), 'mock 作品組含正確項《書一》');
+  }
+});
+
+/* 極小題庫（連其他名句都不足）安全退化：不拋錯、至少含正確項 */
+with_dataset({
+  meta: { title: 't' },
+  units: [{ id: 'A', name: 'A' }],
+  items: [
+    { id: 'tp-0', type: 'mingju', unit: 'A', exam: 2, t: '句甲。', s: '句甲。', author_t: '甲', author_s: '甲', src_t: '《書甲》', src_s: '《书甲》' },
+    { id: 'tp-1', type: 'mingju', unit: 'A', exam: 2, t: '句乙。', s: '句乙。', author_t: '甲', author_s: '甲', src_t: '《書乙》', src_s: '《书乙》' }
+  ],
+  t2s: {}
+}, () => {
+  const all = C.items();
+  const target = all.find((it) => it.id === 'tp-0');
+  let b2 = null, err2 = null;
+  try { b2 = C.build_split_options(target, all, { direction: 'author', seed: 9 }); } catch (e) { err2 = e; }
+  ok(!err2, '極小題庫不拋錯' + (err2 ? '：' + err2.message : ''));
+  if (b2) {
+    ok(b2.author.options.length >= 1, '極小題庫作者組至少含正確項（' + b2.author.options.length + ' 個）');
+    ok(b2.author.options.some((o) => o.t === '甲'), '極小題庫作者組含正確項');
+    ok(b2.work.options.length >= 2, '極小題庫作品組仍 ≥ 2 個選項（' + b2.work.options.length + '）');
+    ok(b2.work.options.some((o) => o.t === '《書甲》'), '極小題庫作品組含正確項');
+  }
+});
 
 /* ============================================================
  * 18. 段／次大測（v1.1）

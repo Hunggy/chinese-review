@@ -80,14 +80,17 @@ window.CN_DATASET = {
   s: "关关雎鸠，在河之洲；窈窕淑女，君子好逑。",
   author_t: "佚名",     // 作者；詩經／古詩十九首等用「佚名」
   author_s: "佚名",
-  src_t: "《詩經・周南・關雎》",   // 出處（不含作者）
-  src_s: "《诗经・周南・关雎》",
+  src_t: "《詩經》",     // 出處的書名（不含作者、不含篇名）
+  src_s: "《诗经》",
+  src_full_t: "《詩經・周南・關雎》",  // 完整出處（書名＋篇名）；沒有篇名時＝src_t
+  src_full_s: "《诗经・周南・关雎》",
   note: ""
 }
 ```
 
 - 題目以第一個標點（`，,；;：:？?！!`，否則 `。`）切開；「給上默下」顯示前半（含標點），答案為後半；「給下默上」相反。
 - **作者出處模式**：顯示整句，兩個輸入欄（作者／出處），兩欄都對才算對；逐欄顯示對錯。
+- **出處考法依 exam 而定**：第 1 次大測（exam 1）出處必須寫全名（書名＋篇名，如《詩經·大雅·蕩》），只寫書名判錯；其他次大測只考書名（`src_t`），寫完整出處（`src_full`）也算對。
 - 判分：去標點、去空白、繁→簡後**完全相等**。使用者可按「意思對了，算我對」覆寫。
 - 作者若為佚名，接受「佚名／無名氏／不詳」。
 
@@ -373,6 +376,22 @@ window.CN_DATASET = {
       <!-- B C D -->
     </div>
 
+    <!-- 名句・作者出處・選擇題：作者／作品兩組並列（v1.4） -->
+    <div class="option-group">
+      <span class="option-group-label">作者</span>
+      <div class="options" data-mode="mc" data-group="author">
+        <button class="option" data-group="author" data-index="0"><span class="option-key">A</span><span class="option-text">屈原</span></button>
+        <!-- B C D -->
+      </div>
+    </div>
+    <div class="option-group">
+      <span class="option-group-label">作品</span>
+      <div class="options" data-mode="mc" data-group="work">
+        <button class="option" data-group="work" data-index="0"><span class="option-key">A</span><span class="option-text">《離騷》</span></button>
+        <!-- B C D -->
+      </div>
+    </div>
+
     <!-- 翻卡按鈕 -->
     <div class="card-controls">
       <button class="btn btn-ghost" data-action="flip">翻面</button>
@@ -402,7 +421,10 @@ window.CN_DATASET = {
 
 - 只渲染當前狀態需要的節點；用 `hidden` 控制顯示，其他狀態元素可不存在。
 - `data-qtype` 決定加點詞渲染、提示文案。
+- 作者・出處模式的出處輸入框 placeholder 依當前題 exam 動態：exam 1（須寫全名）→「例如：《詩經·大雅·蕩》」，其他 →「例如：《離騷》」。
 - 選擇題：`data-mode="mc"`、`.option[data-index]`，答後 `.option.is-correct` / `.option.is-wrong`，正確答案永遠標綠。
+- 名句・作者出處＋選擇題（v1.4）：同畫面兩組並列——`.option-group`（標籤 `.option-group-label`「作者」／「作品」＋各自 `.options` 容器，`data-group="author|work"`）；按鈕 `.option` 帶 `data-group` 與 `data-index`。作答中先暫存（`S.mc_pick = { author, work }`，-1 = 未選），兩組都選了才送出；**兩組都對才算對**。答後每組正確項 `.is-correct`、選錯項 `.is-wrong`，兩組皆 disabled；判詞「✓ 作者出處正確／✗ 作者或出處有誤」，不顯示「你選的是：…」。
+- 作品組選項依 exam 而定（`C.source_answer_pair(item)`）：exam 1 用完整出處（如《詩經·大雅·蕩》）、其他次用書名（如《尚書》）。
 - 翻卡：`data-state="flash-front"` 只顯示 `.q-prompt`（不泄露答案）＋「翻面」；`flash-back` 顯示 `.answer-box`＋自評按鈕；自評按鈕在正面時 disabled。
 - 回顧：`data-state="review"` 顯示該題完整資料＋`.review-banner`，不可再作答。
 
@@ -521,15 +543,17 @@ norm_answer(s)  // 再去掉「意思是/指/即/為/就是/指的是」前綴�
 ```
 
 - 名句：`norm(用戶) === norm(標準答案)`（給上／給下）；作者出處模式分別比對作者與出處，兩欄都對才 `ok`。
+- 作者出處模式的出處欄依 exam 而定：exam 1（第 1 次大測）只接受完整出處（`src_full_t/src_full_s`，無 src_full 時退回書名），只寫書名判錯；其他次大測接受書名（`src_t/src_s`）或完整出處。
 - 詞解：`norm_answer(用戶)` 等於任一 `a`，或包含任一 `k`（`k` 長度 ≥ 1 漢字）。
 - 常識：`norm_answer(用戶)` 等於 `a` 或任一 `accept`（比較時去掉書名號）。
-- 選擇題：選中 `option.dataset.index` 對應正確項；作者出處＋選擇題時，選項為「作者《出處》」組合。
+- 選擇題：選中 `option.dataset.index` 對應正確項；作者出處＋選擇題時為 split 模式（見下）。
+- 名句・作者出處＋選擇題（v1.4）：`build_split_options(item, pool, opts)` 產生 `{ split: true, author: { options, correct_index, correct }, work: { options, correct_index, correct } }`，作者組用 `author_pair`、作品組用 `source_answer_pair`（exam 1 完整出處／其他書名），干擾項從同題庫其他名句抽（優先同 unit，不足放寬到 pool 內其他題型同名欄位）。判分 `ok = 作者組選對 && 作品組選對`（兩組 `chosen === correct_index` 都成立）；紀錄 `rec.mc = { split: true, author: { options, chosen, correct_index }, work: { … } }`。
 - 所有題型提供「算我對」覆寫（選擇題除外）。
 - 使用者輸入為空時不提交，提示「請先寫下答案」。
 
 ## 8. 鍵盤與無障礙
 
-- `1`–`4` 選擇選項；`Enter` 提交／下一題；`←` 回顧上一題；`→` 由回顧返回；`Space` 翻卡；`A` 標記；`Esc` 回首頁／關閉覆蓋層。
+- `1`–`4` 選擇選項；`Enter` 提交／下一題；`←` 回顧上一題（剛答完時回顧前一題，不會停在原題）；`→` 答完跳下一題／由回顧返回；`Space` 翻卡；`A` 標記；`Esc` 回首頁／關閉覆蓋層。
 - 輸入框自動 focus；`aria-live` 宣佈判分結果；所有按鈕有可讀 label。
 - 尊重 `prefers-reduced-motion`。
 
@@ -560,6 +584,7 @@ norm_answer(s)  // 再去掉「意思是/指/即/為/就是/指的是」前綴�
 - 字號：`--fs-scale`（0.9 / 1 / 1.1 / 1.2），由 `html[style]` 或 `data-font` 控制。
 - 提供 `design/preview.html`：用假資料靜態展示所有畫面與狀態（含深色切換示範），供實作對照與使用者預覽。
 - v1.1 新增：`.answer-form--dual`（兩欄作者／出處，手機上可上下排列）、`.dual-field`、`.field-label`、`.dual-result` / `.dual-result-row.is-ok|.is-bad`、`.dual-answer`、`.dual-mark`、`.dual-yours`；設定頁的段／次 chips 沿用 `.chips` 樣式即可。
+- v1.4 新增：`.option-group` / `.option-group-label`（名句作者出處選擇題的兩組並列容器與標籤）。
 
 ## 11. 驗收清單
 
