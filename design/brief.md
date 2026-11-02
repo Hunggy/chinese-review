@@ -117,7 +117,7 @@
 | `.btn-primary` | 朱砂實心 | 提亮 6% | — | — | — | 半透明、停用游標 | 朱砂外框 |
 | `.btn-ghost` | 紙白＋細框 | 凹陷底 | — | — | `.danger` 轉朱砂 | 同上 | 朱砂外框 |
 | `.btn-mini` | 紙白＋細框 | 凹陷底 | `aria-pressed="true"`（⭐標記）→ 金棕 | — | — | 同上 | 朱砂外框 |
-| `.option` | 細框 | 凹陷底 | `.is-picked`／`aria-pressed` → 朱砂 | `.is-correct` → 綠框綠角標 | `.is-wrong` → 朱砂框紅角標 | 游標還原、色態保留 | 朱砂外框 |
+| `.option` | 細框 | 凹陷底 | `.is-picked`／`aria-pressed` → 墨色文武線雙框＋實心墨鍵位（中性「已選待確認」，不用朱砂以免誤讀為答錯） | `.is-correct` → 綠框綠角標 | `.is-wrong` → 朱砂框紅角標 | 游標還原、色態保留 | 朱砂外框 |
 | `.module-card` | 卡＋淡陰影 | 上浮 2px＋朱砂書口＋箭頭位移 | — | — | — | — | 朱砂外框 |
 | `.browse-item` | 卡 | 框加深 | `.is-open`／`aria-expanded="true"` → 朱砂左條 | — | — | — | 朱砂外框 |
 | `.answer-input` | 凹陷底 | 框加深 | 聚焦 → 紙白＋朱砂框＋3px 光暈 | — | — | `readonly`／`disabled` → 虛線框、**字色不淡化** | 朱砂光暈 |

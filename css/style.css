@@ -1051,6 +1051,7 @@ a { color: var(--accent-ink); text-underline-offset: 3px; }
   border-radius: var(--r-md);
   transition: background-color var(--t-fast) var(--ease),
               border-color var(--t-fast) var(--ease),
+              box-shadow var(--t-fast) var(--ease),
               transform var(--t-fast) var(--ease);
 }
 .option:hover { border-color: var(--ink-3); background: var(--paper-3); }
@@ -1086,16 +1087,21 @@ a { color: var(--accent-ink); text-underline-offset: 3px; }
   line-height: var(--lh-han);
 }
 
-/* 選中（作答前） */
+/* 選中（作答前・暫選待確認）：墨色「文武線」雙框＋實心墨色鍵位。
+   刻意不用朱砂——紅色留給「答錯」（is-wrong），綠色留給「答對」（is-correct）；
+   暫選是中性狀態，用墨色實框表示「已選、待確認」，與 hover 的細灰框拉開層級。 */
 .option.is-picked,
 .option[aria-pressed="true"] {
-  border-color: var(--accent);
-  background: var(--accent-soft);
+  border-color: var(--ink);
+  background: var(--paper-2);
+  box-shadow: inset 0 0 0 2px var(--paper-2),
+              inset 0 0 0 3px var(--ink);
 }
-.option.is-picked .option-key {
-  background: var(--accent);
-  border-color: var(--accent);
-  color: var(--on-accent);
+.option.is-picked .option-key,
+.option[aria-pressed="true"] .option-key {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--paper-2);
 }
 
 /* 答後：正確項永遠標綠 */
@@ -1135,6 +1141,25 @@ a { color: var(--accent-ink); text-underline-offset: 3px; }
   color: var(--ink-3);
 }
 .option-group .options { margin-top: 0; }
+
+/* 組標籤進度點：作答中未選＝空心圈、已選＝實心墨點，同時把該組標籤變淡，
+   提示「還有一組沒選」。純墨色提示，不用紅／警示色；答後不渲染。 */
+.option-group-mark {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  margin-left: var(--sp-2);
+  border: 1px solid var(--ink-3);
+  border-radius: var(--r-pill);
+  vertical-align: middle;
+  transition: background-color var(--t-fast) var(--ease),
+              border-color var(--t-fast) var(--ease);
+}
+.option-group.is-done .option-group-mark {
+  background: var(--ink);
+  border-color: var(--ink);
+}
+.option-group.is-done .option-group-label { opacity: 0.66; }
 
 /* ---- 翻卡自評 ---- */
 .card-controls {

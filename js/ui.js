@@ -630,6 +630,10 @@
     function group_html(key, label) {
       var g = rec_mc ? rec_mc[key] : o[key];
       var chosen = rec_mc ? g.chosen : (pending ? pending[key] : -1);
+      /* 作答中在組標籤加進度點（未選＝空心、已選＝實心並把標籤變淡），提示還有一組未選；
+         純視覺提示，不影響判分；答後／回顧不渲染。 */
+      var asking = !answered && !rec_mc;
+      var mark = asking ? '<span class="option-group-mark" aria-hidden="true"></span>' : '';
       var html = g.options.map(function (opt, i) {
         var cls = 'option';
         if (answered || rec_mc) {
@@ -645,8 +649,8 @@
           '<span class="option-text han" data-raw>' + h(sm ? opt.s : opt.t) + '</span>' +
           '</button>';
       }).join('');
-      return '<div class="option-group">' +
-        '<span class="option-group-label">' + h(T(label)) + '</span>' +
+      return '<div class="option-group' + (asking && chosen >= 0 ? ' is-done' : '') + '">' +
+        '<span class="option-group-label">' + h(T(label)) + mark + '</span>' +
         '<div class="options" data-mode="mc" data-group="' + key + '">' + html + '</div>' +
       '</div>';
     }

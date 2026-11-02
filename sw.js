@@ -7,7 +7,7 @@
 (function () {
   'use strict';
 
-  var VERSION = 'cn-review-2026-11-03.1';
+  var VERSION = 'cn-review-2026-11-03.2';
 
   var PRECACHE = [
     './',
