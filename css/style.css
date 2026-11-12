@@ -855,6 +855,12 @@ a { color: var(--accent-ink); text-underline-offset: 3px; }
               box-shadow var(--t-base) var(--ease);
 }
 .seg:hover { color: var(--ink); }
+/* 默寫方向有四個選項：放寬最小寬度，讓「給上默下／給下默上／隨機／作者・出處」同排 */
+.segmented[data-field="direction"] .seg {
+  min-width: 0;
+  padding-left: var(--sp-1);
+  padding-right: var(--sp-1);
+}
 .seg.is-on,
 .seg[aria-pressed="true"] {
   color: var(--ink);

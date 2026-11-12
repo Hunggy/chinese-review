@@ -327,6 +327,17 @@
     return { t: join_author_src(a.t, s.t), s: join_author_src(a.s, s.s) };
   }
 
+  /* 名句答題面板的來源行：有作者顯示「屈原《離騷》」，佚名只顯示書名 */
+  function source_display_pair(item) {
+    var s = source_answer_pair(item);
+    var a = pair(item, 'author');
+    var at = str(a.t).trim(), as = str(a.s).trim();
+    if (is_anon_text(at)) at = '';
+    if (is_anon_text(as)) as = '';
+    if (!at && !as) return s;
+    return { t: join_author_src(at, s.t), s: join_author_src(as, s.s) };
+  }
+
   /* 取繁/簡成對欄位（如 a_t/a_s、src_t/src_s）；缺簡體欄位時退回繁體 */
   function pair(item, base) {
     var t = str_field(item, base + '_t');
@@ -405,6 +416,25 @@
       return { first: s.slice(0, half), second: s.slice(half), punct: '', degraded: true };
     }
     return { first: s.slice(0, idx + 1), second: s.slice(idx + 1), punct: s.charAt(idx), degraded: false };
+  }
+
+  /* 默寫方向：random = 每題各自抽「給上默下／給下默上」 */
+  function normalize_direction(dir) {
+    if (dir === 'sh' || dir === 'author' || dir === 'random') return dir;
+    return 'hs';
+  }
+
+  /* 建立隊列項目時先抽定方向（random 才需要；其餘留空沿用整輪設定） */
+  function pick_entry_dir(direction, rng) {
+    if (direction !== 'random') return '';
+    return (rng ? rng() : Math.random()) < 0.5 ? 'hs' : 'sh';
+  }
+
+  /* 該次作答的實際方向：random 已逐題抽定，避免重繪／重現時方向跳動 */
+  function entry_direction(s, entry) {
+    if (!s) return 'hs';
+    if (s.direction !== 'random') return normalize_direction(s.direction);
+    return entry && (entry.dir === 'hs' || entry.dir === 'sh') ? entry.dir : 'hs';
   }
 
   /* 名句的題面與答案（依 script 與 direction） */
@@ -862,14 +892,15 @@
     var ids = items.map(function (it) { return it.id; });
     if (order === 'shuffle') ids = shuffle(ids, rng);
 
-    var pending = ids.map(function (id) { return { id: id, kind: 'new' }; });
+    var direction = normalize_direction(opts.direction);
+    var pending = ids.map(function (id) { return { id: id, kind: 'new', dir: pick_entry_dir(direction, rng) }; });
     var item_map = {};
     items.forEach(function (it) { if (it && it.id) item_map[it.id] = it; });
     var s = {
       module: module_id,
       mode: mode,
       question: opts.question || 'type',
-      direction: (opts.direction === 'sh' || opts.direction === 'author') ? opts.direction : 'hs',
+      direction: direction,
       order: order,
       units: opts.units || ['all'],
       seg: norm_scope_value(opts.seg),
@@ -899,7 +930,7 @@
 
   function session_insert(s, id, kind, offset) {
     var pos = clamp(offset - 1, 0, s.pending.length);
-    s.pending.splice(pos, 0, { id: id, kind: kind });
+    s.pending.splice(pos, 0, { id: id, kind: kind, dir: pick_entry_dir(s.direction, s.rng) });
     s.total += 1;
   }
 
@@ -934,7 +965,7 @@
       ts: Date.now(),
       seq: s.history.length,
       mode: s.mode,
-      direction: s.direction
+      direction: entry_direction(s, entry)
     };
     s.history.push(rec);
     s.completed += 1;
@@ -1007,12 +1038,13 @@
     var per = {}, i, rec, id;
     for (i = 0; i < s.history.length; i++) {
       rec = s.history[i];
-      if (!per[rec.id]) per[rec.id] = { attempts: 0, wrong: 0, correct: 0, first_ok: null, last_user: '', last_ok: null };
+      if (!per[rec.id]) per[rec.id] = { attempts: 0, wrong: 0, correct: 0, first_ok: null, last_user: '', last_ok: null, last_dir: 'hs' };
       per[rec.id].attempts += 1;
       if (rec.ok) per[rec.id].correct += 1; else per[rec.id].wrong += 1;
       if (per[rec.id].first_ok === null) per[rec.id].first_ok = rec.ok;
       per[rec.id].last_user = rec.user;
       per[rec.id].last_ok = rec.ok;
+      per[rec.id].last_dir = rec.direction || 'hs';
     }
     var total_items = s.initial_total;
     var wrong_ids = [], correct_items = 0;
@@ -1105,7 +1137,7 @@
     if (['shuffle', 'original'].indexOf(s.order) < 0) s.order = d.order;
     if (['practice', 'speed', 'flash'].indexOf(s.mode) < 0) s.mode = d.mode;
     if (['type', 'mc'].indexOf(s.question) < 0) s.question = d.question;
-    if (['hs', 'sh', 'author'].indexOf(s.direction) < 0) s.direction = d.direction;
+    if (['hs', 'sh', 'author', 'random'].indexOf(s.direction) < 0) s.direction = d.direction;
     if (['mingju', 'cijie', 'changshi', 'mixed'].indexOf(s.module) < 0) s.module = d.module;
     s.seg = norm_scope_value(s.seg);
     s.exam = norm_scope_value(s.exam);
@@ -1493,7 +1525,7 @@
     if (!item) return { lines: [], src: '', note: '' };
     if (item.type === 'mingju') {
       var p = sentence(item);
-      var sp = source_answer_pair(item);
+      var sp = source_display_pair(item);
       return { lines: [use_s ? p.s : p.t], src: use_s ? sp.s : sp.t, note: str(item.note) };
     }
     if (item.type === 'cijie') {
@@ -1605,6 +1637,9 @@
     /* 判分 */
     split_mingju: split_mingju,
     mingju_pair: mingju_pair,
+    normalize_direction: normalize_direction,
+    entry_direction: entry_direction,
+    source_display_pair: source_display_pair,
     cijie_data: cijie_data,
     changshi_data: changshi_data,
     cs_keywords: cs_keywords,

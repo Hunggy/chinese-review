@@ -383,6 +383,7 @@
             seg_html('direction', [
               { value: 'hs', label: '給上默下' },
               { value: 'sh', label: '給下默上' },
+              { value: 'random', label: '隨機' },
               { value: 'author', label: '作者・出處' }
             ], s.direction) +
           '</div>' +
@@ -424,7 +425,7 @@
     if (!item || S.settings.question !== 'mc') return null;
     if (S.session && S.session.mode === 'flash') return null;
     if (!S.options || S.options.item_id !== item.id) {
-      var dir = S.session ? S.session.direction : S.settings.direction;
+      var dir = S.session ? C.entry_direction(S.session, C.session_current_entry(S.session)) : S.settings.direction;
       /* 名句・作者出處＋選擇題 → 兩組並列（作者／作品），其餘維持單組 */
       var built = (dir === 'author' && item.type === 'mingju')
         ? C.build_split_options(item, C.items(), { direction: dir })
@@ -478,7 +479,7 @@
       } else {
         var mp = C.mingju_pair(item, dir);
         line = sm ? mp.answer_s : mp.answer_t;
-        var sc = C.source_answer_pair(item);
+        var sc = C.source_display_pair(item);
         src = sm ? sc.s : sc.t;
       }
     } else if (item.type === 'cijie') {
@@ -676,7 +677,7 @@
 
     var item = v.item, state = v.state, rec = v.rec;
     var mode = s.mode;
-    var dir = rec ? rec.direction : s.direction;
+    var dir = rec ? rec.direction : C.entry_direction(s, C.session_current_entry(s));
     var is_flash = mode === 'flash';
     /* 作者・出處模式：翻卡照舊看句子回想出處（不受 direction 影響） */
     var pdir = (!is_flash && dir === 'author') ? 'author' : (dir === 'sh' ? 'sh' : 'hs');
@@ -769,7 +770,9 @@
       var it = C.item(id);
       if (!it) return '';
       var per = r.per_item[id] || {};
-      var pb = prompt_block(it, S.session ? S.session.direction : 'hs');
+      var pdir = (S.session && S.session.direction === 'author') ? 'author'
+        : (per.last_dir === 'sh' ? 'sh' : 'hs');
+      var pb = prompt_block(it, pdir);
       var qline = pb.html !== undefined ? C.dot_html(it, is_simple()) : h(pb.prompt);
       var det = C.detail(it, { simple: is_simple() });
       var meta = [];
@@ -925,7 +928,7 @@
 
     var body = rows.map(function (r) {
       /* 統計頁固定用「給上默下」呈現名句題面（方向只影響作答，不影響清單） */
-      var sdir = S.settings.direction === 'author' ? 'hs' : S.settings.direction;
+      var sdir = S.settings.direction === 'sh' ? 'sh' : 'hs';
       var pb = prompt_block(r.item, sdir);
       var label = pb.html !== undefined ? C.dot_html(r.item, is_simple()) : h(pb.prompt);
       var sl = C.scope_label(r.item);
@@ -1136,9 +1139,10 @@
     if (!s || S.phase !== 'asking') return;
     var item = cur_item();
     if (!item) return;
+    var dir = C.entry_direction(s, C.session_current_entry(s));
 
     /* 作者・出處：兩欄都對才算對（Enter 提交、兩欄都空不提交） */
-    if (s.direction === 'author' && S.settings.question === 'type' && item.type === 'mingju') {
+    if (dir === 'author' && S.settings.question === 'type' && item.type === 'mingju') {
       var ai = $('#authorInput'), si = $('#sourceInput');
       var a_text = String(ai ? ai.value : S.dual_author).trim();
       var s_text = String(si ? si.value : S.dual_source).trim();
@@ -1155,7 +1159,7 @@
 
     var text = String(user_text === undefined ? ($('#answerInput') ? $('#answerInput').value : S.draft) : user_text);
     if (!text.trim()) { toast('請先寫下答案'); return; }
-    var res = C.grade_text(item, text, { direction: s.direction });
+    var res = C.grade_text(item, text, { direction: dir });
     do_answer(item, !!res.ok, { user: text.trim() });
   }
 

@@ -1102,6 +1102,42 @@ with_dataset(ds_note, () => {
   ok(!!(detail2 && detail2.note), 'note_s 空時 detail 仍可讀 note');
 });
 
+/* ============================================================
+ * 20. 默寫方向「隨機」／答題面板來源行加作者
+ * ============================================================ */
+section('20. 默寫方向隨機／來源行加作者');
+
+(function () {
+  const s = C.create_session({ items: mj, mode: 'practice', order: 'original', direction: 'random', seed: 7 });
+  const dirs = s.pending.map((p) => p.dir);
+  ok(dirs.every((d) => d === 'hs' || d === 'sh'), 'random：每個隊列項目都有 hs/sh 方向');
+  ok(dirs.indexOf('hs') >= 0 && dirs.indexOf('sh') >= 0, 'random：上下半句都會出現（' + dirs.join('') + '）');
+  eq(C.entry_direction(s, s.pending[0]), dirs[0], 'entry_direction 取該題抽定的方向');
+  eq(C.entry_direction(s, null), 'hs', 'entry_direction 無 entry 時退回 hs');
+
+  /* 作答後 rec.direction 跟著該題方向走 */
+  const entry0 = s.pending[0];
+  const it0 = C.item(entry0.id);
+  const mp = C.mingju_pair(it0, entry0.dir);
+  const out = C.session_answer(s, true, { user: mp.answer_t });
+  eq(out.rec.direction, entry0.dir, '作答紀錄記下該題方向');
+  eq(C.grade_text(it0, mp.answer_t, { direction: entry0.dir }).ok, true, '依該題方向判分：答對');
+  const other = entry0.dir === 'hs' ? 'sh' : 'hs';
+  eq(C.grade_text(it0, C.mingju_pair(it0, other).answer_t, { direction: entry0.dir }).ok, false, '依該題方向判分：另一半不算對');
+
+  /* 非 random 仍沿用整輪方向 */
+  const s2 = C.create_session({ items: mj.slice(0, 3), mode: 'practice', order: 'original', direction: 'sh', seed: 7 });
+  eq(C.entry_direction(s2, s2.pending[0]), 'sh', 'sh 模式：每題都是給下默上');
+  ok(s2.pending.every((p) => !p.dir), 'sh 模式：隊列項目不需另存方向');
+
+  /* 來源行：有作者 → 屈原《離騷》；佚名 → 只顯示書名 */
+  const named = mj.filter((it) => it.author_t && it.author_t !== '佚名')[0];
+  const anon = mj.filter((it) => it.author_t === '佚名')[0];
+  eq(C.source_display_pair(named).t.indexOf(named.author_t + '《') === 0, true, '來源行加上作者：' + C.source_display_pair(named).t);
+  eq(C.source_display_pair(anon).t, C.source_answer_pair(anon).t, '佚名不硬加作者：' + C.source_display_pair(anon).t);
+  eq(C.detail(named).src, C.source_display_pair(named).t, 'detail 的 src 一樣帶作者');
+})();
+
 /* ============================================================ */
 console.log('\n' + '='.repeat(52));
 if (failures.length) {

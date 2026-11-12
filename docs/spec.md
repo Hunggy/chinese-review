@@ -89,6 +89,7 @@ window.CN_DATASET = {
 ```
 
 - 題目以第一個標點（`，,；;：:？?！!`，否則 `。`）切開；「給上默下」顯示前半（含標點），答案為後半；「給下默上」相反。
+- **隨機方向**：`direction: "random"` 時，每一題建立隊列時各自抽「給上默下／給下默上」，並記在隊列項目上（重繪、重現都不會換方向）。
 - **作者出處模式**：顯示整句，兩個輸入欄（作者／出處），兩欄都對才算對；逐欄顯示對錯。
 - **出處考法依 exam 而定**：第 1 次大測（exam 1）出處必須寫全名（書名＋篇名，如《詩經·大雅·蕩》），只寫書名判錯；其他次大測只考書名（`src_t`），寫完整出處（`src_full`）也算對。
 - 判分：去標點、去空白、繁→簡後**完全相等**。使用者可按「意思對了，算我對」覆寫。
@@ -309,6 +310,7 @@ window.CN_DATASET = {
     <div class="segmented" data-field="direction">
       <button class="seg is-on" data-value="hs">給上默下</button>
       <button class="seg" data-value="sh">給下默上</button>
+      <button class="seg" data-value="random">隨機</button>
       <button class="seg" data-value="author">作者・出處</button>
     </div>
   </div>
