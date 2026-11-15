@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-15T17:27:15+08:00",
+  "generated_at": "2026-11-15T17:28:32+08:00",
   "source_dirs": [
     "source",
     "data/source"
@@ -224,7 +224,7 @@
       "detected_by": "已知來源",
       "seg": 1,
       "exam": 2,
-      "count": 4,
+      "count": 7,
       "skipped": 0
     },
     {
@@ -244,15 +244,15 @@
   "module_counts": {
     "mingju": 100,
     "cijie": 148,
-    "changshi": 250
+    "changshi": 253
   },
-  "total": 498,
+  "total": 501,
   "segments": {
-    "1": 498
+    "1": 501
   },
   "exams": {
     "1": 166,
-    "2": 332
+    "2": 335
   },
   "author_review": [
     {
@@ -2077,6 +2077,21 @@
       "id": "cs-250",
       "unit": "xianqin3",
       "note": "（了解即可）《蓼莪》選自《小雅·蓼莪之什》。"
+    },
+    {
+      "id": "cs-251",
+      "unit": "xianqin3",
+      "note": "《國語》是我國第一部國別體史書，以記言為主，相傳為左丘明所著。"
+    },
+    {
+      "id": "cs-252",
+      "unit": "xianqin3",
+      "note": "《戰國策》又稱《國策》，是記載戰國游說之士策謀言論的國別體史書。"
+    },
+    {
+      "id": "cs-253",
+      "unit": "xianqin3",
+      "note": "《呂氏春秋》以儒家思想為主，兼及名、法、墨、農及陰陽家。"
     },
     {
       "id": "mj-051",
