@@ -841,17 +841,18 @@ ok(exam1_mj.every((it) => String(it.note || '').indexOf('出處須寫全名') >=
 ok(exam2_mj.filter((it) => it.src_full_t !== it.src_t).every((it) => String(it.note || '').indexOf('作答填書名即可') >= 0),
   'exam 2 帶篇名的名句 note 註明只需書名');
 
-/* 指定題：左丘明《左傳·僖公五年》（exam 2）→ 書名《左傳》、篇名放 note */
-const zhuan = mj.find((it) => it.author_t === '左丘明' && /僖公五年/.test(String(it.src_full_t || '')));
+/* 指定題：《左傳·僖公五年》（exam 2）→ 書名《左傳》、篇名放 note；書上未列作者，不得硬填左丘明 */
+const zhuan = mj.find((it) => /僖公五年/.test(String(it.src_full_t || '')));
 ok(!!zhuan, '題庫有《左傳·僖公五年》（帶篇名）');
 if (zhuan) {
   eq(zhuan.src_t, '《左傳》', 'src_t 只留書名《左傳》');
+  eq(C.is_anon_text(zhuan.author_t), true, '書上未列作者 → 佚名，不硬填左丘明');
   ok(zhuan.note.indexOf('僖公五年') >= 0, 'note 保留篇名「僖公五年」');
-  eq(C.grade_author(zhuan, '左丘明', '左傳').ok, true, 'exam 2 只寫書名（左傳）→ ok');
-  eq(C.grade_author(zhuan, '左丘明', '《左傳》').ok, true, 'exam 2 只寫書名（《左傳》）→ ok');
-  eq(C.grade_author(zhuan, '左丘明', '左傳·僖公五年').ok, true, 'exam 2 願意背篇名（左傳·僖公五年）→ 也算對');
-  eq(C.grade_author(zhuan, '左丘明', '左傳僖公五年').ok, true, 'exam 2 完整出處（無分隔符）→ 也算對');
-  eq(C.grade_author(zhuan, '左丘明', '左傳·隱公元年').ok, false, 'exam 2 書名＋錯誤篇名 → 不算對（只接受書名或完整正確出處）');
+  eq(C.grade_author(zhuan, '佚名', '左傳').ok, true, 'exam 2 只寫書名（左傳）＋佚名 → ok');
+  eq(C.grade_author(zhuan, '佚名', '《左傳》').ok, true, 'exam 2 只寫書名（《左傳》）→ ok');
+  eq(C.grade_author(zhuan, '佚名', '左傳·僖公五年').ok, true, 'exam 2 願意背篇名（左傳·僖公五年）→ 也算對');
+  eq(C.grade_author(zhuan, '佚名', '左傳僖公五年').ok, true, 'exam 2 完整出處（無分隔符）→ 也算對');
+  eq(C.grade_author(zhuan, '佚名', '左傳·隱公元年').ok, false, 'exam 2 書名＋錯誤篇名 → 不算對（只接受書名或完整正確出處）');
 }
 
 /* v1.3：exam 1 出處只接受全名（書名＋篇名），只寫書名判錯 */
@@ -920,13 +921,13 @@ if (e1_first && String(e1_first.src_full_t || '').indexOf('·') >= 0) {
   ok(C.author_variant(e1_first).t.indexOf(e1_first.src_full_t) >= 0, 'exam 1 author_variant 用完整出處');
 }
 
-/* v1.2：指定題（左丘明《左傳·僖公五年》，exam 2）的選擇題選項也不得出現篇名 */
+/* v1.2：指定題（《左傳·僖公五年》，exam 2）的選擇題選項也不得出現篇名 */
 if (zhuan) {
   const zo = C.build_options(zhuan, mj, { direction: 'author', seed: 11 });
   eq(zo.options.length, 4, '《左傳》題的選擇題 4 個選項');
   ok(zo.options.every((o) => o.t.indexOf('·') < 0), '《左傳》題的選項都不含篇名');
-  ok(zo.options.some((o) => C.norm(o.t) === C.norm('左丘明《左傳》')), '正確選項＝左丘明《左傳》');
-  eq(zo.correct.t, '左丘明《左傳》', 'answer_variants 用書名版');
+  ok(zo.options.some((o) => C.norm(o.t) === C.norm('佚名《左傳》')), '正確選項＝佚名《左傳》（書上未列作者）');
+  eq(zo.correct.t, '佚名《左傳》', 'answer_variants 用書名版');
 }
 
 /* ============================================================
@@ -1135,6 +1136,7 @@ section('20. 默寫方向隨機／來源行加作者');
   const anon = mj.filter((it) => it.author_t === '佚名')[0];
   eq(C.source_display_pair(named).t.indexOf(named.author_t + '《') === 0, true, '來源行加上作者：' + C.source_display_pair(named).t);
   eq(C.source_display_pair(anon).t, C.source_answer_pair(anon).t, '佚名不硬加作者：' + C.source_display_pair(anon).t);
+  eq(C.source_display_pair(zhuan).t, '《左傳》', '書上未列作者（左傳）→ 來源行只有書名');
   eq(C.detail(named).src, C.source_display_pair(named).t, 'detail 的 src 一樣帶作者');
 })();
 

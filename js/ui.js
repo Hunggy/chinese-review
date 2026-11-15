@@ -837,9 +837,9 @@
     }
     if (it.type === 'changshi') return h(sm ? C.str_field(it, 'a_s') : C.str_field(it, 'a_t'));
     if (it.type === 'mingju') {
-      /* 名句除了出處，也要顯示作者：屈原《離騷》 */
-      var av = C.author_variant(it);
-      var at = sm ? av.s : av.t;
+      /* 名句：書上有作者就顯示「屈原《離騷》」，沒有就只顯示出處 */
+      var sc0 = C.source_display_pair(it);
+      var at = sm ? sc0.s : sc0.t;
       if (at) return h(at);
     }
     var src = C.source_answer_pair(it);
