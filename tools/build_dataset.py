@@ -113,6 +113,9 @@ UNITS_CONFIG = [
     {"file": "第1段_第2次_文化常識.csv", "id": "wenhua", "name": "中國古代文化常識", "module": "changshi", "seg": 1, "exam": 2},
     {"file": "第1段_第2次_先秦文學_補遺.csv", "id": "xianqin3", "name": "先秦文學常識・補遺", "module": "changshi", "seg": 1, "exam": 2},
     {"file": "第1段_第2次_名句.csv", "id": "mingju_jingshi", "name": "名句・經史詩詞", "module": "mingju", "seg": 1, "exam": 2},
+    {"file": "第1段_第2次_蘭亭集序_cijie.csv", "id": "lanting", "name": "《蘭亭集序》", "module": "cijie", "seg": 1, "exam": 2},
+    {"file": "第1段_第2次_蘭亭集序_常識.csv", "id": "lanting_cs", "name": "《蘭亭集序》・常識", "module": "changshi", "seg": 1, "exam": 2},
+    {"file": "第1段_第2次_蘭亭集序_名句.csv", "id": "lanting_mj", "name": "名句・蘭亭集序", "module": "mingju", "seg": 1, "exam": 2},
 ]
 
 ID_PREFIX = {"mingju": "mj", "cijie": "cj", "changshi": "cs"}
@@ -863,6 +866,21 @@ def build_dataset(now: str = None):
             author_review.append({"id": iid, "unit": d["unit"],
                                   "src_t": d.get("src_t", ""), "reason": author_note})
             warnings.append("名句 %s（%s）%s" % (iid, d["unit"], author_note))
+
+    # 個別教材用字：OpenCC s2t 會選異體（游→遊、托→託），與課本用字不同時在此指定
+    UNIT_TEXT_FIXES = {
+        "lanting_mj": (("遊目", "游目"), ("所託", "所托")),
+    }
+    for it in items:
+        fixes = UNIT_TEXT_FIXES.get(it["unit"])
+        if not fixes:
+            continue
+        for key, val in list(it.items()):
+            if not (isinstance(val, str) and (key == "t" or key.endswith("_t"))):
+                continue
+            for wrong, right in fixes:
+                val = val.replace(wrong, right)
+            it[key] = val
 
     # t2s 對照表：收集所有繁體欄位的字，逐字轉換、只留有差異者
     t_fields = []

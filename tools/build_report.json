@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-15T17:28:32+08:00",
+  "generated_at": "2026-11-15T19:09:16+08:00",
   "source_dirs": [
     "source",
     "data/source"
@@ -239,20 +239,59 @@
       "exam": 2,
       "count": 50,
       "skipped": 0
+    },
+    {
+      "file": "第1段_第2次_蘭亭集序_cijie.csv",
+      "source": "source/第1段_第2次_蘭亭集序_cijie.csv",
+      "unit": "lanting",
+      "name": "《蘭亭集序》",
+      "module": "cijie",
+      "known": true,
+      "detected_by": "已知來源",
+      "seg": 1,
+      "exam": 2,
+      "count": 76,
+      "skipped": 0
+    },
+    {
+      "file": "第1段_第2次_蘭亭集序_常識.csv",
+      "source": "source/第1段_第2次_蘭亭集序_常識.csv",
+      "unit": "lanting_cs",
+      "name": "《蘭亭集序》・常識",
+      "module": "changshi",
+      "known": true,
+      "detected_by": "已知來源",
+      "seg": 1,
+      "exam": 2,
+      "count": 31,
+      "skipped": 0
+    },
+    {
+      "file": "第1段_第2次_蘭亭集序_名句.csv",
+      "source": "source/第1段_第2次_蘭亭集序_名句.csv",
+      "unit": "lanting_mj",
+      "name": "名句・蘭亭集序",
+      "module": "mingju",
+      "known": true,
+      "detected_by": "已知來源",
+      "seg": 1,
+      "exam": 2,
+      "count": 6,
+      "skipped": 0
     }
   ],
   "module_counts": {
-    "mingju": 100,
-    "cijie": 148,
-    "changshi": 253
+    "mingju": 106,
+    "cijie": 224,
+    "changshi": 284
   },
-  "total": 501,
+  "total": 614,
   "segments": {
-    "1": 501
+    "1": 614
   },
   "exams": {
     "1": 166,
-    "2": 335
+    "2": 448
   },
   "author_review": [
     {
@@ -2227,6 +2266,361 @@
       "id": "mj-091",
       "unit": "mingju_jingshi",
       "note": "原句見《卜算子·詠梅》，作答填書名即可。"
+    },
+    {
+      "id": "cj-149",
+      "unit": "lanting",
+      "note": "「會」是聚會、聚集，不是「會議」。"
+    },
+    {
+      "id": "cj-150",
+      "unit": "lanting",
+      "note": "與「茂林修竹」的「修」（長、高）不同。"
+    },
+    {
+      "id": "cj-151",
+      "unit": "lanting",
+      "note": "音xì，這實際上是古人的一種游春活動。"
+    },
+    {
+      "id": "cj-152",
+      "unit": "lanting",
+      "note": "「賢」形容詞作名詞。"
+    },
+    {
+      "id": "cj-153",
+      "unit": "lanting",
+      "note": "畢至：全都到了。"
+    },
+    {
+      "id": "cj-154",
+      "unit": "lanting",
+      "note": "少：年輕人；長：年長者。形容詞作名詞。"
+    },
+    {
+      "id": "cj-157",
+      "unit": "lanting",
+      "note": "修：長、高。"
+    },
+    {
+      "id": "cj-159",
+      "unit": "lanting",
+      "note": "輝映圍繞在亭子周圍。"
+    },
+    {
+      "id": "cj-160",
+      "unit": "lanting",
+      "note": "眾人圍坐回環彎曲的水渠邊，酒杯置于上游任其漂流，停在誰面前誰就舉杯飲酒。"
+    },
+    {
+      "id": "cj-161",
+      "unit": "lanting",
+      "note": "「流」是使動用法，使酒杯漂流。"
+    },
+    {
+      "id": "cj-162",
+      "unit": "lanting",
+      "note": "與今義「次序」不同。"
+    },
+    {
+      "id": "cj-163",
+      "unit": "lanting",
+      "note": "簫、笛用竹製成，是管類；琴、瑟的弦用絲製成，是弦類。"
+    },
+    {
+      "id": "cj-165",
+      "unit": "lanting",
+      "note": "觴：酒杯。"
+    },
+    {
+      "id": "cj-167",
+      "unit": "lanting",
+      "note": "與今義判斷詞「是」不同。"
+    },
+    {
+      "id": "cj-170",
+      "unit": "lanting",
+      "note": "這裏表示「用來」，不是表因果關係的「所以」。"
+    },
+    {
+      "id": "cj-171",
+      "unit": "lanting",
+      "note": "騁懷：開暢胸懷。"
+    },
+    {
+      "id": "cj-172",
+      "unit": "lanting",
+      "note": "極視聽之娛：極盡視聽之樂。"
+    },
+    {
+      "id": "cj-173",
+      "unit": "lanting",
+      "note": "與今義「書信、信任」不同。"
+    },
+    {
+      "id": "cj-176",
+      "unit": "lanting",
+      "note": "「取諸懷抱」即「取之於懷抱」，從……中取得。"
+    },
+    {
+      "id": "cj-177",
+      "unit": "lanting",
+      "note": "「悟」通「晤」，會面、見面。另一說指心領神會的妙悟之言。"
+    },
+    {
+      "id": "cj-182",
+      "unit": "lanting",
+      "note": "通假字：趣通趨。"
+    },
+    {
+      "id": "cj-183",
+      "unit": "lanting",
+      "note": "趣舍：取捨。"
+    },
+    {
+      "id": "cj-188",
+      "unit": "lanting",
+      "note": "之：往，到達。"
+    },
+    {
+      "id": "cj-190",
+      "unit": "lanting",
+      "note": "感慨隨着產生。"
+    },
+    {
+      "id": "cj-191",
+      "unit": "lanting",
+      "note": "與今義「方向」不同。"
+    },
+    {
+      "id": "cj-193",
+      "unit": "lanting",
+      "note": "與「亦足以暢敘幽情」的「以」（用來）不同。"
+    },
+    {
+      "id": "cj-195",
+      "unit": "lanting",
+      "note": "指壽命長短。"
+    },
+    {
+      "id": "cj-199",
+      "unit": "lanting",
+      "note": "語出《莊子·德充符》。"
+    },
+    {
+      "id": "cj-200",
+      "unit": "lanting",
+      "note": "契：符契，古代信物，剖為二，各執一半，合起來可為憑驗。"
+    },
+    {
+      "id": "cj-201",
+      "unit": "lanting",
+      "note": "臨：面對。悼：悲傷。"
+    },
+    {
+      "id": "cj-204",
+      "unit": "lanting",
+      "note": "「一」作動詞。"
+    },
+    {
+      "id": "cj-205",
+      "unit": "lanting",
+      "note": "「齊」作動詞。"
+    },
+    {
+      "id": "cj-207",
+      "unit": "lanting",
+      "note": "傳說彭祖活到八百歲。"
+    },
+    {
+      "id": "cj-208",
+      "unit": "lanting",
+      "note": "音shāng。"
+    },
+    {
+      "id": "cj-212",
+      "unit": "lanting",
+      "note": "與「雖趣舍萬殊」的「雖」（雖然）不同。"
+    },
+    {
+      "id": "cj-213",
+      "unit": "lanting",
+      "note": "人們的思想情趣是一樣的。"
+    },
+    {
+      "id": "cj-214",
+      "unit": "lanting",
+      "note": "與今義「文雅」不同。"
+    },
+    {
+      "id": "cj-219",
+      "unit": "lanting",
+      "note": "與「修禊事也」的「修」（做，從事）不同。"
+    },
+    {
+      "id": "cj-222",
+      "unit": "lanting",
+      "note": "與「雖世殊事異」的「雖」（縱使）不同。"
+    },
+    {
+      "id": "cj-224",
+      "unit": "lanting",
+      "note": "與今義「認為」不同。"
+    },
+    {
+      "id": "cs-254",
+      "unit": "lanting_cs",
+      "note": "王羲之，字逸少，祖籍琅邪（今山東臨沂），後遷至會稽山陰。"
+    },
+    {
+      "id": "cs-255",
+      "unit": "lanting_cs",
+      "note": "祖籍琅邪（今山東臨沂），後遷至會稽山陰（今浙江紹興）。"
+    },
+    {
+      "id": "cs-256",
+      "unit": "lanting_cs",
+      "note": "王羲之曾任右軍將軍，故世稱「王右軍」。"
+    },
+    {
+      "id": "cs-257",
+      "unit": "lanting_cs",
+      "note": "王羲之是東晉著名書法家，有「書聖」之稱。"
+    },
+    {
+      "id": "cs-258",
+      "unit": "lanting_cs",
+      "note": "《蘭亭集序》既是散文佳作，又是名帖，被譽為「天下第一行書」。"
+    },
+    {
+      "id": "cs-259",
+      "unit": "lanting_cs",
+      "note": "其書法兼善隸、草、楷、行各體，廣採眾長，自成一家。"
+    },
+    {
+      "id": "cs-260",
+      "unit": "lanting_cs",
+      "note": "「序」又名「引」，是放在著作正文之前的文章。"
+    },
+    {
+      "id": "cs-261",
+      "unit": "lanting_cs",
+      "note": "序是放在著作正文之前的文章。"
+    },
+    {
+      "id": "cs-262",
+      "unit": "lanting_cs",
+      "note": "本文是王羲之為詩集《蘭亭集》所寫的序言。"
+    },
+    {
+      "id": "cs-263",
+      "unit": "lanting_cs",
+      "note": "前一部分記敘蘭亭集會，後一部分抒情、議論。"
+    },
+    {
+      "id": "cs-264",
+      "unit": "lanting_cs",
+      "note": "通過富有詩情畫意的描寫，充分表現了生之歡樂。"
+    },
+    {
+      "id": "cs-265",
+      "unit": "lanting_cs",
+      "note": "發出對樂與悲、生與死的感慨，闡明「死生亦大」的觀點。"
+    },
+    {
+      "id": "cs-266",
+      "unit": "lanting_cs",
+      "note": "文章具有清新樸實、不事雕飾的風格，語言流暢，清麗動人。"
+    },
+    {
+      "id": "cs-267",
+      "unit": "lanting_cs",
+      "note": "句式整齊而富於變化，韻律和諧。"
+    },
+    {
+      "id": "cs-268",
+      "unit": "lanting_cs",
+      "note": "「死生亦大矣」語出《莊子·德充符》。"
+    },
+    {
+      "id": "cs-269",
+      "unit": "lanting_cs",
+      "note": "語出《論語·述而》：「其為人也，發憤忘食，樂以忘憂，不知老之將至云爾。」"
+    },
+    {
+      "id": "cs-270",
+      "unit": "lanting_cs",
+      "note": "永和九年（353），歲在癸丑，暮春之初。"
+    },
+    {
+      "id": "cs-271",
+      "unit": "lanting_cs",
+      "note": "會于會稽山陰之蘭亭。"
+    },
+    {
+      "id": "cs-272",
+      "unit": "lanting_cs",
+      "note": "修禊事也，即舉行禊禮。"
+    },
+    {
+      "id": "cs-273",
+      "unit": "lanting_cs",
+      "note": "王羲之與謝安、孫綽、支遁等名士共四十一人在蘭亭集會。"
+    },
+    {
+      "id": "cs-274",
+      "unit": "lanting_cs",
+      "note": "魏晉時期在中國書法藝術的發展史上具有承前啟後的重要作用。"
+    },
+    {
+      "id": "cs-275",
+      "unit": "lanting_cs",
+      "note": "書法史上王羲之、王獻之並稱「二王」。"
+    },
+    {
+      "id": "cs-276",
+      "unit": "lanting_cs",
+      "note": "書法史上顏真卿、柳公權有「顏筋柳骨」之稱。"
+    },
+    {
+      "id": "cs-277",
+      "unit": "lanting_cs",
+      "note": "其書法廣採眾長，擺脫了漢魏筆風，自成一家。"
+    },
+    {
+      "id": "cs-278",
+      "unit": "lanting_cs",
+      "note": "古人用十個天干和十二個地支循環相配來表示年、月、日的次序。"
+    },
+    {
+      "id": "cs-279",
+      "unit": "lanting_cs",
+      "note": "古代習俗，陰曆三月上旬的「巳」日，人們群聚水濱嬉戲洗濯，祈福消災。"
+    },
+    {
+      "id": "cs-280",
+      "unit": "lanting_cs",
+      "note": "暮春指春季的最後一個月，暮春之初即陰曆三月初。"
+    },
+    {
+      "id": "cs-281",
+      "unit": "lanting_cs",
+      "note": "論者稱其筆勢「飄若浮雲，矯若驚龍」。"
+    },
+    {
+      "id": "cs-282",
+      "unit": "lanting_cs",
+      "note": "郗鑒求婿，王羲之坦腹東床，若無所聞，被選為女婿，後以「東床」代指女婿。"
+    },
+    {
+      "id": "cs-283",
+      "unit": "lanting_cs",
+      "note": "《王羲之傳》稱王羲之為「司徒導之從子」，即王導的侄子。"
+    },
+    {
+      "id": "cs-284",
+      "unit": "lanting_cs",
+      "note": "及長，辯贍，以骨鯁稱。"
     }
   ],
   "fallback_q": [
@@ -2255,13 +2649,13 @@
       "q_t": "解釋「鞫」"
     }
   ],
-  "t2s_count": 475,
+  "t2s_count": 510,
   "s2t_fixes": [
     {
       "from": "为",
       "opencc": "爲",
       "used": "為",
-      "count": 7
+      "count": 10
     },
     {
       "from": "众",
@@ -2295,8 +2689,14 @@
     "占",
     "台",
     "吃",
+    "咸",
+    "岳",
     "干",
+    "床",
+    "托",
     "斗",
+    "游",
+    "群",
     "辟",
     "采",
     "里"
