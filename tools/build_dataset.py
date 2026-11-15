@@ -111,6 +111,7 @@ UNITS_CONFIG = [
     {"file": "第1段_第2次_科舉制度.csv", "id": "keju", "name": "科舉制度", "module": "changshi", "seg": 1, "exam": 2},
     {"file": "第1段_第2次_漢魏文學.csv", "id": "hanwei", "name": "漢魏晉南北朝文學", "module": "changshi", "seg": 1, "exam": 2},
     {"file": "第1段_第2次_文化常識.csv", "id": "wenhua", "name": "中國古代文化常識", "module": "changshi", "seg": 1, "exam": 2},
+    {"file": "第1段_第2次_先秦文學_補遺.csv", "id": "xianqin3", "name": "先秦文學常識・補遺", "module": "changshi", "seg": 1, "exam": 2},
     {"file": "第1段_第2次_名句.csv", "id": "mingju_jingshi", "name": "名句・經史詩詞", "module": "mingju", "seg": 1, "exam": 2},
 ]
 

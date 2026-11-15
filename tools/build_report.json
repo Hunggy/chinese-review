@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-15T16:12:20+08:00",
+  "generated_at": "2026-11-15T17:27:15+08:00",
   "source_dirs": [
     "source",
     "data/source"
@@ -211,7 +211,20 @@
       "detected_by": "已知來源",
       "seg": 1,
       "exam": 2,
-      "count": 55,
+      "count": 60,
+      "skipped": 0
+    },
+    {
+      "file": "第1段_第2次_先秦文學_補遺.csv",
+      "source": "source/第1段_第2次_先秦文學_補遺.csv",
+      "unit": "xianqin3",
+      "name": "先秦文學常識・補遺",
+      "module": "changshi",
+      "known": true,
+      "detected_by": "已知來源",
+      "seg": 1,
+      "exam": 2,
+      "count": 4,
       "skipped": 0
     },
     {
@@ -231,15 +244,15 @@
   "module_counts": {
     "mingju": 100,
     "cijie": 148,
-    "changshi": 241
+    "changshi": 250
   },
-  "total": 489,
+  "total": 498,
   "segments": {
-    "1": 489
+    "1": 498
   },
   "exams": {
     "1": 166,
-    "2": 323
+    "2": 332
   },
   "author_review": [
     {
@@ -2021,6 +2034,51 @@
       "note": "南方朱雀七宿依次為井、鬼、柳、星、張、翼、軫。"
     },
     {
+      "id": "cs-242",
+      "unit": "wenhua",
+      "note": "北斗七星可辨方向、定季節。"
+    },
+    {
+      "id": "cs-243",
+      "unit": "wenhua",
+      "note": "四象各轄七宿：東蒼龍、北玄武、西白虎、南朱雀。"
+    },
+    {
+      "id": "cs-244",
+      "unit": "wenhua",
+      "note": "平年354天，每三年閏一個月，使平均長度約等於太陽年。"
+    },
+    {
+      "id": "cs-245",
+      "unit": "wenhua",
+      "note": "八音以材料分類，革類為鼓。"
+    },
+    {
+      "id": "cs-246",
+      "unit": "wenhua",
+      "note": "八音以材料分類，木類為柷、敔。"
+    },
+    {
+      "id": "cs-247",
+      "unit": "xianqin3",
+      "note": "收錄西周初年至春秋中葉約500年間的作品。"
+    },
+    {
+      "id": "cs-248",
+      "unit": "xianqin3",
+      "note": "屈原代表作有《離騷》《九歌》《九章》《天問》，其中《離騷》是我國古代最長的抒情詩。"
+    },
+    {
+      "id": "cs-249",
+      "unit": "xianqin3",
+      "note": "宋玉是戰國末期楚國辭賦家，與屈原並稱「屈宋」。"
+    },
+    {
+      "id": "cs-250",
+      "unit": "xianqin3",
+      "note": "（了解即可）《蓼莪》選自《小雅·蓼莪之什》。"
+    },
+    {
       "id": "mj-051",
       "unit": "mingju_jingshi",
       "note": "原句見《尚書·大禹謨》，作答填書名即可。"
@@ -2182,7 +2240,7 @@
       "q_t": "解釋「鞫」"
     }
   ],
-  "t2s_count": 470,
+  "t2s_count": 475,
   "s2t_fixes": [
     {
       "from": "为",
